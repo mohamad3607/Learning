@@ -49,6 +49,9 @@ namespace Mamedia.UI
 
             services.AddScoped<IArtistService, ArtistInteractor>();
             services.AddScoped<IArtistRepository, ArtistRepository>();
+
+            services.AddScoped<IPurchasableAlbumService, PurchasableAlbumInteractor>();
+            services.AddScoped<IPurchaseableAlbumRepository, PurchasableAlbumRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

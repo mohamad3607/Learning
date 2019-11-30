@@ -49,25 +49,39 @@ namespace Mamedia.UI.Controllers
         {
             try
             {
-                //Artist artist = new Artist()
-                //{
-                //    Name = model.Name,
-                //    Biography = model.Biography,
-                //    EnglishName = model.EnglishName
-                //};
-                //var types = model.Types;
-                List<ArtistType> typeList = new List<ArtistType>();
-                //foreach (int type in types)
-                //{
-                //    ArtistType artistType = new ArtistType()
-                //    {
-                //        Artist = artist,
-                //        TypeId = type
-                //    };
-                //    typeList.Add(artistType);
-                //}
-                //artist.ArtistTypes = typeList;
-                //_artistService.CreateArtist(artist);
+
+
+                PurchasableAlbum album = new PurchasableAlbum()
+                {
+                    Name = model.Name,
+                    Summary = model.Summary,
+                    EnglishName = model.EnglishName,
+                    CoverPhotoAddress = model.CoverPhotoAddress,
+                    CoverPhotoAlterText = model.CoverPhotoAlterText,
+                };
+                List<PurchaseAlbumLink> links = new List<PurchaseAlbumLink>();
+                PurchaseAlbumLink link = new PurchaseAlbumLink()
+                {
+                    Tilte = "دانلود با کیفیت 320",
+                    UrlForLink = model.DownloadLinks,
+                    Album = album
+                };
+                links.Add(link);
+
+                var artistList = model.ArtistTypes;
+                List<PurchasableAlbumArtists> trackArtists = new List<PurchasableAlbumArtists>();
+                foreach (int artist in artistList)
+                {
+                    PurchasableAlbumArtists albumArtists = new PurchasableAlbumArtists()
+                    {
+                        ArtistTypeId = artist,
+                        PurchasableAlbum = album
+                    };
+                    trackArtists.Add(albumArtists);
+                }
+                album.Artists = trackArtists;
+                album.PurchaseLinks = links;
+                _service.Create(album);
                 TempData["Result"] = "OK";
 
                 return RedirectToAction("Create");

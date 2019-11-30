@@ -252,6 +252,9 @@
     <Content Update="Views\PostManagement\Edit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\PurchasableAlbumManagement\Create.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\TrackManagement\Delete.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

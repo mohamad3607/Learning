@@ -1,0 +1,78 @@
+﻿@if (!User.Identity.IsAuthenticated)
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Mamedia.UI.Models.PurchasableAlbumModel.CreateViewModel
+@{
+
+}
+<h2>ایجاد آلبوم قابل فروش</h2>
+
+<h4>اطلاعات آلبوم</h4>
+<hr />
+<div class="row">
+
+    <form asp-action="Create" class="form-horizontal">
+        <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnglishName" class="control-label"></label>
+                <input asp-for="EnglishName" class="form-control" />
+                <span asp-validation-for="EnglishName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoverPhotoAddress" class="control-label"></label>
+                <input asp-for="CoverPhotoAddress" class="form-control" />
+                <span asp-validation-for="CoverPhotoAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoverPhotoAlterText" class="control-label"></label>
+                <input asp-for="CoverPhotoAlterText" class="form-control" />
+                <span asp-validation-for="CoverPhotoAlterText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DownloadLinks" class="control-label"></label>
+                <input asp-for="DownloadLinks" class="form-control" />
+                <span asp-validation-for="DownloadLinks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ایجاد آلبوم" class="btn btn-primary" />
+                <a asp-action="Index">برگشت به لیست</a>
+            </div>
+            <div style="margin-top:10px">
+                @{
+                    if (TempData["Result"] != null)
+                    {
+                        if ((string)TempData["Result"] == "OK")
+                        {
+                            <label class="text-success">با موفقیت ایجاد شد</label>
+                        }
+                        else
+                        {
+                            <label class="text-danger">@TempData["Result"]</label>
+                        }
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group" style="margin-right:0px">
+                <label asp-for="Summary" class="control-label"></label>
+                <textarea asp-for="Summary" rows="10" class="form-control"></textarea>
+                <span asp-validation-for="Summary" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="margin-right:0px">
+                <label asp-for="ArtistTypes" class="control-label"></label>
+                <select multiple="multiple" class="form-control" id="my_multi_select1"
+                        asp-for="ArtistTypes" asp-items="(List<SelectListItem>)ViewBag.Artists"></select>
+                <span asp-validation-for="ArtistTypes" class="text-danger"></span>
+            </div>
+        </div>
+    </form>
+</div>
