@@ -1,0 +1,263 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Mamedia.Domain.Application\Mamedia.Domain.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Mamedia.Infrastructure.Data\Mamedia.Infrastructure.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Api\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Content\Artists.css" />
+    <None Include="wwwroot\Content\Artists\mehran-modiri.jpg" />
+    <None Include="wwwroot\Content\ASMFonts.css" />
+    <None Include="wwwroot\Content\bootstrap-theme.css" />
+    <None Include="wwwroot\Content\bootstrap-theme.css.map" />
+    <None Include="wwwroot\Content\bootstrap-theme.min.css" />
+    <None Include="wwwroot\Content\bootstrap-theme.min.css.map" />
+    <None Include="wwwroot\Content\bootstrap.css" />
+    <None Include="wwwroot\Content\bootstrap.css.map" />
+    <None Include="wwwroot\Content\bootstrap.min.css" />
+    <None Include="wwwroot\Content\bootstrap.min.css.map" />
+    <None Include="wwwroot\Content\Commercials\irancell_Comm.gif" />
+    <None Include="wwwroot\Content\Commercials\mahak-comm.jpg" />
+    <None Include="wwwroot\Content\Commercials\tsco_Comm.gif" />
+    <None Include="wwwroot\Content\Files\Albums\Hassan.zip" />
+    <None Include="wwwroot\Content\Files\Tracks\7 Band - Vaghto B Vaght.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Ali Yasini - Harjaye Shahr [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Ali Yasini - Harjaye Shahr.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Alireza Ghorbani - Booye Gisoo [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Alireza Ghorbani - Booye Gisoo.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Alireza Talischi - Sakhtgir.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Amin Bani - Che Kardi %28128%29.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Amin Bani - Che Kardi %28320%29.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Amirabbas Golab - Vedaa.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Arman Garshasbi - Shaghayegh.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Aron Afshar - Gisoo Parishan.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Aron Afshar - Janam Bash %28128%29.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Aron Afshar - Yare Ghadimi.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Babak Jahanbakhsh - Zendegi Edame Dare.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Babak Mafi - Fereshteh [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Babak Mafi - Fereshteh.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Behnam Bani - Faghat Boro [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Behnam Bani - Faghat Boro.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Behnam Safavi - Bazi.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Ehaam - Taab O Tab [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Ehaam - Taab O Tab.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Ehsan Khajeh Amiri - Abre Mosafer.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Ehsan Khajeh Amiri - Paeize Masmoom.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Emad Talebzadeh - Mano Ashegham Kard.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Entezar-Emad-128.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Entezar-Emad-320.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Farzad Farzin - Ey Kash.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Hamid Askari - Raft Delam.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Hamid Hiraad - Ahoo.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Hamid Hiraad - Khosham Miad.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Hamid Sefat - Shah Kosh.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Hoorosh Band - Edame Midamet [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Hoorosh Band - Edame Midamet.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Hoorosh Band - Shabaye Niloofari.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\IMG_7529.JPG" />
+    <None Include="wwwroot\Content\Files\Tracks\Macan Band - Irani Asl.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Majid Kharatha - Hichi Nagoo [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Majid Kharatha - Hichi Nagoo.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Masoud Sadeghloo - Vabastegi [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Masoud Sadeghloo - Vabastegi.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Mehdi Ahmadvand - Bemanad [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Mehdi Ahmadvand - Bemanad.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Mehdi Ahmadvand - Dard.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Mehdi Moghadam - Bad Jaeiye.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Mehdi Yarrahi - Nemisheh Edameh Dad.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Meysam Ebrahimi - Mashke Bi Ab.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Mohammad Motamedi - Ghabe Ah.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\MohammadReza Shajryan – Az Eshgh %28UpMusic%29.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Mohsen Chavoshi - Band Baz.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Mohsen Chavoshi - Shabi Ke Mah Kamel Shod [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Mohsen Chavoshi - Shabi Ke Mah Kamel Shod.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Mohsen Ebrahimzadeh - Alagheye Mahsoos.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Omid Hajili - Cheshmaye Mastet.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Puzzle Band - Donyam Shodi Raft [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Puzzle Band - Donyam Shodi Raft.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Rastaak - Bayad Raft [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Rastaak - Bayad Raft.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Reza Bahram - Arameshi Daram [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Reza Bahram - Arameshi Daram.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Reza Bahram - Hich.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Reza Sadeghi - Be To Madyounam.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Reza Sadeghi - Shahr Ashoob.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Reza Sadeghi - Tehroon.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Reza Yazdani - Hagham Nabood.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Reza Yazdani - Saye Nasho Hargez.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Roozbeh Bemani - Esmet Ke Miad.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Roozbeh Bemani - Etefagh.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Roozbeh Bemani - Shelik %28Live%29.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Saman Jalili - Asheghetam [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Saman Jalili - Asheghetam.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Shahab Mozaffari - Setayesh.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Shahram Shokoohi - Eshgh Mamnoo [128].mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Shahram Shokoohi - Eshgh Mamnoo.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Siamak Abbasi - Edame Bede.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Sina Hejazi - Mahe Kharab.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Sina Hejazi - Soogvar.mp3" />
+    <None Include="wwwroot\Content\Files\Tracks\Xaniar - Nemidooni %28Acoustic Version%29.mp3" />
+    <None Include="wwwroot\Content\font-awesome.css" />
+    <None Include="wwwroot\Content\font-awesome.min.css" />
+    <None Include="wwwroot\Content\fontiran.css" />
+    <None Include="wwwroot\Content\fonts\eot\IRANSansWeb.eot" />
+    <None Include="wwwroot\Content\fonts\eot\IRANSansWeb_Black.eot" />
+    <None Include="wwwroot\Content\fonts\eot\IRANSansWeb_Bold.eot" />
+    <None Include="wwwroot\Content\fonts\eot\IRANSansWeb_Light.eot" />
+    <None Include="wwwroot\Content\fonts\eot\IRANSansWeb_Medium.eot" />
+    <None Include="wwwroot\Content\fonts\eot\IRANSansWeb_UltraLight.eot" />
+    <None Include="wwwroot\Content\fonts\fontawesome-webfont.eot" />
+    <None Include="wwwroot\Content\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Content\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\Content\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\Content\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Content\fonts\FontAwesome.otf" />
+    <None Include="wwwroot\Content\fonts\FontLicense.txt" />
+    <None Include="wwwroot\Content\fonts\ttf\IRANSansWeb.ttf" />
+    <None Include="wwwroot\Content\fonts\ttf\IRANSansWeb_Black.ttf" />
+    <None Include="wwwroot\Content\fonts\ttf\IRANSansWeb_Bold.ttf" />
+    <None Include="wwwroot\Content\fonts\ttf\IRANSansWeb_Light.ttf" />
+    <None Include="wwwroot\Content\fonts\ttf\IRANSansWeb_Medium.ttf" />
+    <None Include="wwwroot\Content\fonts\ttf\IRANSansWeb_UltraLight.ttf" />
+    <None Include="wwwroot\Content\fonts\woff2\IRANSansWeb.woff2" />
+    <None Include="wwwroot\Content\fonts\woff2\IRANSansWeb_Black.woff2" />
+    <None Include="wwwroot\Content\fonts\woff2\IRANSansWeb_Bold.woff2" />
+    <None Include="wwwroot\Content\fonts\woff2\IRANSansWeb_Light.woff2" />
+    <None Include="wwwroot\Content\fonts\woff2\IRANSansWeb_Medium.woff2" />
+    <None Include="wwwroot\Content\fonts\woff2\IRANSansWeb_UltraLight.woff2" />
+    <None Include="wwwroot\Content\fonts\woff\IRANSansWeb.woff" />
+    <None Include="wwwroot\Content\fonts\woff\IRANSansWeb_Black.woff" />
+    <None Include="wwwroot\Content\fonts\woff\IRANSansWeb_Bold.woff" />
+    <None Include="wwwroot\Content\fonts\woff\IRANSansWeb_Light.woff" />
+    <None Include="wwwroot\Content\fonts\woff\IRANSansWeb_Medium.woff" />
+    <None Include="wwwroot\Content\fonts\woff\IRANSansWeb_UltraLight.woff" />
+    <None Include="wwwroot\Content\Images\1.jpg" />
+    <None Include="wwwroot\Content\Images\3.jpg" />
+    <None Include="wwwroot\Content\Images\banner.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\1.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\3.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\7 Band - Vaghto B Vaght.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Ali Yasini - Harjaye Shahr.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Alireza Ghorbani - Booye Gisoo.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Amirabbas Golab - Vedaa.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Arman Garshasbi - Shaghayegh.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Aron Afshar - Gisoo Parishan.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Aron Afshar - Yare Ghadimi.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Babak Jahanbakhsh - Zendegi Edame Dare.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Babak Mafi - Fereshteh.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Behnam Bani - Faghat Boro.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Behnam Safavi - Bazi.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Capture2.PNG" />
+    <None Include="wwwroot\Content\Images\Covers\download.jfif" />
+    <None Include="wwwroot\Content\Images\Covers\e.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Ehaam - Taab O Tab.JPG" />
+    <None Include="wwwroot\Content\Images\Covers\Ehsan Khajeh Amiri - Abre Mosafer.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Ehsan Khajeh Amiri - Paeize Masmoom.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Emad Talebzadeh - Mano Ashegham Kard.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Farzad Farzin - Ey Kash.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Fontiran_Anjoman.PNG" />
+    <None Include="wwwroot\Content\Images\Covers\Hamid Askari - Raft Delam.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Hamid Hiraad - Ahoo.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Hamid Hiraad - Khosham Miad.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Hamid Sefat - Shah Kosh.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Hoorosh Band - Edame Midamet.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Hoorosh Band - Shabaye Niloofari.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Macan Band - Irani Asl.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Majid Kharatha - Hichi Nagoo.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Masoud Sadeghloo - Vabastegi.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Mehdi Ahmadvand - Bemanad.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Mehdi Ahmadvand - Dard.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Mehdi Moghadam - Bad Jaeiye.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Mehdi Yarrahi - Nemisheh Edameh Dad.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Meysam Ebrahimi - Mashke Bi Ab.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Mohammad Motamedi - Ghabe Ah.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Mohsen Chavoshi - Band Baz.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Mohsen Chavoshi - Shabi Ke Mah Kamel Shod.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Mohsen Ebrahimzadeh - Alagheye Mahsoos.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\MortezaPashaei-Entezar-480x480.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Omid Hajili - Cheshmaye Mastet.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Picture1.png" />
+    <None Include="wwwroot\Content\Images\Covers\pooya-javadi-bito-hicham-remix-2019-03-28-13-22-05.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Puzzle Band - Donyam Shodi Raft.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Rastaak - Bayad Raft.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Reza Bahram - Arameshi Daram.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Reza Bahram - Hich.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Reza Sadeghi - Be To Madyounam.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Reza Sadeghi - Shahr Ashoob.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Reza Sadeghi - Tehroon.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Reza Yazdani - Hagham Nabood.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Reza Yazdani - Saye Nasho Hargez.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Roozbeh Bemani - Esmet Ke Miad.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Roozbeh Bemani - Etefagh.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Roozbeh Bemani - Shelik %28Live%29.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\sakhtgir final cover.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Saman Jalili - Asheghetam.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Shahab Mozaffari - Setayesh.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Shahram Shokoohi - Eshgh Mamnoo.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Siamak Abbasi - Edame Bede.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Sina Hejazi - Mahe Kharab.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\Sina Hejazi - Soogvar.jpg" />
+    <None Include="wwwroot\Content\Images\Covers\site_Map.png" />
+    <None Include="wwwroot\Content\Images\Covers\Xaniar - Nemidooni.jpg" />
+    <None Include="wwwroot\Content\Images\download.svg" />
+    <None Include="wwwroot\Content\Images\logo-small.svg" />
+    <None Include="wwwroot\Content\Images\logo.png" />
+    <None Include="wwwroot\Content\Images\logo.svg" />
+    <None Include="wwwroot\Content\Images\Logo_Small.png" />
+    <None Include="wwwroot\Content\Images\mobile_logo.ico" />
+    <None Include="wwwroot\Content\Images\mobile_logo.png" />
+    <None Include="wwwroot\Content\Images\newlogo.jpg" />
+    <None Include="wwwroot\Content\Images\Overview\article.png" />
+    <None Include="wwwroot\Content\Images\Overview\demo.png" />
+    <None Include="wwwroot\Content\Images\Overview\grid.png" />
+    <None Include="wwwroot\Content\Images\Overview\login.gif" />
+    <None Include="wwwroot\Content\Images\Overview\login.png" />
+    <None Include="wwwroot\Content\Images\Overview\Logo_Small.png" />
+    <None Include="wwwroot\Content\Images\Overview\menu.gif" />
+    <None Include="wwwroot\Content\Images\Overview\scheduler.png" />
+    <None Include="wwwroot\Content\Images\Overview\sidebar.gif" />
+    <None Include="wwwroot\Content\Images\Overview\sticky-footer.gif" />
+    <None Include="wwwroot\Content\Images\Overview\toolbar.gif" />
+    <None Include="wwwroot\Content\Images\search-selected.svg" />
+    <None Include="wwwroot\Content\Images\search.svg" />
+    <None Include="wwwroot\Content\Images\Xaniar - Nemidooni.JPG" />
+    <None Include="wwwroot\Content\NewFaceDetails.css" />
+    <None Include="wwwroot\Content\ShowBox.css" />
+    <None Include="wwwroot\Content\Site.css" />
+    <None Include="wwwroot\Content\Slider\Aron_Afshar.jpg" />
+    <None Include="wwwroot\Content\Slider\ehsan_Khaje1.jpg" />
+    <None Include="wwwroot\Content\Slider\farzin_1.jpg" />
+    <None Include="wwwroot\Content\Slider\yarahi_1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\PostManagement\Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\PostManagement\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\TrackManagement\Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\TrackManagement\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+</Project>

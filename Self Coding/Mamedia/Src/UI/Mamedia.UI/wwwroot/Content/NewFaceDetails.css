@@ -1,0 +1,296 @@
+﻿.detailsImage {
+    width: 100%;
+    border-radius: 5%;
+}
+
+.he2 {
+    font-size: 15pt;
+    color: #808080;
+    font-weight: bold;
+}
+
+.downloadLink {
+    max-width: 35%;
+    border-style: solid;
+    border-width: 1px;
+    border-right-width: 5px;
+    border-color: #E0115F;
+    padding-top: 5px;
+    color: #E0115F;
+    height: 40px;
+    text-align: center;
+}
+
+    .downloadLink:hover {
+        border-color: #808080;
+        color: #808080;
+    }
+
+    .downloadLink a {
+        color: inherit;
+        width: 100%;
+    }
+
+        .downloadLink a:hover {
+            text-decoration: none;
+        }
+
+        .downloadLink a:before {
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            content: '';
+            width: 28px;
+            height: 28px;
+            background: url(Images/download.svg) no-repeat;
+            color: #E0115F;
+        }
+
+.btn-primary {
+    background-color: transparent;
+    color: #E0115F;
+    border: solid #E0115F 1px;
+    border-right-width: 3px;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+    .btn-primary:hover {
+        background-color: transparent;
+        color: #808080;
+        border-color: #808080;
+    }
+
+    .btn-primary:visited {
+        background-color: transparent;
+        color: #E0115F;
+        border: solid #E0115F 1px;
+        border-right-width: 3px;
+    }
+
+    .btn-primary i {
+        float: right;
+    }
+
+.btn-album {
+    background-color: transparent;
+    color: #E0115F;
+    border: solid #E0115F 1px;
+    border-right-width: 3px;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+    .btn-album:hover {
+        background-color: transparent;
+        color: #808080;
+        border-color: #808080;
+    }
+
+
+    .btn-album i {
+        float: right;
+    }
+
+    .btn-album .purchaseTitle {
+        margin-right: 20px;
+        padding-top: 10px;
+        text-align: right;
+        font-size: 13pt;
+    }
+
+    .btn-album .price {
+        float: left;
+        background-color: #808080;
+        color: #FFFFFF;
+        padding: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 5px;
+    }
+
+    .btn-album:hover .price {
+        color: #808080;
+        background-color: #FFFFFF;
+    }
+
+.sharing {
+    flex-direction: row-reverse;
+    display: flex;
+    justify-content: flex-start;
+    margin: 10px 0 0;
+}
+
+    .sharing div {
+        margin-right: 10px;
+    }
+
+.cros {
+    font-size: 12pt;
+    font-weight: 400;
+}
+
+.player {
+    width: 100%;
+    border-top: solid #808080 1px;
+    margin-top: 30px;
+    border-width: 3px;
+    border-style: solid;
+    border-image: linear-gradient( to right,#E0115F,rgb(255,255,255) ) 1 0 0 0;
+    padding-top: 10px;
+}
+
+    .player audio {
+        width: 100%;
+    }
+
+@media(max-width:640px) {
+    .detailContainer {
+        padding-right: 25px;
+        padding-left: 20px;
+    }
+}
+
+
+/*Artist Div and Tracks Details*/
+.artistDiv {
+    background-color: #C8C8C8;
+}
+
+    .artistDiv .artistTitle {
+        font-size: 16pt;
+        color: #222222;
+        margin-bottom: 20px;
+        padding-top: 20px;
+    }
+
+.postItem {
+    margin-bottom: 10px;
+    color: #808080;
+}
+
+    .postItem a {
+        display: flex;
+        color: #202020;
+        overflow: auto;
+        transition: 0.3s all ease
+    }
+
+        .postItem a:hover {
+            -moz-box-shadow: 0 0 10px rgba(0,0,0,0.10980392156862745);
+            -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.10980392156862745);
+            box-shadow: 0 0 10px rgba(0,0,0,0.10980392156862745);
+            background: #FFF;
+            text-decoration: none;
+        }
+
+        .postItem a figure {
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            margin: 0;
+        }
+
+            .postItem a figure img {
+                width: 100%;
+                height: auto;
+            }
+
+    .postItem .postTitle {
+        margin-right: 15px;
+        margin-top: 20px;
+        display: block;
+    }
+
+.lyrics {
+    border-right: 1px solid #808080;
+    padding-right: 15px;
+}
+
+    .lyrics p {
+        text-align: center;
+        font-size: 18px;
+        max-height: 300px;
+        white-space: pre-line;
+        overflow: auto;
+        border: 1px solid #ccc
+    }
+
+        .lyrics p::-webkit-scrollbar {
+            width: 4px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .lyrics p::-webkit-scrollbar-track {
+            background: #908090;
+        }
+
+
+        .lyrics p::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+/*-----------------------Here is CSS For Tags-----------------------*/
+.tagDiv {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .tagDiv .tagTitle {
+        padding-right: 20px;
+    }
+
+        .tagDiv .tagTitle h2 {
+            font-size: 14pt;
+            color: #606060;
+        }
+
+    .tagDiv .tagItem {
+        margin-bottom: 10px;
+        padding-right: 20px;
+    }
+
+        .tagDiv .tagItem a {
+            font-size: 12pt;
+            color: #808080;
+        }
+
+            .tagDiv .tagItem a:hover {
+                color: #E0115F;
+                text-decoration: none;
+            }
+
+.types {
+    font-size: 15pt;
+    margin-top: 20px;
+}
+
+    .types a {
+    }
+
+        .types a:hover {
+            text-decoration: none;
+            color: #808080;
+        }
+
+.titleName {
+    color: #303030;
+}
+
+.biography {
+    font-size: 15pt;
+    margin-top: 20px;
+}
+
+    .biography p {
+        text-align: justify;
+    }
+.h1Title{
+    text-align:center;
+}
+.h1Title h1{
+    font-size:16pt;
+    color:red;
+}

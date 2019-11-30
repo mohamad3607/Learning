@@ -1,0 +1,63 @@
+﻿@model Mamedia.UI.Models.ArtistModel.CreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ایجاد هنرمند جدید</h2>
+
+<h4>اطلاعات هنرمند</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" class="form-horizontal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnglishName" class="control-label"></label>
+                <input asp-for="EnglishName" class="form-control" />
+                <span asp-validation-for="EnglishName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Biography" class="control-label"></label>
+                <input asp-for="Biography" class="form-control" />
+                <span asp-validation-for="Biography" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Types" class="control-label"></label>
+                <select multiple="multiple" class="form-control" id="my_multi_select1"
+                        asp-for="@Model.Types" asp-items="(List<SelectListItem>)ViewBag.VTypes"></select>
+                <span asp-validation-for="Types" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ایجاد هنرمند" class="btn btn-primary" />
+            </div>
+            <div style="margin-top:10px">
+                @{
+                    if (TempData["Result"] != null)
+                    {
+                        if ((string)TempData["Result"] == "OK")
+                        {
+                            <label class="text-success">با موفقیت ایجاد شد</label>
+                        }
+                        else
+                        {
+                            <label class="text-danger">@TempData["Result"]</label>
+                        }
+                    }
+                }
+            </div>
+
+
+            </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">برگشت به لیست</a>
+</div>

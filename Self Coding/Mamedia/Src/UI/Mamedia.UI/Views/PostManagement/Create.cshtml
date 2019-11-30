@@ -1,0 +1,151 @@
+﻿@if (!User.Identity.IsAuthenticated)
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Mamedia.UI.Models.PostModel.CreateViewModel
+<h2>نوشته جدید</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" class="form-horizontal">
+            <h2>اطلاعات کلی</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllowToPublish" class="control-label"></label>
+                <input asp-for="AllowToPublish" />
+                <span asp-validation-for="AllowToPublish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublishDate" class="control-label"></label>
+                <input asp-for="PublishDate"  class="form-control"/>
+                <span asp-validation-for="PublishDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UniqueId" class="control-label"></label>
+                <input asp-for="UniqueId"  class="form-control"/>
+                <span asp-validation-for="UniqueId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostKind" class="control-label"></label>
+                @Html.DropDownList("PostKind", ViewBag.Kinds, "", new { @class = "form-control" })
+                <span asp-validation-for="PostKind" class="text-danger"></span>
+            </div>
+            <div id="trackDiv">
+                <div class="form-group">
+                    <label asp-for="TrackId" class="control-label"></label>
+                    @Html.DropDownList("TrackId", ViewBag.Tracks, "", new { @class = "form-control" })
+                    <span asp-validation-for="TrackId" class="text-danger"></span>
+                </div>
+            </div>
+            <div id="movieDiv">
+                <h2>اطلاعات فیلم</h2>
+                <hr />
+
+            </div>
+            <div id="dAlbumDiv">
+                <h2>اطلاعات آلبوم قابل دانلود</h2>
+                <hr />
+
+            </div>
+            <div id="pAlbumDiv">
+                <h2>اطلاعات آلبوم قابل خرید</h2>
+                <hr />
+
+            </div>
+            <div id="seriesEpisodDiv">
+                <h2>اطلاعات اپیزود سریال</h2>
+                <hr />
+
+            </div>
+            <div class="form-group" style="margin-top:10px;">
+                <input type="submit" value="ایجاد نوشته" class="btn btn-primary" />
+                <a asp-action="Index">برگشت به لیست</a>
+            </div>
+            <div style="margin-top:10px">
+                @{
+                    if (TempData["Result"] != null)
+                    {
+                        if ((string)TempData["Result"] == "OK")
+                        {
+                            <label class="text-success">با موفقیت ایجاد شد</label>
+                        }
+                        else
+                        {
+                            <label class="text-danger">@TempData["Result"]</label>
+                        }
+                    }
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('#PostKind').change(function () {
+                var value = $(this).val();
+                if (value == '1') {
+                    $('#movieDiv').hide();
+                    $('#dAlbumDiv').hide();
+                    $('#pAlbumDiv').hide();
+                    $('#seriesEpisodDiv').hide();
+                    $('#trackDiv').show();
+                }
+                if (value == '2') {
+                    $('#trackDiv').hide();
+                    $('#pAlbumDiv').hide();
+                    $('#seriesEpisodDiv').hide();
+                    $('#movieDiv').hide();
+                    $('#dAlbumDiv').show();
+                }
+                if (value == '3') {
+                    $('#trackDiv').hide();
+                    $('#dAlbumDiv').hide();
+                    $('#pAlbumDiv').hide();
+                    $('#seriesEpisodDiv').hide();
+                    $('#movieDiv').show();
+                }
+                if (value == '4') {
+                    $('#trackDiv').hide();
+                    $('#dAlbumDiv').hide();
+                    $('#pAlbumDiv').hide();
+                    $('#movieDiv').hide();
+                    $('#seriesEpisodDiv').show();
+                    
+                }
+                if (value == '5') {
+                    $('#trackDiv').hide();
+                    $('#dAlbumDiv').hide();
+                    $('#movieDiv').hide();
+                    $('#seriesEpisodDiv').hide();
+                    $('#pAlbumDiv').show();
+                  
+                }
+
+            }
+            );
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $("#trackDiv").hide();
+            $("#movieDiv").hide();
+            $("#dAlbumDiv").hide();
+            $("#pAlbumDiv").hide();
+            $("#seriesEpisodDiv").hide();
+
+        })
+
+    </script>
+
+
+}

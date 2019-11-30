@@ -1,0 +1,28 @@
+﻿@model List<AllPostsViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+    @if(User.Identity.IsAuthenticated)
+    {
+        Layout= "~/Views/Shared/_Layout.cshtml";
+    }
+     @if(!User.Identity.IsAuthenticated)
+     {
+         Layout = "~/Views/Shared/Anonymous.cshtml";
+     }
+}
+<h2>HERE IS TITLE</h2>
+<table border="1" cellpadding="4">
+    @foreach (var row in Model)
+    {
+        <tr>
+            <td>@row.Title</td>
+            <td>@row.UniqueId</td>
+            <td>@row.PublishDate</td>
+            <td>@row.PostKind</td>
+            <td>@row.AllowToPublish</td>
+        </tr>
+    }
+</table>
+
+
+
