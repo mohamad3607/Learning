@@ -1,28 +1,96 @@
-﻿@model List<AllPostsViewModel>
+﻿@using Mamedia.UI.Models.PostModel;
+@using Mamedia.Domain.Core.Entities;
+@model IEnumerable<Mamedia.UI.Models.PostModel.DefaultPagePostsViewModel>
 @{
     ViewData["Title"] = "Home Page";
-    @if(User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated)
     {
-        Layout= "~/Views/Shared/_Layout.cshtml";
+        Layout = "~/Views/Shared/_Layout.cshtml";
     }
-     @if(!User.Identity.IsAuthenticated)
-     {
-         Layout = "~/Views/Shared/Anonymous.cshtml";
-     }
+    @if (!User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/Anonymous.cshtml";
+    }
 }
-<h2>HERE IS TITLE</h2>
-<table border="1" cellpadding="4">
-    @foreach (var row in Model)
+
+
+<div>
+    <h2>SEARCH BOX IS HERE </h2>
+</div>
+
+<div class="row">
+    @* HERE WILL BE LIST OF POSTS *@
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        @foreach (DefaultPagePostsViewModel post in Model)
+        {
+            <div class="trackDiv">
+                <div class="topTitle">
+                    <br />
+                    <h2>
+                        <a href=@post.UniqueId>@post.Title</a>
+                    </h2>
+                    <br />
+                    <hr />
+                </div>
+                <div class="titleBox">
+                    @* Here we will render proper post *@
+                    @if (post.PostKind.Id == 1)
+                    {
+                        <h2>
+                            @RenderTrackAndArtistTitle(post)
+                        </h2>
+                        <p>
+                            <a href="Tracks">دانلود آهنگ جدید</a>
+                            @foreach (TrackArtist trackArtist in post.Track.TrackArtists)
+                            {
+                                <a asp-action="Details" asp-controller="Artist" asp-route-id=@trackArtist.ArtistType.Artist.Name>@trackArtist.ArtistType.Artist.Name</a>
+                            }
+                            <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>با نام @post.Track.Name</a>
+                            <br />
+                            <br />
+                            @foreach (TrackArtist trackArtist in post.Track.TrackArtists)
+                            {
+                                <a asp-action="Details" asp-controller="Artist" asp-route-id=@trackArtist.ArtistType.Artist.EnglishName>@trackArtist.ArtistType.Artist.EnglishName</a>
+                            }
+                            <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>@post.Track.EnglishName</a>
+                            <br />
+                            <br />
+                            <img src="@post.Track.CoverPhotoAddress" alt="@post.Track.CoverPhotoAlterText" />
+                            <br /> <br /> <br />
+                            <a href=" @post.Track.DownloadLinks.ToArray()[0].UrlForLink">
+                                @post.Track.DownloadLinks.ToArray()[0].Tilte
+                            </a>
+                            <br /> <br /> <br />
+                        </p>
+                        <div class="btnSeemore">
+                            <p>
+                                <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>برای مشاهده  آهنگ کلیک کنید</a>
+                            </p>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        }
+    </div>
+    @* HERE WILL BE THE BEST BOXES *@
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+    </div>
+</div>
+
+@functions {
+public string RenderTrackAndArtistTitle(DefaultPagePostsViewModel post)
+{
+    string retStr = "";
+    foreach (TrackArtist trackArtist in post.Track.TrackArtists)
     {
-        <tr>
-            <td>@row.Title</td>
-            <td>@row.UniqueId</td>
-            <td>@row.PublishDate</td>
-            <td>@row.PostKind</td>
-            <td>@row.AllowToPublish</td>
-        </tr>
+        retStr = retStr + trackArtist.ArtistType.Artist.Name + " و ";
     }
-</table>
+
+    return retStr.Remove(retStr.Length - 3, 3) + " " + post.Track.Name;
+}
+}
 
 
 

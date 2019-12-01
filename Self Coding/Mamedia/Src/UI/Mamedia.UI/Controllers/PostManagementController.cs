@@ -26,13 +26,9 @@ namespace Mamedia.UI.Controllers
             List<AllPostsViewModel> postList = new List<AllPostsViewModel>();
             foreach (Post post in list)
             {
-                AllPostsViewModel vm = new AllPostsViewModel()
+                AllPostsViewModel vm = new AllPostsViewModel(post)
                 {
-                    AllowToPublish = post.AllowToPublish,
-                    PostKind = post.PostKind.Kind,
-                    PublishDate = post.PublishDate,
-                    Title = post.Title,
-                    UniqueId = post.UniqueId
+                 
                 };
                 postList.Add(vm);
             }

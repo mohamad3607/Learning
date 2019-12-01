@@ -63,6 +63,8 @@ namespace Mamedia.Infrastructure.Data.Migrations
 
                     b.Property<int>("ArtistId");
 
+                    b.Property<int>("TrackArtistId");
+
                     b.Property<int>("TypeId");
 
                     b.HasKey("Id");
@@ -389,6 +391,8 @@ namespace Mamedia.Infrastructure.Data.Migrations
                     b.Property<string>("Lyric");
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("TrackArtistId");
 
                     b.HasKey("Id");
 

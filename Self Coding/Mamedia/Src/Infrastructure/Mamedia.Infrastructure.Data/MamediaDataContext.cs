@@ -88,8 +88,7 @@ namespace Mamedia.Infrastructure.Data
 
             modelBuilder.Entity<Post>()
                 .HasOne<Track>(p => p.Track).WithOne().HasForeignKey<Post>(p => p.TrackId);
-           
-
+   
         }
     }
 }

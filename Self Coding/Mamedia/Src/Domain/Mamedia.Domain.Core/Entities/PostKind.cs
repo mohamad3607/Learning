@@ -8,6 +8,6 @@ namespace Mamedia.Domain.Core.Entities
     {
         public int Id { get; set; }
         public string Kind { get; set; }
-        public ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

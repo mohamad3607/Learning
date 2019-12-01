@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mamedia.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    [Migration("20191127060029_ENg TITLE")]
-    partial class ENgTITLE
+    [Migration("20191201131716_NEW DB")]
+    partial class NEWDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,8 @@ namespace Mamedia.Infrastructure.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ArtistId");
+
+                    b.Property<int>("TrackArtistId");
 
                     b.Property<int>("TypeId");
 
@@ -183,7 +185,7 @@ namespace Mamedia.Infrastructure.Data.Migrations
 
                     b.Property<int?>("MovieId");
 
-                    b.Property<int>("PostKind");
+                    b.Property<int>("PostKindId");
 
                     b.Property<DateTime>("PublishDate");
 
@@ -193,7 +195,7 @@ namespace Mamedia.Infrastructure.Data.Migrations
 
                     b.Property<string>("Title");
 
-                    b.Property<int?>("TrackId");
+                    b.Property<int>("TrackId");
 
                     b.Property<string>("UniqueId");
 
@@ -203,13 +205,37 @@ namespace Mamedia.Infrastructure.Data.Migrations
 
                     b.HasIndex("MovieId");
 
+                    b.HasIndex("PostKindId");
+
                     b.HasIndex("PurchasableAlbumId");
 
                     b.HasIndex("PurchasableSeriesEpisodeId");
 
-                    b.HasIndex("TrackId");
+                    b.HasIndex("TrackId")
+                        .IsUnique();
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("Mamedia.Domain.Core.Entities.PostKind", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Kind");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PostKinds");
+
+                    b.HasData(
+                        new { Id = 1, Kind = "تک آهنگ" },
+                        new { Id = 3, Kind = "فیلم" },
+                        new { Id = 4, Kind = "سریال" },
+                        new { Id = 2, Kind = "آلبوم قابل دانلود" },
+                        new { Id = 5, Kind = "آلبوم قابل خرید" }
+                    );
                 });
 
             modelBuilder.Entity("Mamedia.Domain.Core.Entities.PurchasableAlbum", b =>
@@ -368,6 +394,10 @@ namespace Mamedia.Infrastructure.Data.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("PostId");
+
+                    b.Property<int>("TrackArtistId");
+
                     b.HasKey("Id");
 
                     b.ToTable("Tracks");
@@ -505,6 +535,11 @@ namespace Mamedia.Infrastructure.Data.Migrations
                         .WithMany()
                         .HasForeignKey("MovieId");
 
+                    b.HasOne("Mamedia.Domain.Core.Entities.PostKind", "PostKind")
+                        .WithMany("Posts")
+                        .HasForeignKey("PostKindId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Mamedia.Domain.Core.Entities.PurchasableAlbum", "PurchasableAlbum")
                         .WithMany()
                         .HasForeignKey("PurchasableAlbumId");
@@ -514,8 +549,9 @@ namespace Mamedia.Infrastructure.Data.Migrations
                         .HasForeignKey("PurchasableSeriesEpisodeId");
 
                     b.HasOne("Mamedia.Domain.Core.Entities.Track", "Track")
-                        .WithMany()
-                        .HasForeignKey("TrackId");
+                        .WithOne("Post")
+                        .HasForeignKey("Mamedia.Domain.Core.Entities.Post", "TrackId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Mamedia.Domain.Core.Entities.PurchasableAlbumArtists", b =>

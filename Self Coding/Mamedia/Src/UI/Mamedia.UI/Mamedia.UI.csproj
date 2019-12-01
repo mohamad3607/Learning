@@ -246,6 +246,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="MD.PersianDateTime">
+      <HintPath>..\..\..\..\..\..\..\..\Downloads\MD.PersianDateTime\MD.PersianDateTime\bin\Debug\MD.PersianDateTime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="Views\PostManagement\Delete.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

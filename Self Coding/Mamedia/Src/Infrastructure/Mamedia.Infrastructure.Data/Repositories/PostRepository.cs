@@ -58,8 +58,17 @@ namespace Mamedia.Infrastructure.Data.Repositories
 
         public IEnumerable<Post> GetPublishablePosts()
         {
-            return _context.Posts.Where(p => p.CanBePublished == true).Include(p => p.Track).
-                        Include(p => p.Movie).OrderByDescending(p => p.PublishDate).ThenByDescending(p => p.Id);
+            return _context.Posts.Where(p => p.CanBePublished == true)
+                          .Include(p => p.Track)
+                              .ThenInclude(t => t.TrackArtists)
+                                  .ThenInclude(t=>t.ArtistType)
+                                     .ThenInclude(t=>t.Artist)
+                          .Include(p=>p.Track)
+                              .ThenInclude(t=>t.DownloadLinks)
+                          .Include(p => p.Movie)
+                          .Include(p => p.PostKind)
+                          .OrderByDescending(p => p.PublishDate).ThenByDescending(p => p.Id);
+
         }
 
         public IEnumerable<Track> GetTracks()

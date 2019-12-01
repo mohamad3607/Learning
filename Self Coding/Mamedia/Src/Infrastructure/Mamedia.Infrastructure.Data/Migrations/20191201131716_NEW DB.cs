@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Mamedia.Infrastructure.Data.Migrations
 {
-    public partial class TYPEOFARTIST : Migration
+    public partial class NEWDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,6 +30,7 @@ namespace Mamedia.Infrastructure.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
+                    EnglishName = table.Column<string>(nullable: true),
                     Summary = table.Column<string>(nullable: true),
                     CoverPhotoAddress = table.Column<string>(nullable: true),
                     CoverPhotoAlterText = table.Column<string>(nullable: true)
@@ -46,6 +47,7 @@ namespace Mamedia.Infrastructure.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
+                    EnglishName = table.Column<string>(nullable: true),
                     ProductionYear = table.Column<int>(nullable: false),
                     ProductionCountry = table.Column<string>(nullable: true),
                     ArtistTypeId = table.Column<int>(nullable: false),
@@ -59,12 +61,26 @@ namespace Mamedia.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PostKinds",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Kind = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostKinds", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PurchasableAlbums",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
+                    EnglishName = table.Column<string>(nullable: true),
                     Summary = table.Column<string>(nullable: true),
                     CoverPhotoAddress = table.Column<string>(nullable: true),
                     CoverPhotoAlterText = table.Column<string>(nullable: true)
@@ -81,6 +97,7 @@ namespace Mamedia.Infrastructure.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
+                    EnglishName = table.Column<string>(nullable: true),
                     ProductionYear = table.Column<int>(nullable: false),
                     ProductionCountry = table.Column<string>(nullable: true),
                     Summary = table.Column<string>(nullable: true)
@@ -97,10 +114,13 @@ namespace Mamedia.Infrastructure.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
+                    EnglishName = table.Column<string>(nullable: true),
                     Cross = table.Column<string>(nullable: true),
                     Lyric = table.Column<string>(nullable: true),
                     CoverPhotoAddress = table.Column<string>(nullable: true),
-                    CoverPhotoAlterText = table.Column<string>(nullable: true)
+                    CoverPhotoAlterText = table.Column<string>(nullable: true),
+                    TrackArtistId = table.Column<int>(nullable: false),
+                    PostId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -192,6 +212,7 @@ namespace Mamedia.Infrastructure.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
+                    EnglishName = table.Column<string>(nullable: true),
                     ProductionYear = table.Column<int>(nullable: false),
                     ProductionCountry = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
@@ -239,7 +260,8 @@ namespace Mamedia.Infrastructure.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ArtistId = table.Column<int>(nullable: false),
-                    TypeId = table.Column<int>(nullable: false)
+                    TypeId = table.Column<int>(nullable: false),
+                    TrackArtistId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -268,12 +290,12 @@ namespace Mamedia.Infrastructure.Data.Migrations
                     AllowToPublish = table.Column<bool>(nullable: false),
                     PublishDate = table.Column<DateTime>(nullable: false),
                     UniqueId = table.Column<string>(nullable: true),
-                    TrackId = table.Column<int>(nullable: true),
+                    TrackId = table.Column<int>(nullable: false),
                     DownloadableAlbumId = table.Column<int>(nullable: true),
                     MovieId = table.Column<int>(nullable: true),
                     PurchasableAlbumId = table.Column<int>(nullable: true),
                     PurchasableSeriesEpisodeId = table.Column<int>(nullable: true),
-                    PostKind = table.Column<int>(nullable: false)
+                    PostKindId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -291,6 +313,12 @@ namespace Mamedia.Infrastructure.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Posts_PostKinds_PostKindId",
+                        column: x => x.PostKindId,
+                        principalTable: "PostKinds",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Posts_PurchasableAlbums_PurchasableAlbumId",
                         column: x => x.PurchasableAlbumId,
                         principalTable: "PurchasableAlbums",
@@ -307,7 +335,7 @@ namespace Mamedia.Infrastructure.Data.Migrations
                         column: x => x.TrackId,
                         principalTable: "Tracks",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -453,6 +481,18 @@ namespace Mamedia.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "PostKinds",
+                columns: new[] { "Id", "Kind" },
+                values: new object[,]
+                {
+                    { 1, "تک آهنگ" },
+                    { 3, "فیلم" },
+                    { 4, "سریال" },
+                    { 2, "آلبوم قابل دانلود" },
+                    { 5, "آلبوم قابل خرید" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "TypeOfArtists",
                 columns: new[] { "Id", "Title" },
                 values: new object[,]
@@ -504,6 +544,11 @@ namespace Mamedia.Infrastructure.Data.Migrations
                 column: "MovieId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Posts_PostKindId",
+                table: "Posts",
+                column: "PostKindId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_PurchasableAlbumId",
                 table: "Posts",
                 column: "PurchasableAlbumId");
@@ -516,7 +561,8 @@ namespace Mamedia.Infrastructure.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_TrackId",
                 table: "Posts",
-                column: "TrackId");
+                column: "TrackId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PurchasableAlbumArtists_AlbumId",
@@ -594,6 +640,9 @@ namespace Mamedia.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Movies");
+
+            migrationBuilder.DropTable(
+                name: "PostKinds");
 
             migrationBuilder.DropTable(
                 name: "PurchasableAlbums");

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Mamedia.UI.Models;
 using Mamedia.Domain.Application.Services;
 using Mamedia.Domain.Core.Entities;
+using Mamedia.UI.Models.PostModel;
 
 namespace Mamedia.UI.Controllers
 {
@@ -20,18 +21,11 @@ namespace Mamedia.UI.Controllers
         public IActionResult Index()
         {
             var list = _postService.GetPublishablePosts();
-           list= list.ToList<Post>();
-            List<AllPostsViewModel> postList = new List<AllPostsViewModel>();
+            list = list.ToList<Post>();
+            List<DefaultPagePostsViewModel> postList = new List<DefaultPagePostsViewModel>();
             foreach (Post post in list)
             {
-                AllPostsViewModel vm = new AllPostsViewModel()
-                {
-                    AllowToPublish = post.AllowToPublish,
-                    PostKind = post.PostKind.ToString(),
-                    PublishDate = post.PublishDate,
-                    Title = post.Title,
-                    UniqueId = post.UniqueId
-                };
+                DefaultPagePostsViewModel vm = new DefaultPagePostsViewModel(post);
                 postList.Add(vm);
             }
             return View(postList);
@@ -60,6 +54,11 @@ namespace Mamedia.UI.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        [HttpGet("Home/PostDetails/{uniqueId}")]
+        public IActionResult PostDetails()
+        {
+            return View();
         }
     }
 }

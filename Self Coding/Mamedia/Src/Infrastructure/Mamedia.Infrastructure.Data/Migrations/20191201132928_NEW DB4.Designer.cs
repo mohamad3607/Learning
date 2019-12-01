@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mamedia.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    [Migration("20191127124138_Post Track Foreign Key")]
-    partial class PostTrackForeignKey
+    [Migration("20191201132928_NEW DB4")]
+    partial class NEWDB4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,8 @@ namespace Mamedia.Infrastructure.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ArtistId");
+
+                    b.Property<int>("TrackArtistId");
 
                     b.Property<int>("TypeId");
 
@@ -391,6 +393,8 @@ namespace Mamedia.Infrastructure.Data.Migrations
                     b.Property<string>("Lyric");
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("TrackArtistId");
 
                     b.HasKey("Id");
 

@@ -8,10 +8,11 @@ namespace Mamedia.Domain.Core.Entities
     {
         public int Id { get; set; }
         public int ArtistId { get; set; }
-        public Artist Artist { get; set; }
+        public virtual Artist Artist { get; set; }
         public int TypeId { get; set; }
         public TypeOfArtist TypeOfArtist { get; set; }
         public ICollection<MovieArtists> MovieArtists { get; set; }
+        public int TrackArtistId { get; set; }
         public ICollection<TrackArtist> TrackArtists { get; set; }
         public ICollection<DownloadableAlbumArtist> DownloadableAlbumArtists { get; set; }
         public ICollection<PurchasableAlbumArtists> PurchasableAlbumArtists { get; set; }

@@ -12,7 +12,7 @@ namespace Mamedia.Domain.Core.Entities
         public string Name { get; set; }
         public string EnglishName { get; set; }
         public string Biography { get; set; }
-        public ICollection<ArtistType> ArtistTypes { get; set; }
+        public virtual ICollection<ArtistType> ArtistTypes { get; set; }
         
     }
 }

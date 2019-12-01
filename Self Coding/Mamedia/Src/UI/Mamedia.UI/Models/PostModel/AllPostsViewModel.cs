@@ -1,15 +1,21 @@
 ﻿using Mamedia.Domain.Core.Entities;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mamedia.UI.Models
 {
     public class AllPostsViewModel
     {
-        [Display(Name ="شناسه")]
+        public AllPostsViewModel(Post post)
+        {
+            Title = post.Title;
+            PublishDate = post.PublishDate;
+            UniqueId = post.UniqueId;
+            AllowToPublish = post.AllowToPublish;
+            PostKind = post.PostKind.Kind;
+        }
+
+        [Display(Name = "شناسه")]
         public int Id { get; set; }
 
         [Display(Name = "عنوان")]
@@ -20,11 +26,15 @@ namespace Mamedia.UI.Models
 
         [Display(Name = "تاریخ انتشار")]
         public DateTime PublishDate { get; set; }
+       
 
         [Display(Name = "آدرس یکتا")]
         public string UniqueId { get; set; }
 
         [Display(Name = "نوع نوشته")]
         public string PostKind { get; set; }
+
+
+      
     }
 }
