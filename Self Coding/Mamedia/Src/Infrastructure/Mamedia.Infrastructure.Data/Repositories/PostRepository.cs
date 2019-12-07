@@ -53,7 +53,17 @@ namespace Mamedia.Infrastructure.Data.Repositories
 
         public Post GetPostByUniqueId(string uniqueId)
         {
-            return _context.Posts.FirstOrDefault(p => p.UniqueId == uniqueId);
+            return _context.Posts.Where(p => p.UniqueId == uniqueId)
+                .Include(p => p.Track)
+                              .ThenInclude(t => t.TrackArtists)
+                                  .ThenInclude(t => t.ArtistType)
+                                     .ThenInclude(t => t.Artist)
+                          .Include(p => p.Track)
+                              .ThenInclude(t => t.DownloadLinks)
+                          .Include(p => p.Movie)
+                          .Include(p => p.PostKind).FirstOrDefault();
+
+
         }
 
         public IEnumerable<Post> GetPublishablePosts()

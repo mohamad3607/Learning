@@ -1,0 +1,115 @@
+﻿
+@using Mamedia.UI.Models.PostModel;
+@using Mamedia.Domain.Core.Entities;
+
+@if (User.Identity.IsAuthenticated)
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (!User.Identity.IsAuthenticated)
+{
+    Layout = "~/Views/Shared/Anonymous.cshtml";
+}
+@model Mamedia.UI.Models.PostModel.PostDetailsViewModel
+
+@section Styles{
+    <link rel="stylesheet" href="~/Content/NewFaceDetails.css" />
+    <link rel="stylesheet" href="~/Content/font-awesome.css" />
+}
+
+<h2>PostDetails</h2>
+
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <img src="@Model.CoverPhotoUrl" alt="@Model.CoverPhotoTag" class="detailsImage" />
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <h2 class="he2">@Model.Title</h2>
+        <p>
+            <strong>
+                <a href="@Model.KindAddress">دانلود @Model.Kind</a>
+                @for (int i = 0; i < Model.Artists.Count; i++)
+                {
+                    string name = "";
+                    string url = "";
+                    if (i != Model.Artists.Count - 1)
+                    {
+                        name = Model.Artists[i].Artist.Name + " و ";
+                    }
+                    else
+                    {
+                        name = Model.Artists[i].Artist.Name;
+                    }
+                    url = Model.Artists[i].Artist.Name;
+                    <a asp-action="Details" asp-controller="Artist" asp-route-id=@url>@name</a>
+                }
+                <a asp-action="PostDetails" asp-controller="Home">با نام @Model.Name</a>
+            </strong>
+        </p>
+        <p>
+            <strong>
+                @foreach (ArtistType artist in Model.Artists)
+                {
+                    <a asp-action="Details" asp-controller="Artist" asp-route-id=@artist.Artist.EnglishName style="color:#505050">@artist.Artist.EnglishName</a>
+                }
+                <a asp-action="PostDetails" asp-controller="Home" style="color:#505050">@Model.EnglishName</a>
+            </strong>
+        </p>
+        <p>
+            <strong>قسمتی از ترانه: </strong>
+            @Model.Cross
+        </p>
+
+        @foreach (DownloadLink link in Model.DownloadLinks)
+        {
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="@link.UrlForLink" class="btn btn-primary">
+                    <i class="fa fa-download fa-2x"></i>
+                    <span>@link.Tilte</span>
+                </a>
+            </div>
+        }
+
+        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 sharing">
+            <div>
+                <a href="https://telegram.me/share/url?url=http://mamedia.ir/Home/PostDetails/@Model.UniqueId&text=@Model.Name">
+                    <span style="color:#808080">
+                        <i class="fa fa-telegram fa-2x"></i>
+                    </span>
+                </a>
+            </div>
+            <div>
+                <span style="color:#808080">
+                    <i class="fa fa-calendar fa-2x"></i>
+                </span>
+                <span>@Model.PersianDateTime</span>
+            </div>
+            <div>
+                <span style="color:#808080">
+                    <i class="fa fa-thumbs-up fa-2x"></i>
+                </span>
+                <span>@Model.LikeCount</span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 player">
+            <audio src="@Model.DownloadLinks[0].UrlForLink" controls></audio>
+        </div>
+    </div>
+
+</div>
+<div class="row artistDiv">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="lyrics">
+            <div class="artistTitle" col-md-12 col-lg-12 col-sm-12 col-xs-12>
+                <span>متن ترانه</span>
+                <p>
+                    @Model.detailText
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

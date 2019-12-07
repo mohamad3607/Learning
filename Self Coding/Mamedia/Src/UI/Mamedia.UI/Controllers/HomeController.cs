@@ -56,9 +56,11 @@ namespace Mamedia.UI.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         [HttpGet("Home/PostDetails/{uniqueId}")]
-        public IActionResult PostDetails()
+        public IActionResult PostDetails(string uniqueId)
         {
-            return View();
+            var post = _postService.GetPostByUniqueId(uniqueId);
+            PostDetailsViewModel model = new PostDetailsViewModel(post);
+            return View(model);
         }
     }
 }
