@@ -2,41 +2,92 @@
 {
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Mamedia.Src.UI.Web.Models.PostModel.CreateViewModel
+@model Mamedia.Src.UI.Web.Models.PostModel.TrackCreateViewModel
 <h2>تک آهنگ جدید</h2>
 <div class="row">
+
+    <div class="col-md-4">
+
+        <h2>اطلاعات کلی</h2>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AllowToPublish" class="control-label"></label>
+            <input asp-for="AllowToPublish" />
+            <span asp-validation-for="AllowToPublish" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PublishDate" class="control-label"></label>
+            <input asp-for="PublishDate" class="form-control" />
+            <span asp-validation-for="PublishDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UniqueId" class="control-label"></label>
+            <input asp-for="UniqueId" class="form-control" />
+            <span asp-validation-for="UniqueId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PostKind" class="control-label"></label>
+            @Html.DropDownList("PostKind", ViewBag.Kinds, "", new { @class = "form-control" })
+            <span asp-validation-for="PostKind" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-right:0px">
+            <label asp-for="ArtistTypes" class="control-label"></label>
+            <select multiple="multiple" class="form-control" id="my_multi_select1"
+                    asp-for="ArtistTypes" asp-items="(List<SelectListItem>)ViewBag.Artists"></select>
+            <span asp-validation-for="ArtistTypes" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h2>اطلاعات آهنگ</h2>
+        <hr />
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="EnglishName" class="control-label"></label>
+            <input asp-for="EnglishName" class="form-control" />
+            <span asp-validation-for="EnglishName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CoverPhotoAddress" class="control-label"></label>
+            <input asp-for="CoverPhotoAddress" class="form-control" />
+            <span asp-validation-for="CoverPhotoAddress" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CoverPhotoAlterText" class="control-label"></label>
+            <input asp-for="CoverPhotoAlterText" class="form-control" />
+            <span asp-validation-for="CoverPhotoAlterText" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Link" class="control-label"></label>
+            <input asp-for="Link" class="form-control" />
+            <span asp-validation-for="Link" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Cross" class="control-label"></label>
+            <textarea asp-for="Cross" rows="2" class="form-control"></textarea>
+            <span asp-validation-for="Cross" class="text-danger"></span>
+        </div>
+    </div>
     <div class="col-md-4">
         <form asp-action="Create" class="form-horizontal">
-            <h2>اطلاعات کلی</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <h2>متن آهنگ</h2>
+                <hr />
+                <label asp-for="Lyric" class="control-label"></label>
+                <textarea asp-for="Lyric" rows="20" class="form-control"></textarea>
+                <span asp-validation-for="Lyric" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="AllowToPublish" class="control-label"></label>
-                <input asp-for="AllowToPublish" />
-                <span asp-validation-for="AllowToPublish" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PublishDate" class="control-label"></label>
-                <input asp-for="PublishDate" class="form-control" />
-                <span asp-validation-for="PublishDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UniqueId" class="control-label"></label>
-                <input asp-for="UniqueId" class="form-control" />
-                <span asp-validation-for="UniqueId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PostKind" class="control-label"></label>
-                @Html.DropDownList("PostKind", ViewBag.Kinds, "", new { @class = "form-control" })
-                <span asp-validation-for="PostKind" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group" style="margin-top:10px;">
+
+            <div class="form-group" style="margin-top:10px;padding-right:20px;">
                 <input type="submit" value="ایجاد نوشته" class="btn btn-primary" />
                 <a asp-action="Index">برگشت به لیست</a>
             </div>
@@ -57,4 +108,5 @@
             </div>
         </form>
     </div>
+
 </div>

@@ -48,7 +48,7 @@ namespace Mamedia.Src.Infrastructure.Data
         }
         private void ArtistModelCreating(ModelBuilder builder)
         {
-            builder.Entity<ArtistType>().HasKey(at => new { at.ArtistId, at.TypeId });
+            //builder.Entity<ArtistType>().HasKey(at => new { at.ArtistId, at.TypeId });
             builder.Entity<Artist>()
                 .HasMany(c => c.Types)
                 .WithOne(x => x.Artist)
@@ -60,12 +60,12 @@ namespace Mamedia.Src.Infrastructure.Data
             builder.Entity<ArtistType>()
                 .HasMany(c => c.Posts)
                 .WithOne(x => x.ArtistType)
-                .HasForeignKey(x => new { x.ArtistId,x.TypeId});
+                .HasForeignKey(x => x.ArtistTypeId);
 
         }
         private void PostModelCreating(ModelBuilder builder)
         {
-            builder.Entity<PostArtist>().HasKey(pa => new { pa.PostId, pa.ArtistId, pa.TypeId });
+            builder.Entity<PostArtist>().HasKey(pa => new { pa.PostId, pa.ArtistTypeId });
             builder.Entity<TrackInfo>().HasKey(x =>x.PostId);
             builder.Entity<PurchasableAlbumInfo>().HasKey(x =>x.PostId);
 

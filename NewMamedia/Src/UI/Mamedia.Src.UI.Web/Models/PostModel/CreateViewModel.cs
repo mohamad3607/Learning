@@ -26,5 +26,18 @@ namespace Mamedia.Src.UI.Web.Models.PostModel
 
         [Display(Name = "هنرمندان")]
         public IEnumerable<int> ArtistTypes { get; set; }
+        [Display(Name = "لینک")]
+        public string Link { get; set; }
+        [Display(Name = "آدرس کاور")]
+        public string CoverPhotoAddress { get; set; }
+
+        [Display(Name = "تگ کاور")]
+        public string CoverPhotoAlterText { get; set; }
+
+        [Display(Name = "نام اثر")]
+        public string Name { get; set; }
+
+        [Display(Name = "نام لاتین اثر")]
+        public string EnglishName { get; set; }
     }
 }

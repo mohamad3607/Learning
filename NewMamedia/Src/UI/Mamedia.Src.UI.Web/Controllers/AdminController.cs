@@ -51,7 +51,7 @@ namespace Mamedia.Src.UI.Web.Controllers
 
             ViewBag.Tracks = _service.GetAllArtistTypes().Select(at => new SelectListItem
             {
-                Value = at.ArtistId + "$" + at.TypeId,
+                Value = at.Id.ToString()
                 Text = at.Artist.Name + "------" + at.Type.Type
             }).ToList();
         }
