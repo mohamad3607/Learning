@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Mamedia.Src.Domain.Core.Entities.Admin" Collapsed="true">
+    <Position X="16" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\User\Admin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.User" Collapsed="true">
+    <Position X="15.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAQAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\User\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.Artist" Collapsed="true">
+    <Position X="6" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAAAAAAAAEAACAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Artist\Artist.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.ArtistType" Collapsed="true">
+    <Position X="7.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAEAAAAIAAAAAgAQAAAAAAAAA=</HashCode>
+      <FileName>Entities\Artist\ArtistType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.PostArtist" Collapsed="true">
+    <Position X="6" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAIEAAACAAAAQAgAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Artist\PostArtist.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.TypeOfArtist" Collapsed="true">
+    <Position X="7.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAA=</HashCode>
+      <FileName>Entities\Artist\TypeOfArtist.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.Link" Collapsed="true">
+    <Position X="9.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACBAAAAAAAAAEAAEAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Link\Link.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.Post" Collapsed="true">
+    <Position X="2.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAASABAAAAAAAEAAiAAEAAAAAAECAEAACFAAADBAQAA=</HashCode>
+      <FileName>Entities\Post\Post.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.PostKind" Collapsed="true">
+    <Position X="7.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Post\PostKind.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.PurchasableAlbumPost" Collapsed="true">
+    <Position X="3.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Entities\Post\PurchasableAlbum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.PurchasableAlbumInfo" Collapsed="true">
+    <Position X="9.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAQAAAAEAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Post\PurchasableAlbumInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.TrackInfo" Collapsed="true">
+    <Position X="6" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAACAAAAAAAIACAAAAAAAA=</HashCode>
+      <FileName>Entities\Post\TrackInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mamedia.Src.Domain.Core.Entities.TrackPost" Collapsed="true">
+    <Position X="1.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Entities\Post\TrackPost.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
