@@ -16,5 +16,8 @@ namespace Mamedia.Src.Domain.Application.Services
         Post DeletePost(int id);
         IEnumerable<PostKind> GetAllPostKinds();
         IEnumerable<ArtistType> GetAllArtistTypes();
+        IEnumerable<Artist> GetAllArtitsts();
+        IEnumerable<TypeOfArtist> GetAllTypeOfArtists();
+        Artist CreateArtist(Artist artist);
     }
 }

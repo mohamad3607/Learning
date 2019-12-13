@@ -14,6 +14,12 @@ namespace Mamedia.Src.Domain.Application.Interactors
         {
             _repository = repository;
         }
+
+        public Artist CreateArtist(Artist artist)
+        {
+            return _repository.CreateArtist(artist);
+        }
+
         public TrackPost CreatePurchasableAlbumPost(PurchasableAlbumPost post)
         {
             throw new NotImplementedException();
@@ -34,6 +40,11 @@ namespace Mamedia.Src.Domain.Application.Interactors
             return _repository.GetAllArtistTypes();
         }
 
+        public IEnumerable<Artist> GetAllArtitsts()
+        {
+            return _repository.GetAllArtitsts();
+        }
+
         public IEnumerable<PostKind> GetAllPostKinds()
         {
             return _repository.GetAllPostKinds();
@@ -42,6 +53,11 @@ namespace Mamedia.Src.Domain.Application.Interactors
         public IEnumerable<Post> GetAllPosts()
         {
             return _repository.GetAllPosts();
+        }
+
+        public IEnumerable<TypeOfArtist> GetAllTypeOfArtists()
+        {
+            return _repository.GetAllTypeOfArtists();
         }
 
         public Post GetPostById(int id)

@@ -16,6 +16,9 @@ namespace Mamedia.Src.Domain.Application.Repositories
         IEnumerable<Post> GetPublishablePosts();
         IEnumerable<PostKind> GetAllPostKinds();
         IEnumerable<ArtistType> GetAllArtistTypes();
-       
+        IEnumerable<Artist> GetAllArtitsts();
+        IEnumerable<TypeOfArtist> GetAllTypeOfArtists();
+        Artist CreateArtist(Artist artist);
+
     }
 }

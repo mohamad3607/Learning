@@ -15,6 +15,12 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         {
             _context = context;
         }
+
+        public Artist CreateArtist(Artist artist)
+        {
+            return _context.Artists.Add(artist).Entity;
+        }
+
         public TrackPost CreatePurchasableAlbumPost(PurchasableAlbumPost post)
         {
             throw new NotImplementedException();
@@ -38,6 +44,11 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
                 .OrderBy(at => at.Artist.Name);
         }
 
+        public IEnumerable<Artist> GetAllArtitsts()
+        {
+            return _context.Artists.OrderBy(a=>a.Name);
+        }
+
         public IEnumerable<PostKind> GetAllPostKinds()
         {
             return _context.PostKinds;
@@ -47,6 +58,11 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         {
             return _context.Posts
                 .Include(p => p.PostKind);
+        }
+
+        public IEnumerable<TypeOfArtist> GetAllTypeOfArtists()
+        {
+            return _context.TypeOfArtists;
         }
 
         public Post GetPostById(int id)
