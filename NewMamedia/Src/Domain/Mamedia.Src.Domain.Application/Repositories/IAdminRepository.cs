@@ -19,6 +19,8 @@ namespace Mamedia.Src.Domain.Application.Repositories
         IEnumerable<Artist> GetAllArtitsts();
         IEnumerable<TypeOfArtist> GetAllTypeOfArtists();
         Artist CreateArtist(Artist artist);
-
+        Artist GetArtistById(int artistId);
+        Artist EditArtist(Artist artist);
+        Post EditPost(Post post);
     }
 }

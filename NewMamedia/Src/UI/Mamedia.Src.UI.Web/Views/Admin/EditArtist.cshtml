@@ -3,12 +3,13 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <h2>ایجاد هنرمند جدید</h2>
 <h4>اطلاعات هنرمند</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateArtist" class="form-horizontal">
+        <form asp-action="EditArtist" class="form-horizontal">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -32,7 +33,7 @@
                 <span asp-validation-for="Types" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="ایجاد هنرمند" class="btn btn-primary" />
+                <input type="submit" value="ویرایش هنرمند" class="btn btn-primary" />
             </div>
             <div style="margin-top:10px">
                 @{
@@ -40,11 +41,11 @@
                     {
                         if ((string)TempData["Result"] == "OK")
                         {
-                            <label class="text-success">با موفقیت ایجاد شد</label>
+                    <label class="text-success">با موفقیت ایجاد شد</label>
                         }
                         else
                         {
-                            <label class="text-danger">@TempData["Result"]</label>
+                    <label class="text-danger">@TempData["Result"]</label>
                         }
                     }
                 }

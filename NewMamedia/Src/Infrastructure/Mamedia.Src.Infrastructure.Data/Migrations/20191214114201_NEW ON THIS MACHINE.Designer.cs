@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    [Migration("20191212124537_ADDING MIGRATE-2")]
-    partial class ADDINGMIGRATE2
+    [Migration("20191214114201_NEW ON THIS MACHINE")]
+    partial class NEWONTHISMACHINE
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,11 +66,17 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.ArtistType", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("ArtistId");
 
                     b.Property<int>("TypeId");
 
-                    b.HasKey("ArtistId", "TypeId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtistId");
 
                     b.HasIndex("TypeId");
 
@@ -148,15 +154,13 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                 {
                     b.Property<int>("PostId");
 
-                    b.Property<int>("ArtistId");
-
-                    b.Property<int>("TypeId");
+                    b.Property<int>("ArtistTypeId");
 
                     b.Property<bool>("IsMain");
 
-                    b.HasKey("PostId", "ArtistId", "TypeId");
+                    b.HasKey("PostId", "ArtistTypeId");
 
-                    b.HasIndex("ArtistId", "TypeId");
+                    b.HasIndex("ArtistTypeId");
 
                     b.ToTable("PostArtists");
                 });
@@ -172,7 +176,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PostKind");
+                    b.ToTable("PostKinds");
 
                     b.HasData(
                         new { Id = 1, Title = "آهنگ جدید" },
@@ -287,14 +291,14 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.PostArtist", b =>
                 {
+                    b.HasOne("Mamedia.Src.Domain.Core.Entities.ArtistType", "ArtistType")
+                        .WithMany("Posts")
+                        .HasForeignKey("ArtistTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Mamedia.Src.Domain.Core.Entities.Post", "Post")
                         .WithMany("Artists")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Mamedia.Src.Domain.Core.Entities.ArtistType", "ArtistType")
-                        .WithMany("Posts")
-                        .HasForeignKey("ArtistId", "TypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

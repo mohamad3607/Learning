@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
-    public partial class ADDINGMIGRATE : Migration
+    public partial class NEWONTHISMACHINE : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(maxLength: 150, nullable: true),
+                    Name = table.Column<string>(maxLength: 150, nullable: true),
                     Bio = table.Column<string>(nullable: true),
                     LatinName = table.Column<string>(maxLength: 150, nullable: true)
                 },
@@ -41,7 +41,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PostKind",
+                name: "PostKinds",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -50,7 +50,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PostKind", x => x.Id);
+                    table.PrimaryKey("PK_PostKinds", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,9 +94,9 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Posts_PostKind_PostKindId",
+                        name: "FK_Posts_PostKinds_PostKindId",
                         column: x => x.PostKindId,
-                        principalTable: "PostKind",
+                        principalTable: "PostKinds",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -105,12 +105,14 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                 name: "ArtistTypes",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ArtistId = table.Column<int>(nullable: false),
                     TypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArtistTypes", x => new { x.ArtistId, x.TypeId });
+                    table.PrimaryKey("PK_ArtistTypes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ArtistTypes_Artists_ArtistId",
                         column: x => x.ArtistId,
@@ -188,30 +190,29 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                 name: "PostArtists",
                 columns: table => new
                 {
-                    ArtistId = table.Column<int>(nullable: false),
-                    TypeId = table.Column<int>(nullable: false),
+                    ArtistTypeId = table.Column<int>(nullable: false),
                     PostId = table.Column<int>(nullable: false),
                     IsMain = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PostArtists", x => new { x.PostId, x.ArtistId, x.TypeId });
+                    table.PrimaryKey("PK_PostArtists", x => new { x.PostId, x.ArtistTypeId });
+                    table.ForeignKey(
+                        name: "FK_PostArtists_ArtistTypes_ArtistTypeId",
+                        column: x => x.ArtistTypeId,
+                        principalTable: "ArtistTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PostArtists_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PostArtists_ArtistTypes_ArtistId_TypeId",
-                        columns: x => new { x.ArtistId, x.TypeId },
-                        principalTable: "ArtistTypes",
-                        principalColumns: new[] { "ArtistId", "TypeId" },
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "PostKind",
+                table: "PostKinds",
                 columns: new[] { "Id", "Title" },
                 values: new object[,]
                 {
@@ -234,6 +235,11 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ArtistTypes_ArtistId",
+                table: "ArtistTypes",
+                column: "ArtistId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ArtistTypes_TypeId",
                 table: "ArtistTypes",
                 column: "TypeId");
@@ -244,9 +250,9 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostArtists_ArtistId_TypeId",
+                name: "IX_PostArtists_ArtistTypeId",
                 table: "PostArtists",
-                columns: new[] { "ArtistId", "TypeId" });
+                column: "ArtistTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_AuthorId",
@@ -289,7 +295,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                 name: "Admins");
 
             migrationBuilder.DropTable(
-                name: "PostKind");
+                name: "PostKinds");
         }
     }
 }

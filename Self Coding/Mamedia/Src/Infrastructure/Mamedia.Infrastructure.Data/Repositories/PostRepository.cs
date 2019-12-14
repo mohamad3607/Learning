@@ -85,5 +85,32 @@ namespace Mamedia.Infrastructure.Data.Repositories
         {
             return _context.Tracks.OrderByDescending(t=>t.Id);
         }
+
+        public IEnumerable<Post> GetTrackPostRelatedLinks(string uniqueId)
+        {
+            var post = _context.Posts.Where(p => p.UniqueId == uniqueId)
+                          .Include(p => p.Track)
+                              .ThenInclude(t => t.TrackArtists)
+                                  .ThenInclude(t => t.ArtistType)
+                                     .ThenInclude(t => t.Artist)
+                          .Include(p => p.Track)
+                              .ThenInclude(t => t.DownloadLinks)
+                           .FirstOrDefault();
+            List<Track> relatedTracks = new List<Track>();
+            foreach(TrackArtist artist in post.Track.TrackArtists)
+            {
+
+            }
+            return _context.Posts.Where(p => p.CanBePublished == true)
+                          .Include(p => p.Track)
+                              .ThenInclude(t => t.TrackArtists)
+                                  .ThenInclude(t => t.ArtistType)
+                                     .ThenInclude(t => t.Artist)
+                          .Include(p => p.Track)
+                              .ThenInclude(t => t.DownloadLinks)
+                          .Include(p => p.Movie)
+                          .Include(p => p.PostKind)
+                          .OrderByDescending(p => p.PublishDate).ThenByDescending(p => p.Id);
+        }
     }
 }

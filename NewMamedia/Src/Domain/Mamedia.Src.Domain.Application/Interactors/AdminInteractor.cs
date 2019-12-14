@@ -35,6 +35,11 @@ namespace Mamedia.Src.Domain.Application.Interactors
             throw new NotImplementedException();
         }
 
+        public Artist GetArtistById(int artistId)
+        {
+            return _repository.GetArtistById(artistId);
+        }
+
         public IEnumerable<ArtistType> GetAllArtistTypes()
         {
             return _repository.GetAllArtistTypes();
@@ -71,6 +76,16 @@ namespace Mamedia.Src.Domain.Application.Interactors
         }
 
         public IEnumerable<Post> GetPublishablePosts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Artist EditArtist(Artist artist)
+        {
+            return _repository.EditArtist(artist);
+        }
+
+        public Post EditPost(Post post)
         {
             throw new NotImplementedException();
         }

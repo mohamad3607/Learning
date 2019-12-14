@@ -12,7 +12,7 @@ namespace Mamedia.Src.UI.Web.Models.ArtistModel
         public AllViewModel(Artist artist)
         {
             Id = artist.Id;
-            Name = artist.LatinName;
+            Name = artist.Name;
         }
         [Display(Name = "شناسه هنرمند")]
         public int Id { get; set; }

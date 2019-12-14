@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <Reference Include="MD.PersianDateTime">
-      <HintPath>C:\Users\Vaio\Downloads\Compressed\MD.PersianDateTime\MD.PersianDateTime\bin\Debug\MD.PersianDateTime.dll</HintPath>
+      <HintPath>C:\Users\bakhshi\Downloads\MD.PersianDateTime\MD.PersianDateTime\bin\Debug\MD.PersianDateTime.dll</HintPath>
     </Reference>
   </ItemGroup>
 
