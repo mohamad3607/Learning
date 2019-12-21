@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -15,8 +16,6 @@ namespace Mamedia.Src.Domain.Core.Entities
         public string Password { get; set; }
         public DateTime RegisterDate { get; set; }
         public DateTime BirthDate { get; set; }
-        [MaxLength(200)]
-        [EmailAddress(ErrorMessage ="لطفا پست الکترونیکی معتبر وارد نمایید")]
         public string Email { get; set; }
     }
 }

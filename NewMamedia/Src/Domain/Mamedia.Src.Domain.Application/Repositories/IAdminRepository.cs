@@ -22,5 +22,6 @@ namespace Mamedia.Src.Domain.Application.Repositories
         Artist GetArtistById(int artistId);
         Artist EditArtist(Artist artist);
         Post EditPost(Post post);
+       
     }
 }

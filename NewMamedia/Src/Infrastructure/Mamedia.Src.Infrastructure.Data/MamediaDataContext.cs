@@ -95,6 +95,7 @@ namespace Mamedia.Src.Infrastructure.Data
         public DbSet<PostArtist> PostArtists { get; set; }
         public DbSet<TypeOfArtist> TypeOfArtists { get; set; }
         public DbSet<PostKind> PostKinds { get; set; }
+        public DbSet<TrackInfo> TrackInfos { get; set; }
         
     }
 }

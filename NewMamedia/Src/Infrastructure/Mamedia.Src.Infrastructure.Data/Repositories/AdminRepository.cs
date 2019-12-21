@@ -47,6 +47,11 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             return result;
         }
 
+        public Post EditPost(Post post)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<ArtistType> GetAllArtistTypes()
         {
             return _context.ArtistTypes
@@ -97,5 +102,7 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

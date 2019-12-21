@@ -7,6 +7,7 @@ using Mamedia.Src.Domain.Application.Repositories;
 using Mamedia.Src.Domain.Application.Services;
 using Mamedia.Src.Infrastructure.Data;
 using Mamedia.Src.Infrastructure.Data.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -52,6 +53,14 @@ namespace Mamedia.Src.UI.Web
 
             services.AddScoped<IAdminService, AdminInteractor>();
             services.AddScoped<IAdminRepository, AdminRepository>();
+
+            services.AddScoped<IAnonymouseService, AnonymouseInteractor>();
+            services.AddScoped<IAnonymouseRepository, AnonymouseRepository>();
+
+            services.AddScoped<IAccountService, AccountInteractor>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +82,7 @@ namespace Mamedia.Src.UI.Web
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

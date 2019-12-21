@@ -4,8 +4,7 @@ using System.Text;
 
 namespace Mamedia.Src.Domain.Core.Entities
 {
-    public class PurchasableAlbumPost:Album
+    public class Album:Post
     {
-       public PurchasableAlbumInfo Info { get; set; }
     }
 }

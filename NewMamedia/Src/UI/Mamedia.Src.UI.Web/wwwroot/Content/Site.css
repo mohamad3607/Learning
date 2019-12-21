@@ -59,6 +59,7 @@ textarea {
 
 .searchBox .btn {
     width: 20%;
+    height:50px;
     max-width: 25px;
     background: url(Images/search.svg) no-repeat !important;
     margin-top: 5px;

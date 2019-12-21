@@ -4,14 +4,16 @@ using Mamedia.Src.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    partial class MamediaDataContextModelSnapshot : ModelSnapshot
+    [Migration("20191217075653_Albums")]
+    partial class Albums
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +29,8 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<DateTime>("BirthDate");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Password")
                         .HasMaxLength(20);

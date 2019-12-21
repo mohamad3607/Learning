@@ -16,9 +16,14 @@ namespace Mamedia.Src.UI.Web.Controllers
         public AdminController(IAdminService service)
         {
             _service = service;
+          
         }
         public IActionResult PostManagement()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
             var list = _service.GetAllPosts();
             list = list.ToList<Post>();
             List<AllPostsViewModel> postList = new List<AllPostsViewModel>();
@@ -36,6 +41,11 @@ namespace Mamedia.Src.UI.Web.Controllers
         [HttpGet]
         public IActionResult CreateTrackPost()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
+
             GetPostNeeds();
 
             return View();
@@ -60,6 +70,10 @@ namespace Mamedia.Src.UI.Web.Controllers
         {
             try
             {
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("SignIn", "Account");
+                }
                 TrackPost post = new TrackPost()
                 {
                     AuthorId=2,
@@ -81,6 +95,17 @@ namespace Mamedia.Src.UI.Web.Controllers
                     OpusName =model.Name,
                     PostKindId = model.PostKind
                 };
+                var artistList = new List<PostArtist>();
+                foreach(int index in model.ArtistTypes)
+                {
+                    PostArtist type = new PostArtist()
+                    {
+                        ArtistTypeId = index,
+                        Post=post
+                    };
+                    artistList.Add(type);
+                }
+                post.Artists = artistList;
                 _service.CreateTrackPost(post);
                 TempData["Result"] = "OK";
                 return RedirectToAction("CreateTrackPost");
@@ -95,6 +120,10 @@ namespace Mamedia.Src.UI.Web.Controllers
         [HttpGet]
         public ActionResult ArtistManagement()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
             var list = _service.GetAllArtitsts();
             list = list.ToList<Artist>();
             List <Models.ArtistModel.AllViewModel> artistList = new List<Models.ArtistModel.AllViewModel>();
@@ -109,6 +138,10 @@ namespace Mamedia.Src.UI.Web.Controllers
         [HttpGet]
         public ActionResult CreateArtist()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
             ViewBag.VTypes = _service.GetAllTypeOfArtists().Select(at => new SelectListItem
             {
                 Value = at.Id.ToString(),
@@ -125,6 +158,10 @@ namespace Mamedia.Src.UI.Web.Controllers
         {
             try
             {
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("SignIn", "Account");
+                }
                 Artist artist = new Artist()
                 {
                     Name = model.Name,
@@ -158,8 +195,12 @@ namespace Mamedia.Src.UI.Web.Controllers
         [HttpGet("Admin/EditArtist/{artistId}")]
         public ActionResult EditArtist(int artistId)
         {
-            
-Artist artist = _service.GetArtistById(artistId);
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
+
+            Artist artist = _service.GetArtistById(artistId);
            
             Mamedia.Src.UI.Web.Models.ArtistModel.CreateViewModel vm = new Models.ArtistModel.CreateViewModel()
             {
@@ -184,6 +225,10 @@ Artist artist = _service.GetArtistById(artistId);
         {
             try
             {
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("SignIn", "Account");
+                }
                 Artist artist = _service.GetArtistById(model.Id);
                 artist.Name = model.Name;
                 artist.Bio = model.Biography;
@@ -219,8 +264,12 @@ Artist artist = _service.GetArtistById(artistId);
         [HttpGet("Admin/EditPost/{postId}")]
         public ActionResult EditPost(int postId)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
 
-            Artist artist = _service.GetArtistById(artistId);
+            Artist artist = _service.GetArtistById(postId);
 
             Mamedia.Src.UI.Web.Models.ArtistModel.CreateViewModel vm = new Models.ArtistModel.CreateViewModel()
             {
@@ -241,10 +290,14 @@ Artist artist = _service.GetArtistById(artistId);
         }
 
         [HttpPost]
-        public ActionResult EditArtist([Bind] Models.ArtistModel.CreateViewModel model)
+        public ActionResult EditPost([Bind] Models.ArtistModel.CreateViewModel model)
         {
             try
             {
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("SignIn", "Account");
+                }
                 Artist artist = _service.GetArtistById(model.Id);
                 artist.Name = model.Name;
                 artist.Bio = model.Biography;
@@ -277,7 +330,7 @@ Artist artist = _service.GetArtistById(artistId);
 
         private bool CheckSelection(int id, ICollection<ArtistType> types)
         {
-            foreach(ArtistType type in types)
+            foreach (ArtistType type in types)
             {
                 if (type.TypeId == id)
                     return true;

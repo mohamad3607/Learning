@@ -4,14 +4,16 @@ using Mamedia.Src.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    partial class MamediaDataContextModelSnapshot : ModelSnapshot
+    [Migration("20191217113813_Users")]
+    partial class Users
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,18 +23,43 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.Admin", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
 
                     b.Property<DateTime>("BirthDate");
 
+                    b.Property<string>("ConcurrencyStamp");
+
                     b.Property<string>("Email");
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail");
+
+                    b.Property<string>("NormalizedUserName");
 
                     b.Property<string>("Password")
                         .HasMaxLength(20);
 
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
                     b.Property<DateTime>("RegisterDate");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName");
 
                     b.Property<string>("Username")
                         .HasMaxLength(50);
@@ -109,6 +136,8 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<int>("AuthorId");
 
+                    b.Property<string>("AuthorId1");
+
                     b.Property<string>("CoverPhotoTag")
                         .HasMaxLength(150);
 
@@ -138,7 +167,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("AuthorId1");
 
                     b.HasIndex("PostKindId");
 
@@ -277,8 +306,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                 {
                     b.HasOne("Mamedia.Src.Domain.Core.Entities.Admin", "Author")
                         .WithMany("Posts")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuthorId1");
 
                     b.HasOne("Mamedia.Src.Domain.Core.Entities.PostKind", "PostKind")
                         .WithMany("Posts")

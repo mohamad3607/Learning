@@ -1,0 +1,161 @@
+﻿@using Mamedia.Src.UI.Web.Models.PostModel;
+@using Mamedia.Src.Domain.Core.Entities;
+@model IEnumerable<Mamedia.Src.UI.Web.Models.PostModel.DefaultPagePostsViewModel>
+@{
+    ViewData["Title"] = "صفحه اصلی";
+
+    Layout = "~/Views/Shared/Anonymous.cshtml";
+}
+<form action="Search">
+    @*<div class="searchBox" style="margin-top:30px;">
+        <div class="wrapper">
+            <input type="text"  class="searchBoxButtonEdit" txt" Placeholder="جستجوی خواننده، آهنگ، آلبوم و ..." style="width:90%;height:50px;" name="txtSearch" />
+            
+            <input type="submit" class="searchBoxButtonEdit btn" />
+        </div>
+    </div>*@
+</form>
+
+
+<div class="row">
+    @* HERE WILL BE LIST OF POSTS *@
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        @foreach (DefaultPagePostsViewModel post in Model)
+        {
+            <div class="trackDiv">
+                <div class="topTitle">
+                    <br />
+                    <h2>
+                        <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>@post.Title</a>
+                    </h2>
+                    <br />
+                    <hr />
+                </div>
+                <div class="titleBox">
+                    @* Here we will render proper post *@
+                    <h2>
+                        @RenderArtistTitle(post)
+                    </h2>
+                    <p>
+                        <a asp-action="PostKind" asp-controller="Home" asp-route-id=@post.PostKind.Title>دانلود @post.PostKind.Title</a>
+                        @foreach (Artist artist in post.Artists)
+                        {
+                            <a asp-action="Details" asp-controller="Artist" asp-route-id=@artist.Name>@artist.Name</a>
+                        }
+                        <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>با نام @post.OpusName</a>
+                        <br />
+                        <br />
+                        @foreach (Artist artist in post.Artists)
+                        {
+                            <a asp-action="Details" asp-controller="Artist" asp-route-id=@artist.LatinName>@artist.LatinName</a>
+                        }
+                        <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>@post.OpusLatinName</a>
+                        <br />
+                        <br />
+                        <img src="@post.CoverPhotoUrl" alt="@post.CoverPhotoTag" />
+                        <br /> <br /> <br />
+                        <a href=" @post.Links.ToArray()[0].UrlForLink">
+                            @post.Links.ToArray()[0].Tilte
+                        </a>
+                        <br /> <br /> <br />
+                    </p>
+                    <div class="btnSeemore">
+                        <p>
+                            <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>برای مشاهده  آهنگ کلیک کنید</a>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        }
+    </div>
+
+
+    @* HERE WILL BE THE BEST BOXES *@
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="topTitle">
+            <br />
+            <h2 style="color: #808080">برترین ها</h2>
+            <hr />
+        </div>
+        <div class="lstBox">
+            <ul>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Sina-Hejazi-Soogvar">سینا حجازی- سوگوار</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Reza-Bahram-Hich">رضا بهرام- هیچ</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Reza-Sadeghi-Shahr-Ashoob">رضا صادقی- شهر آشوب</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Mohsen-Ebrahimzadeh-Alagheye-Mahsoos">محسن ابراهیم زاده- علاقه محسوس</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Mehdi-Moghadam-Bad-Jaeiye">مهدی مقدم- بد جاییه</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Hamid-Askari-Raft-Delam">حمید عسکری</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Aron-Afshar-Yare-Ghadimi">آرون افشار- یار قدیمی</a>
+                </li>
+
+            </ul>
+
+        </div>
+        <br />
+        <br />
+        <div class="topTitle">
+            <br />
+            <h2 style="color: #808080">پربازدیدترین ها</h2>
+            <hr />
+        </div>
+        <div class="lstBox">
+            <ul>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Sina-Hejazi-Soogvar">سینا حجازی- سوگوار</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Reza-Bahram-Hich">رضا بهرام- هیچ</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Reza-Sadeghi-Shahr-Ashoob">رضا صادقی- شهر آشوب</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Mohsen-Ebrahimzadeh-Alagheye-Mahsoos">محسن ابراهیم زاده- علاقه محسوس</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Mehdi-Moghadam-Bad-Jaeiye">مهدی مقدم- بد جاییه</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Hamid-Askari-Raft-Delam">حمید عسکری</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Aron-Afshar-Yare-Ghadimi">آرون افشار- یار قدیمی</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+@functions {
+public string RenderArtistTitle(DefaultPagePostsViewModel post)
+{
+    string retStr = "";
+    foreach (Artist artist in post.Artists)
+    {
+        retStr = retStr + artist.Name + " و ";
+    }
+    if (retStr.Length > 0)
+        return retStr.Remove(retStr.Length - 3, 3) + " " + post.OpusName;
+    return retStr;
+}
+}
+
+
+

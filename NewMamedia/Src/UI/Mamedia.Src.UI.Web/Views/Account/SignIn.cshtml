@@ -1,0 +1,51 @@
+﻿@model Mamedia.Src.UI.Web.Models.AccountModel.SignInModel
+@{
+    ViewData["Title"] = "Home Page";
+    @if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    @if (!User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/Anonymous.cshtml";
+    }
+}
+
+<h2>اطلاعات حساب را وارد نمایید</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SignIn" class="form-horizontal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                @Html.PasswordFor(m => m.Password,new { @class="form-control"})
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })
+            </div>
+            <div class="form-group" style="margin-top:10px;padding-right:20px;">
+                <input type="submit" value="ورود به پنل" class="btn btn-primary" />
+                <a asp-controller="Home" asp-action="Index">صفحه اصلی</a>
+            </div>
+            <div style="margin-top:10px">
+                @{
+                    if (TempData["Result"] != null)
+                    {
+                        if ((string)TempData["Result"] == "OK")
+                        {
+                            <label class="text-success">با موفقیت انجام شد</label>
+                        }
+                        else
+                        {
+                            <label class="text-danger">@TempData["Result"]</label>
+                        }
+                    }
+                }
+            </div>
+        </form>
+    </div>
+</div>

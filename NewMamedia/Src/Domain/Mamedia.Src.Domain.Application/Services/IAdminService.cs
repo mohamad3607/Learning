@@ -22,5 +22,7 @@ namespace Mamedia.Src.Domain.Application.Services
         Artist CreateArtist(Artist artist);
         Artist GetArtistById(int artistId);
         Artist EditArtist(Artist artist);
+        
+
     }
 }

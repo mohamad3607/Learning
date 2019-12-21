@@ -1,0 +1,116 @@
+﻿
+@using Mamedia.Src.UI.Web.Models.PostModel;
+@using Mamedia.Src.Domain.Core.Entities;
+
+@{
+    ViewData["Title"] = "جزئیات آهنگ";
+
+    Layout = "~/Views/Shared/Anonymous.cshtml";
+
+}
+
+@model Mamedia.Src.UI.Web.Models.PostModel.TrackPostDetailsViewModel
+
+@section Styles{
+    <link rel="stylesheet" href="~/Content/NewFaceDetails.css" />
+    <link rel="stylesheet" href="~/Content/font-awesome.css" />
+}
+
+
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <img src="@Model.CoverPhotoUrl" alt="@Model.CoverPhotoTag" class="detailsImage" />
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <h2 class="he2">@Model.Title</h2>
+        <p>
+            <strong>
+                <a asp-action="PostKind" asp-controller="Home" asp-route-id=@Model.PostKind.Title>دانلود @Model.PostKind.Title</a>
+                @for (int i = 0; i < Model.Artists.Count; i++)
+                {
+                    string name = "";
+                    string url = "";
+                    if (i != Model.Artists.Count - 1)
+                    {
+                        name = Model.Artists[i].Name + " و ";
+                    }
+                    else
+                    {
+                        name = Model.Artists[i].Name;
+                    }
+                    url = Model.Artists[i].Name;
+                    <a asp-action="Details" asp-controller="Artist" asp-route-id=@url>@name</a>
+                }
+                <a asp-action="PostDetails" asp-controller="Home">با نام @Model.OpusName</a>
+            </strong>
+        </p>
+        <p>
+            <strong>
+                @foreach (Artist artist in Model.Artists)
+                {
+                    <a asp-action="Details" asp-controller="Artist" asp-route-id=@artist.LatinName style="color:#505050">@artist.LatinName</a>
+                }
+                <a asp-action="PostDetails" asp-controller="Home" style="color:#505050">@Model.OpusLatinName</a>
+            </strong>
+        </p>
+        <p>
+            <strong>قسمتی از ترانه: </strong>
+            @Model.Cross
+        </p>
+
+        @foreach (Link link in Model.Links)
+        {
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="@link.UrlForLink" class="btn btn-primary">
+                    <i class="fa fa-download fa-2x"></i>
+                    <span>@link.Tilte</span>
+                </a>
+            </div>
+        }
+
+        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 sharing">
+            <div>
+                <a href="https://telegram.me/share/url?url=http://mamedia.ir/Home/PostDetails/@Model.UniqueId&text=@Model.OpusName">
+                    <span style="color:#808080">
+                        <i class="fa fa-telegram fa-2x"></i>
+                    </span>
+                </a>
+            </div>
+            <div>
+                <span style="color:#808080">
+                    <i class="fa fa-calendar fa-2x"></i>
+                </span>
+                <span>@Model.PersianDateTime</span>
+            </div>
+            <div>
+                <span style="color:#808080">
+                    <i class="fa fa-thumbs-up fa-2x"></i>
+                </span>
+                <span>@Model.LikeCount</span>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 player">
+            <audio src="@Model.Links[0].UrlForLink" controls></audio>
+        </div>
+    </div>
+
+</div>
+<div class="row artistDiv">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="artistTitle" col-md-12 col-lg-12 col-sm-12 col-xs-12>
+            <span>پیوندهای مرتبط</span>
+
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="lyrics">
+            <div class="artistTitle" col-md-12 col-lg-12 col-sm-12 col-xs-12>
+                <span>متن ترانه</span>
+                <p>
+                    @Model.Lyric
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
