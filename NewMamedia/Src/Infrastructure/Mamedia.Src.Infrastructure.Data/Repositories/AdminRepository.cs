@@ -73,7 +73,8 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         public IEnumerable<Post> GetAllPosts()
         {
             return _context.Posts
-                .Include(p => p.PostKind);
+                .Include(p => p.PostKind)
+                .OrderByDescending(p=>p.PublishDate).ThenByDescending(p=>p.Id);
         }
 
         public IEnumerable<TypeOfArtist> GetAllTypeOfArtists()
