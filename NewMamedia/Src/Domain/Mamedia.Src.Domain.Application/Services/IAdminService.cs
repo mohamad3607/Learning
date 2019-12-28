@@ -13,6 +13,7 @@ namespace Mamedia.Src.Domain.Application.Services
         Post GetPostById(int id);
         Post EditPost(Post post);
         TrackPost CreateTrackPost(TrackPost post);
+        TrackPost EditTrackPost(TrackPost post);
         TrackPost CreatePurchasableAlbumPost(PurchasableAlbumPost post);
         Post DeletePost(int id);
         IEnumerable<PostKind> GetAllPostKinds();
@@ -22,6 +23,7 @@ namespace Mamedia.Src.Domain.Application.Services
         Artist CreateArtist(Artist artist);
         Artist GetArtistById(int artistId);
         Artist EditArtist(Artist artist);
+        TrackPost GetTrackPostById(int Id);
         
 
     }

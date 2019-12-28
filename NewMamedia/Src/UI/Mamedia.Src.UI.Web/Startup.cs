@@ -49,7 +49,7 @@ namespace Mamedia.Src.UI.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<MamediaDataContext>(
                 opt => opt
-                    .UseSqlServer(_conf.GetConnectionString("MamediaConnection")));
+                    .UseSqlServer(_conf.GetConnectionString("MamediaDev")));
 
             services.AddScoped<IAdminService, AdminInteractor>();
             services.AddScoped<IAdminRepository, AdminRepository>();

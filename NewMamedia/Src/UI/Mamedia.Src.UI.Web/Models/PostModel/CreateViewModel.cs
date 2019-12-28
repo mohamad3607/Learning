@@ -8,7 +8,7 @@ namespace Mamedia.Src.UI.Web.Models.PostModel
 {
     public class CreateViewModel
     {
-
+        public int Id { get; set; }
         [Display(Name = "عنوان")]
         public string Title { get; set; }
 

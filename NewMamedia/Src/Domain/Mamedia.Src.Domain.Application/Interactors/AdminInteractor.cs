@@ -67,7 +67,7 @@ namespace Mamedia.Src.Domain.Application.Interactors
 
         public Post GetPostById(int id)
         {
-            throw new NotImplementedException();
+            return _repository.GetPostById(id);
         }
 
         public Post GetPostByUniqueId(string uniqueId)
@@ -90,6 +90,14 @@ namespace Mamedia.Src.Domain.Application.Interactors
             throw new NotImplementedException();
         }
 
-       
+        public TrackPost GetTrackPostById(int Id)
+        {
+            return _repository.GetTrackPostById(Id);
+        }
+
+        public TrackPost EditTrackPost(TrackPost post)
+        {
+            return _repository.EditTrackPost(post);
+        }
     }
 }

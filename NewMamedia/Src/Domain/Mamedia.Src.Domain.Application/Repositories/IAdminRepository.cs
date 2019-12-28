@@ -11,6 +11,7 @@ namespace Mamedia.Src.Domain.Application.Repositories
         Post GetPostByUniqueId(string uniqueId);
         Post GetPostById(int id);
         TrackPost CreateTrackPost(TrackPost post);
+        TrackPost EditTrackPost(TrackPost post);
         TrackPost CreatePurchasableAlbumPost(PurchasableAlbumPost post);
         Post DeletePost(int id);
         IEnumerable<Post> GetPublishablePosts();
@@ -22,6 +23,7 @@ namespace Mamedia.Src.Domain.Application.Repositories
         Artist GetArtistById(int artistId);
         Artist EditArtist(Artist artist);
         Post EditPost(Post post);
-       
+        TrackPost GetTrackPostById(int Id);
+
     }
 }

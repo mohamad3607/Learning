@@ -8,6 +8,7 @@ namespace Mamedia.Src.UI.Web.Models
     {
         public AllPostsViewModel(Post post)
         {
+            Id = post.Id;
             Title = post.Title;
             PublishDate = post.PublishDate;
             UniqueId = post.UniqueId;

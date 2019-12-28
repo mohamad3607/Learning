@@ -52,6 +52,15 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             throw new NotImplementedException();
         }
 
+        public TrackPost EditTrackPost(TrackPost post)
+        {
+            
+            _context.Posts.Update(post);
+            if (post != null)
+                _context.SaveChanges();
+            return post;
+        }
+
         public IEnumerable<ArtistType> GetAllArtistTypes()
         {
             return _context.ArtistTypes
@@ -91,7 +100,8 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
 
         public Post GetPostById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Posts.Where(p => p.Id == id)
+                .FirstOrDefault();
         }
 
         public Post GetPostByUniqueId(string uniqueId)
@@ -104,6 +114,14 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             throw new NotImplementedException();
         }
 
-        
+        public TrackPost GetTrackPostById(int Id)
+        {
+            return _context.Posts.OfType<TrackPost>().Where(p => p.Id == Id)
+                 .Include(p => p.Info)
+                 .Include(p=>p.PostKind)
+                 .Include(p=>p.Artists)
+                 .Include(p=>p.Links)
+                 .FirstOrDefault();
+        }
     }
 }
