@@ -54,11 +54,35 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
 
         public TrackPost EditTrackPost(TrackPost post)
         {
+
+            var tpost = _context.Posts.OfType<TrackPost>().Where(p => p.Id == post.Id)
+                 .Include(p => p.Info)
+                 .Include(p => p.PostKind)
+                 .Include(p => p.Artists)
+                 .Include(p => p.Links)
+                .FirstOrDefault();
+
+            tpost.Artists = post.Artists;
+            tpost.AuthorId = post.AuthorId;
+            tpost.CoverPhotoTag = post.CoverPhotoTag;
+            tpost.CoverPhotoUrl = post.CoverPhotoUrl;
+            tpost.Info = post.Info;
+            tpost.Links = post.Links;
+            tpost.OpusLatinName = post.OpusLatinName;
+            tpost.OpusName = post.OpusName;
+            tpost.PostKindId = post.PostKindId;
+            tpost.PublishDate = post.PublishDate;
+            tpost.PublishPermission = post.PublishPermission;
+            tpost.Title = post.Title;
+            tpost.UniqueId = post.UniqueId;
             
-            _context.Posts.Update(post);
-            if (post != null)
+            _context.Posts.Attach(tpost);
+            _context.Posts.Update(tpost);
+            if (tpost != null)
+            {
                 _context.SaveChanges();
-            return post;
+            }
+            return tpost;
         }
 
         public IEnumerable<ArtistType> GetAllArtistTypes()

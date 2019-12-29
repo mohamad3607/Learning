@@ -47,8 +47,10 @@ namespace Mamedia.Src.UI.Web.Controllers
             }
 
             GetPostNeeds();
-
-            return View();
+            TrackCreateViewModel model = new TrackCreateViewModel();
+            model.PublishDate = DateTime.Now;
+            model.AllowToPublish = true;
+            return View(model);
         }
 
         private void GetPostNeeds()
@@ -114,7 +116,7 @@ namespace Mamedia.Src.UI.Web.Controllers
             {
                 TempData["Result"] = ex.Message;
             }
-            return RedirectToAction("CreateTrackPost");
+            return RedirectToAction("CreateTrackPost",model);
         }
 
         [HttpGet]
@@ -364,14 +366,15 @@ namespace Mamedia.Src.UI.Web.Controllers
                     PostArtist type = new PostArtist()
                     {
                         ArtistTypeId = index,
-                        Post = post
+                        Post = post,
+                        IsMain=true
                     };
                     artistList.Add(type);
                 }
                 post.Artists = artistList;
                 _service.EditTrackPost(post);
                 TempData["Result"] = "OK";
-                return RedirectToAction("CreateTrackPost");
+                return RedirectToAction("EditTrackPost");
             }
             catch (Exception ex)
             {
