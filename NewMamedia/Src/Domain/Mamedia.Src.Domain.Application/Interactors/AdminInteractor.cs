@@ -20,9 +20,9 @@ namespace Mamedia.Src.Domain.Application.Interactors
             return _repository.CreateArtist(artist);
         }
 
-        public TrackPost CreatePurchasableAlbumPost(PurchasableAlbumPost post)
+        public PurchasableAlbumPost CreatePurchasableAlbumPost(PurchasableAlbumPost post)
         {
-            throw new NotImplementedException();
+            return _repository.CreatePurchasableAlbumPost(post);
         }
 
         public TrackPost CreateTrackPost(TrackPost post)
@@ -98,6 +98,16 @@ namespace Mamedia.Src.Domain.Application.Interactors
         public TrackPost EditTrackPost(TrackPost post)
         {
             return _repository.EditTrackPost(post);
+        }
+
+        public PurchasableAlbumPost GetPAlbumById(int Id)
+        {
+            return _repository.GetPAlbumById(Id);
+        }
+
+        public PurchasableAlbumPost EditPAlbum(PurchasableAlbumPost post)
+        {
+            return _repository.EditPAlbum(post);
         }
     }
 }

@@ -22,4 +22,16 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Admin\CreatePAlbum.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Admin\EditPurchasableAlbumPost.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Home\PurchasableAlbumPostDetails.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>

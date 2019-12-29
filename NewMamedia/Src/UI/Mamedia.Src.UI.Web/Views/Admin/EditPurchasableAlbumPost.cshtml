@@ -1,0 +1,115 @@
+﻿@if (!User.Identity.IsAuthenticated)
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Mamedia.Src.UI.Web.Models.PostModel.PAlbumCreateViewModel
+<h2>وایرایش آلبوم قابل فروش </h2>
+
+<form asp-action="EditPurchasableAlbumPost">
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <h2>اطلاعات کلی</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllowToPublish" class="control-label"></label>
+                <input asp-for="AllowToPublish" />
+                <span asp-validation-for="AllowToPublish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublishDate" class="control-label"></label>
+                <input asp-for="PublishDate" class="form-control" />
+                <span asp-validation-for="PublishDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UniqueId" class="control-label"></label>
+                <input asp-for="UniqueId" class="form-control" />
+                <span asp-validation-for="UniqueId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostKind" class="control-label"></label>
+                @Html.DropDownList("PostKind", ViewBag.Kinds, "", new { @class = "form-control" })
+                <span asp-validation-for="PostKind" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="margin-right:0px">
+                <label asp-for="ArtistTypes" class="control-label"></label>
+                <select multiple="multiple" class="form-control" id="my_multi_select1"
+                        asp-for="ArtistTypes" asp-items="(List<SelectListItem>)ViewBag.Artists"></select>
+                <span asp-validation-for="ArtistTypes" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h2>اطلاعات آلبوم</h2>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnglishName" class="control-label"></label>
+                <input asp-for="EnglishName" class="form-control" />
+                <span asp-validation-for="EnglishName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoverPhotoAddress" class="control-label"></label>
+                <input asp-for="CoverPhotoAddress" class="form-control" />
+                <span asp-validation-for="CoverPhotoAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoverPhotoAlterText" class="control-label"></label>
+                <input asp-for="CoverPhotoAlterText" class="form-control" />
+                <span asp-validation-for="CoverPhotoAlterText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Link" class="control-label"></label>
+                <input asp-for="Link" class="form-control" />
+                <span asp-validation-for="Link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" rows="2" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <h2>خلاصه آلبوم</h2>
+                <hr />
+                <label asp-for="Summary" class="control-label"></label>
+                <textarea asp-for="Summary" rows="20" class="form-control"></textarea>
+                <span asp-validation-for="Summary" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" style="margin-top:10px;padding-right:20px;">
+                <input type="submit" value="ویرایش نوشته" class="btn btn-primary" />
+                <a asp-action="PostManagement">برگشت به لیست</a>
+            </div>
+            <div style="margin-top:10px">
+                @{
+                    if (TempData["Result"] != null)
+                    {
+                        if ((string)TempData["Result"] == "OK")
+                        {
+                            <label class="text-success">با موفقیت ویرایش شد</label>
+                        }
+                        else
+                        {
+                            <label class="text-danger">@TempData["Result"]</label>
+                        }
+                    }
+                }
+            </div>
+
+        </div>
+
+    </div>
+</form>

@@ -19,6 +19,11 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             throw new NotImplementedException();
         }
 
+        public PurchasableAlbumInfo GetPAlbumInfoByPostId(int postId)
+        {
+            return _context.PurchasableAlbumInfos.Where(t => t.PostId == postId).FirstOrDefault();
+        }
+
         public Post GetPostByUniqueId(string uniqueId)
         {
             return _context.Posts.Where(p => p.UniqueId == uniqueId)

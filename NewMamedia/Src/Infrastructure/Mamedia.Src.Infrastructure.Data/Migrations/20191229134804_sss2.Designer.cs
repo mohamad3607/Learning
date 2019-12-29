@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    [Migration("20191217113813_Users")]
-    partial class Users
+    [Migration("20191229134804_sss2")]
+    partial class sss2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,43 +23,18 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.Admin", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccessFailedCount");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("BirthDate");
 
-                    b.Property<string>("ConcurrencyStamp");
-
                     b.Property<string>("Email");
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail");
-
-                    b.Property<string>("NormalizedUserName");
 
                     b.Property<string>("Password")
                         .HasMaxLength(20);
 
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
                     b.Property<DateTime>("RegisterDate");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName");
 
                     b.Property<string>("Username")
                         .HasMaxLength(50);
@@ -136,8 +111,6 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<int>("AuthorId");
 
-                    b.Property<string>("AuthorId1");
-
                     b.Property<string>("CoverPhotoTag")
                         .HasMaxLength(150);
 
@@ -167,7 +140,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId1");
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("PostKindId");
 
@@ -223,7 +196,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.HasKey("PostId");
 
-                    b.ToTable("PurchasableAlbumInfo");
+                    b.ToTable("PurchasableAlbumInfos");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.TrackInfo", b =>
@@ -261,14 +234,14 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     );
                 });
 
-            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.PurchasableAlbumPost", b =>
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.Album", b =>
                 {
                     b.HasBaseType("Mamedia.Src.Domain.Core.Entities.Post");
 
 
-                    b.ToTable("PurchasableAlbumPost");
+                    b.ToTable("Album");
 
-                    b.HasDiscriminator().HasValue("PurchasableAlbumPost");
+                    b.HasDiscriminator().HasValue("Album");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.TrackPost", b =>
@@ -279,6 +252,16 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     b.ToTable("TrackPost");
 
                     b.HasDiscriminator().HasValue("TrackPost");
+                });
+
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.PurchasableAlbumPost", b =>
+                {
+                    b.HasBaseType("Mamedia.Src.Domain.Core.Entities.Album");
+
+
+                    b.ToTable("PurchasableAlbumPost");
+
+                    b.HasDiscriminator().HasValue("PurchasableAlbumPost");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.ArtistType", b =>
@@ -306,7 +289,8 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                 {
                     b.HasOne("Mamedia.Src.Domain.Core.Entities.Admin", "Author")
                         .WithMany("Posts")
-                        .HasForeignKey("AuthorId1");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Mamedia.Src.Domain.Core.Entities.PostKind", "PostKind")
                         .WithMany("Posts")

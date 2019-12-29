@@ -2,7 +2,7 @@
 
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
-    public partial class Albums : Migration
+    public partial class sss3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

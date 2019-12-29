@@ -273,6 +273,10 @@ namespace Mamedia.Src.UI.Web.Controllers
             {
                 return RedirectToAction("EditTrackPost", postId);
             }
+            else if(post is PurchasableAlbumPost pAlbum)
+            {
+                return RedirectToAction("EditPurchasableAlbumPost", postId);
+            }
 
             return View();
 
@@ -398,6 +402,185 @@ namespace Mamedia.Src.UI.Web.Controllers
             return View();
 
         }
+
+        [HttpGet]
+        public ActionResult CreatePurchasableAlbum()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
+
+            GetPostNeeds();
+            PAlbumCreateViewModel model = new PAlbumCreateViewModel();
+            model.PublishDate = DateTime.Now;
+            model.AllowToPublish = true;
+            return View("CreatePAlbum",model);
+        }
+        [HttpPost]
+        public IActionResult CreatePAlbumPost([Bind] Models.PostModel.PAlbumCreateViewModel model)
+        {
+            try
+            {
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("SignIn", "Account");
+                }
+                PurchasableAlbumPost post = new PurchasableAlbumPost()
+                {
+                    AuthorId = 2,
+                    PublishPermission = model.AllowToPublish,
+                    Title = model.Title,
+                    UniqueId = model.UniqueId,
+                    PublishDate = model.PublishDate,
+                    CoverPhotoTag = model.CoverPhotoAlterText,
+                    CoverPhotoUrl = model.CoverPhotoAddress,
+                    Info = new PurchasableAlbumInfo()
+                    {
+                        Summary = model.Summary,
+                        Price = model.Price
+                    },
+                    Links = new List<Link>() {
+                       new Link(){ Tilte=$"خرید قانونی با قیمت {model.Price} تومان" , UrlForLink=model.Link}
+                    },
+                    OpusLatinName = model.EnglishName,
+                    OpusName = model.Name,
+                    PostKindId = model.PostKind
+                };
+                var artistList = new List<PostArtist>();
+                foreach (int index in model.ArtistTypes)
+                {
+                    PostArtist type = new PostArtist()
+                    {
+                        ArtistTypeId = index,
+                        Post = post
+                    };
+                    artistList.Add(type);
+                }
+                post.Artists = artistList;
+                _service.CreatePurchasableAlbumPost(post);
+                TempData["Result"] = "OK";
+                return RedirectToAction("CreatePurchasableAlbum");
+            }
+            catch (Exception ex)
+            {
+                TempData["Result"] = ex.Message;
+            }
+            return RedirectToAction("CreatePurchasableAlbum", model);
+        }
+
+        [HttpGet("Admin/EditPurchasableAlbumPost/{postId}")]
+        public ActionResult EditPurchasableAlbumPost(int postId)
+        {
+            PurchasableAlbumPost model = _service.GetPAlbumById(postId);
+            PAlbumCreateViewModel post;
+            try
+            {
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("SignIn", "Account");
+                }
+                post = new PAlbumCreateViewModel()
+                {
+                    Id = model.Id,
+                    AllowToPublish = model.PublishPermission,
+                    Title = model.Title,
+                    UniqueId = model.UniqueId,
+                    PublishDate = model.PublishDate,
+                    CoverPhotoAlterText = model.CoverPhotoTag,
+                    CoverPhotoAddress = model.CoverPhotoUrl,
+                    Summary = model.Info.Summary,
+                    Price = model.Info.Price,
+
+                    Link = model.Links.Select(a => a.UrlForLink).FirstOrDefault(),
+                    EnglishName = model.OpusLatinName,
+                    Name = model.OpusName,
+                    PostKind = model.PostKindId,
+                    ArtistTypes = model.Artists.Select(a => a.ArtistTypeId)
+                };
+                ViewBag.Artists = _service.GetAllArtistTypes().Select(at => new SelectListItem
+                {
+                    Value = at.Id.ToString(),
+                    Text = at.Artist.Name + "------" + at.Type.Type,
+                    Selected = CheckPostArtistSelection(at.Id, model.Artists)
+                }).ToList();
+                ViewBag.Kinds = _service.GetAllPostKinds().Select(at => new SelectListItem
+                {
+                    Value = at.Id.ToString(),
+                    Text = at.Title,
+                    Selected = (at.Id == model.PostKindId)
+                }).ToList();
+
+                return View(post);
+            }
+            catch (Exception ex)
+            {
+            }
+            return View();
+
+
+        }
+
+        [HttpPost]
+        public ActionResult EditPurchasableAlbumPost([Bind] Models.PostModel.PAlbumCreateViewModel model)
+        {
+            try
+            {
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("SignIn", "Account");
+                }
+                PurchasableAlbumPost post = new PurchasableAlbumPost()
+                {
+                    Id = model.Id,
+                    AuthorId = 2,
+                    PublishPermission = model.AllowToPublish,
+                    Title = model.Title,
+                    UniqueId = model.UniqueId,
+                    PublishDate = model.PublishDate,
+                    CoverPhotoTag = model.CoverPhotoAlterText,
+                    CoverPhotoUrl = model.CoverPhotoAddress,
+                    Info = new PurchasableAlbumInfo()
+                    {
+                        Summary = model.Summary,
+                        Price = model.Price,
+                    },
+                    Links = new List<Link>() {
+                        new Link(){ Tilte=$"خرید قانونی با قیمت {model.Price} تومان" , UrlForLink=model.Link}
+                    },
+                    OpusLatinName = model.EnglishName,
+                    OpusName = model.Name,
+                    PostKindId = model.PostKind
+                };
+                var artistList = new List<PostArtist>();
+                foreach (int index in model.ArtistTypes)
+                {
+                    PostArtist type = new PostArtist()
+                    {
+                        ArtistTypeId = index,
+                        Post = post,
+                        IsMain = true
+                    };
+                    artistList.Add(type);
+                }
+                post.Artists = artistList;
+                _service.EditPAlbum(post);
+                TempData["Result"] = "OK";
+                return RedirectToAction("EditPurchasableAlbumPost");
+            }
+            catch (Exception ex)
+            {
+                TempData["Result"] = ex.Message;
+            }
+            return RedirectToAction("EditPurchasableAlbumPost");
+
+        }
+
+
+
+
+
+
 
         private bool CheckPostArtistSelection(int id, ICollection<PostArtist> artists)
         {

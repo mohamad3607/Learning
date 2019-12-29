@@ -194,7 +194,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.HasKey("PostId");
 
-                    b.ToTable("PurchasableAlbumInfo");
+                    b.ToTable("PurchasableAlbumInfos");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.TrackInfo", b =>
@@ -232,14 +232,14 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     );
                 });
 
-            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.PurchasableAlbumPost", b =>
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.Album", b =>
                 {
                     b.HasBaseType("Mamedia.Src.Domain.Core.Entities.Post");
 
 
-                    b.ToTable("PurchasableAlbumPost");
+                    b.ToTable("Album");
 
-                    b.HasDiscriminator().HasValue("PurchasableAlbumPost");
+                    b.HasDiscriminator().HasValue("Album");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.TrackPost", b =>
@@ -250,6 +250,16 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     b.ToTable("TrackPost");
 
                     b.HasDiscriminator().HasValue("TrackPost");
+                });
+
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.PurchasableAlbumPost", b =>
+                {
+                    b.HasBaseType("Mamedia.Src.Domain.Core.Entities.Album");
+
+
+                    b.ToTable("PurchasableAlbumPost");
+
+                    b.HasDiscriminator().HasValue("PurchasableAlbumPost");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.ArtistType", b =>

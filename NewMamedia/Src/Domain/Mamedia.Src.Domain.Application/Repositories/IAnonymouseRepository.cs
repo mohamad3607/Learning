@@ -11,6 +11,7 @@ namespace Mamedia.Src.Domain.Application.Repositories
         Post GetPostByUniqueId(string uniqueId);
         IEnumerable<PostKind> GetAllPostKinds();
         TrackInfo GetTrackInfoByPostId(int postId);
+        PurchasableAlbumInfo GetPAlbumInfoByPostId(int postId);
         IEnumerable<Post> GetPublishablePostsByKind(string kind);
         IEnumerable<Post> GetPublishableTracks();
         IEnumerable<Post> GetPublishableAlbums();

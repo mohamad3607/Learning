@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    [Migration("20191217075653_Albums")]
-    partial class Albums
+    [Migration("20191229134533_sss")]
+    partial class sss
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,8 +29,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<DateTime>("BirthDate");
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(200);
+                    b.Property<string>("Email");
 
                     b.Property<string>("Password")
                         .HasMaxLength(20);
@@ -197,7 +196,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.HasKey("PostId");
 
-                    b.ToTable("PurchasableAlbumInfo");
+                    b.ToTable("PurchasableAlbumInfos");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.TrackInfo", b =>
@@ -235,14 +234,14 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     );
                 });
 
-            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.PurchasableAlbumPost", b =>
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.Album", b =>
                 {
                     b.HasBaseType("Mamedia.Src.Domain.Core.Entities.Post");
 
 
-                    b.ToTable("PurchasableAlbumPost");
+                    b.ToTable("Album");
 
-                    b.HasDiscriminator().HasValue("PurchasableAlbumPost");
+                    b.HasDiscriminator().HasValue("Album");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.TrackPost", b =>
@@ -253,6 +252,16 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     b.ToTable("TrackPost");
 
                     b.HasDiscriminator().HasValue("TrackPost");
+                });
+
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.PurchasableAlbumPost", b =>
+                {
+                    b.HasBaseType("Mamedia.Src.Domain.Core.Entities.Album");
+
+
+                    b.ToTable("PurchasableAlbumPost");
+
+                    b.HasDiscriminator().HasValue("PurchasableAlbumPost");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.ArtistType", b =>

@@ -123,6 +123,12 @@ namespace Mamedia.Src.UI.Web.Controllers
                 TrackPostDetailsViewModel vm = new TrackPostDetailsViewModel(post, info);
                 return View("TrackPostDetails", vm);
             }
+            if (post is PurchasableAlbumPost)
+            {
+                var info = _postService.GetPAlbumInfoByPostId(post.Id);
+                PAlbumPostDetailsViewModel vm = new PAlbumPostDetailsViewModel(post, info);
+                return View("PurchasableAlbumPostDetails", vm);
+            }
             PostDetailsViewModel model = new PostDetailsViewModel(post);
             return View(model);
         }

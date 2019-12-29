@@ -23,9 +23,11 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             return addedArtist;
         }
 
-        public TrackPost CreatePurchasableAlbumPost(PurchasableAlbumPost post)
+        public PurchasableAlbumPost CreatePurchasableAlbumPost(PurchasableAlbumPost post)
         {
-            throw new NotImplementedException();
+            var addedPost = (PurchasableAlbumPost)_context.Posts.Add(post).Entity;
+            _context.SaveChanges();
+            return addedPost;
         }
 
         public TrackPost CreateTrackPost(TrackPost post)
@@ -45,6 +47,38 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             var result = _context.Artists.Update(artist).Entity;
             _context.SaveChanges();
             return result;
+        }
+
+        public PurchasableAlbumPost EditPAlbum(PurchasableAlbumPost post)
+        {
+            var tpost = _context.Posts.OfType<PurchasableAlbumPost>().Where(p => p.Id == post.Id)
+                 .Include(p => p.Info)
+                 .Include(p => p.PostKind)
+                 .Include(p => p.Artists)
+                 .Include(p => p.Links)
+                .FirstOrDefault();
+
+            tpost.Artists = post.Artists;
+            tpost.AuthorId = post.AuthorId;
+            tpost.CoverPhotoTag = post.CoverPhotoTag;
+            tpost.CoverPhotoUrl = post.CoverPhotoUrl;
+            tpost.Info = post.Info;
+            tpost.Links = post.Links;
+            tpost.OpusLatinName = post.OpusLatinName;
+            tpost.OpusName = post.OpusName;
+            tpost.PostKindId = post.PostKindId;
+            tpost.PublishDate = post.PublishDate;
+            tpost.PublishPermission = post.PublishPermission;
+            tpost.Title = post.Title;
+            tpost.UniqueId = post.UniqueId;
+
+            _context.Posts.Attach(tpost);
+            _context.Posts.Update(tpost);
+            if (tpost != null)
+            {
+                _context.SaveChanges();
+            }
+            return tpost;
         }
 
         public Post EditPost(Post post)
@@ -120,6 +154,16 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             return _context.Artists.Where(a => a.Id == artistId)
                             .Include(a => a.Types)
                             .FirstOrDefault();
+        }
+
+        public PurchasableAlbumPost GetPAlbumById(int Id)
+        {
+            return _context.Posts.OfType<PurchasableAlbumPost>().Where(p => p.Id == Id)
+                 .Include(p => p.Info)
+                 .Include(p => p.PostKind)
+                 .Include(p => p.Artists)
+                 .Include(p => p.Links)
+                 .FirstOrDefault();
         }
 
         public Post GetPostById(int id)

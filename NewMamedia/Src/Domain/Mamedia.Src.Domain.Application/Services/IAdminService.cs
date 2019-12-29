@@ -14,7 +14,7 @@ namespace Mamedia.Src.Domain.Application.Services
         Post EditPost(Post post);
         TrackPost CreateTrackPost(TrackPost post);
         TrackPost EditTrackPost(TrackPost post);
-        TrackPost CreatePurchasableAlbumPost(PurchasableAlbumPost post);
+        PurchasableAlbumPost CreatePurchasableAlbumPost(PurchasableAlbumPost post);
         Post DeletePost(int id);
         IEnumerable<PostKind> GetAllPostKinds();
         IEnumerable<ArtistType> GetAllArtistTypes();
@@ -24,7 +24,8 @@ namespace Mamedia.Src.Domain.Application.Services
         Artist GetArtistById(int artistId);
         Artist EditArtist(Artist artist);
         TrackPost GetTrackPostById(int Id);
-        
+        PurchasableAlbumPost GetPAlbumById(int Id);
+        PurchasableAlbumPost EditPAlbum(PurchasableAlbumPost post);
 
     }
 }

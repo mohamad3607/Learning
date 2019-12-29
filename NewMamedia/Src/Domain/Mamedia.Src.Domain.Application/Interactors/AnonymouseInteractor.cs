@@ -19,6 +19,11 @@ namespace Mamedia.Src.Domain.Application.Interactors
             throw new NotImplementedException();
         }
 
+        public PurchasableAlbumInfo GetPAlbumInfoByPostId(int postId)
+        {
+            return _repository.GetPAlbumInfoByPostId(postId);
+        }
+
         public Post GetPostByUniqueId(string uniqueId)
         {
             return _repository.GetPostByUniqueId(uniqueId);
