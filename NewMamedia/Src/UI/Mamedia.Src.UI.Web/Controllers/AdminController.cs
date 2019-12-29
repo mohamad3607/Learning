@@ -384,6 +384,21 @@ namespace Mamedia.Src.UI.Web.Controllers
            
         }
 
+        [HttpGet("Admin/DeletePost/{postId}")]
+        public ActionResult DeletePost([Bind] int postId)
+        {
+            Post post = _service.GetPostById(postId);
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
+
+            ViewBag.PostTitle = post.Title;
+
+            return View();
+
+        }
+
         private bool CheckPostArtistSelection(int id, ICollection<PostArtist> artists)
         {
             foreach (PostArtist artist in artists)
