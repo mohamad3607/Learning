@@ -54,7 +54,7 @@
                         <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>@post.OpusLatinName</a>
                         <br />
                         <br />
-                        <img src="@post.CoverPhotoUrl" alt="@post.CoverPhotoTag" />
+                        <img class="image" src="@post.CoverPhotoUrl" alt="@post.CoverPhotoTag" />
                         <br /> <br /> <br />
                         <a href=" @post.Links.ToArray()[0].UrlForLink">
                             @post.Links.ToArray()[0].Tilte
