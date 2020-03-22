@@ -1,6 +1,8 @@
 ﻿@using Mamedia.Src.UI.Web.Models.PostModel;
 @using Mamedia.Src.Domain.Core.Entities;
-@model IEnumerable<Mamedia.Src.UI.Web.Models.PostModel.DefaultPagePostsViewModel>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewData["Title"] = "صفحه اصلی";
 
@@ -8,19 +10,19 @@
 }
 <form action="Search">
     @*<div class="searchBox" style="margin-top:30px;">
-        <div class="wrapper">
-            <input type="text"  class="searchBoxButtonEdit" txt" Placeholder="جستجوی خواننده، آهنگ، آلبوم و ..." style="width:90%;height:50px;" name="txtSearch" />
-            
-            <input type="submit" class="searchBoxButtonEdit btn" />
-        </div>
-    </div>*@
+            <div class="wrapper">
+                <input type="text"  class="searchBoxButtonEdit" txt" Placeholder="جستجوی خواننده، آهنگ، آلبوم و ..." style="width:90%;height:50px;" name="txtSearch" />
+
+                <input type="submit" class="searchBoxButtonEdit btn" />
+            </div>
+        </div>*@
 </form>
 
 
 <div class="row">
     @* HERE WILL BE LIST OF POSTS *@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-        @foreach (DefaultPagePostsViewModel post in Model)
+        @foreach (DefaultPagePostsViewModel post in ViewBag.postList)
         {
             <div class="trackDiv">
                 <div class="topTitle">
@@ -69,7 +71,11 @@
 
             </div>
         }
+        <div id="pager" class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="text-align:center; width:100%;">
+            @Html.PagedListPager((IPagedList)ViewBag.postList, page => Url.Action("Index", new { page }))
+        </div>
     </div>
+
 
 
     @* HERE WILL BE THE BEST BOXES *@
