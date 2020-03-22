@@ -7,7 +7,6 @@ namespace Mamedia.Src.Domain.Core.Entities
 {
     public abstract class Post
     {
-
         public int Id { get; set; }
         [MaxLength(500)]
         public string Title { get; set; }
@@ -30,8 +29,7 @@ namespace Mamedia.Src.Domain.Core.Entities
         public ICollection<Link> Links { get; set; }
         public int AuthorId { get; set; }
         public Admin Author { get; set; }
-        
-
+       
         private bool CheckPublishStatus()
         {
             if (PublishDate == null)

@@ -11,9 +11,11 @@ namespace Mamedia.Src.UI.Web.Models.ArtistModel
     {
         
         [Display(Name = "شناسه هنرمند")]
+        
         public int Id { get; set; }
 
         [Display(Name = "نام هنرمند")]
+        
         public string Name { get; set; }
         [Display(Name = "نام لایتن هنرمند")]
         public string EnglishName { get; set; }
