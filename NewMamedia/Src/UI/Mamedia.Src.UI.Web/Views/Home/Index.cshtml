@@ -42,14 +42,14 @@
                         <a asp-action="PostKind" asp-controller="Home" asp-route-id=@post.PostKind.Title>دانلود @post.PostKind.Title</a>
                         @foreach (Artist artist in post.Artists)
                         {
-                            <a asp-action="Details" asp-controller="Artist" asp-route-id=@artist.Name>@artist.Name</a>
+                            <a asp-action="ArtistDetails" asp-controller="Home" asp-route-artistName=@artist.Name>@artist.Name</a>
                         }
                         <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>با نام @post.OpusName</a>
                         <br />
                         <br />
                         @foreach (Artist artist in post.Artists)
                         {
-                            <a asp-action="Details" asp-controller="Artist" asp-route-id=@artist.LatinName>@artist.LatinName</a>
+                            <a asp-action="ArtistDetails" asp-controller="Home" asp-route-artistName=@artist.LatinName>@artist.LatinName</a>
                         }
                         <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>@post.OpusLatinName</a>
                         <br />

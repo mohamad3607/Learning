@@ -16,5 +16,8 @@ namespace Mamedia.Src.Domain.Application.Services
         TrackInfo GetTrackInfoByPostId(int postId);
         PurchasableAlbumInfo GetPAlbumInfoByPostId(int postId);
         IEnumerable<Post> SearchPost(string search);
+        IEnumerable<Artist> GetArtistList();
+        IEnumerable<Artist> GetArtistListByType(string type);
+        Artist GetArtistByName(string name);
     }
 }

@@ -1,0 +1,111 @@
+﻿@using Mamedia.Src.UI.Web.Models.ArtistModel;
+@using Mamedia.Src.Domain.Core.Entities;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@{
+    ViewData["Title"] = "Artists";
+    Layout = "~/Views/Shared/Anonymous.cshtml";
+}
+<link href="~/Content/Artists.css" rel="stylesheet" />
+<h2>هنرمندان</h2>
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="artists">
+            @foreach (ArtistsListViewModel artist in ViewBag.artistList)
+            {
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 item">
+                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+                    <img src="@artist.Image" />
+                </div>
+                <div class="col-sm-8 col-md-8 col-lg-8 col-xs-6">
+                    <h2 class="artistPTitle">@artist.Name</h2>
+                    <h2 class="artistETitle">@artist.LatinName</h2>
+                    @foreach(string str in artist.Types)
+                    {
+                        <h2 class="col-md-3 col-sm-3 col-lg-3 col-xs-6 artistType">
+                            <a asp-controller="Home" asp-action="Artists" asp-route-type="@str">@str</a>
+                        </h2>
+                    }
+                </div> 
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 artistSeeMore">
+                    <a asp-action="ArtistDetails" asp-route-artistName="@artist.Name">مشاهده بیشتر</a>
+                </div>
+                <br />
+            </div>
+            }
+        </div>
+        <div id="pager" class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="text-align:center; width:100%;">
+            @Html.PagedListPager((IPagedList)ViewBag.artistList, page => Url.Action("Artists", new { page }))
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="topTitle">
+            <br />
+            <h2 style="color: #808080">برترین ها</h2>
+            <hr />
+        </div>
+        <div class="lstBox">
+            <ul>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Sina-Hejazi-Soogvar">سینا حجازی- سوگوار</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Reza-Bahram-Hich">رضا بهرام- هیچ</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Reza-Sadeghi-Shahr-Ashoob">رضا صادقی- شهر آشوب</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Mohsen-Ebrahimzadeh-Alagheye-Mahsoos">محسن ابراهیم زاده- علاقه محسوس</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Mehdi-Moghadam-Bad-Jaeiye">مهدی مقدم- بد جاییه</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Hamid-Askari-Raft-Delam">حمید عسکری</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Aron-Afshar-Yare-Ghadimi">آرون افشار- یار قدیمی</a>
+                </li>
+
+            </ul>
+
+        </div>
+        <br />
+        <br />
+        <div class="topTitle">
+            <br />
+            <h2 style="color: #808080">پربازدیدترین ها</h2>
+            <hr />
+        </div>
+        <div class="lstBox">
+            <ul>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Sina-Hejazi-Soogvar">سینا حجازی- سوگوار</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Reza-Bahram-Hich">رضا بهرام- هیچ</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Reza-Sadeghi-Shahr-Ashoob">رضا صادقی- شهر آشوب</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Mohsen-Ebrahimzadeh-Alagheye-Mahsoos">محسن ابراهیم زاده- علاقه محسوس</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Mehdi-Moghadam-Bad-Jaeiye">مهدی مقدم- بد جاییه</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Hamid-Askari-Raft-Delam">حمید عسکری</a>
+                </li>
+                <li>
+                    <a href="http://mamedia.ir/TrackDetails/Aron-Afshar-Yare-Ghadimi">آرون افشار- یار قدیمی</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+
+</div>

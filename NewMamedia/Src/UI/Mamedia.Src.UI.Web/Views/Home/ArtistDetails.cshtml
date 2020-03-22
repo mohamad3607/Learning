@@ -1,0 +1,57 @@
+﻿@model Mamedia.Src.Domain.Core.Entities.Artist
+@using Mamedia.Src.Domain.Core.Entities
+@{
+    ViewData["Title"] = "ArtistDetails";
+    Layout = "~/Views/Shared/Anonymous.cshtml";
+}
+<link href="~/Content/NewFaceDetails.css" rel="stylesheet" />
+<link href="~/Content/ShowBox.css" rel="stylesheet" />
+<h2>هنرمند</h2>
+
+<div class="row">
+    <div class='col-md-4 col-lg-4 col-sm-4 col-xs-12'>
+        <img src='@Model.Image' class='detailsImage' alt='@Model.Name' />
+    </div>
+    <div class='col-md-8 col-lg-8 col-sm-8 col-xs-12 detailContainer'>
+        <h1 class='he2'><strong class='titleName'>نام هنرمند: </strong>@Model.Name</h1>
+        <h1 class='he2'><strong class='titleName'>نام لاتین: </strong>@Model.LatinName</h1>
+        <div class='types col-md-12 col-lg-12 col-sm-12 col-xs-12'>
+
+            <strong class='titleName col-md-3 col-sm-3 col-lg-3 col-xs-6'>زمینه فعالیت: </strong>
+
+            @foreach (ArtistType at in Model.Types)
+            {
+                <a asp-controller="Home" asp-action="Artists" asp-route-type="@at.Type.Type" class="col-md-2 col-sm-2 col-lg-2 col-xs-4">@at.Type.Type</a>
+            }
+        </div>
+
+        <div class='biography types col-md-12 col-sm-12 col-lg-12 col-xs-12'>
+            <strong class='titleName'>بیوگرافی: </strong>
+            <p>@Model.Bio</p>
+        </div>
+    </div>
+
+</div>
+
+<div class='row artistDiv'>
+    <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+        @foreach (ArtistType at in Model.Types)
+        {
+            @foreach (PostArtist pa in at.Posts)
+            {
+                <div class='col-lg-3 col-md-3 col-sm-3 col-xs-6'>
+                    <div class='postItem'>
+                        <a asp-controller="Home" asp-action="PostDetails" asp-route-uniqueId="@pa.Post.UniqueId">
+                            <figure>
+                                <img src="@pa.Post.CoverPhotoUrl"  alt="@pa.Post.CoverPhotoTag" />
+                            </figure>
+                            <div class='postTitle'>
+                                <p>@pa.Post.OpusName</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

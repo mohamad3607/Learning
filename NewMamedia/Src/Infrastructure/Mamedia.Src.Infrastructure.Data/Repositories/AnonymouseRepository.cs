@@ -19,6 +19,37 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             throw new NotImplementedException();
         }
 
+        public Artist GetArtistByName(string name)
+        {
+            var artists = _context.Artists
+                .Where(a => a.LatinName==name || a.Name==name)
+                .Include(a => a.Types).ThenInclude(at => at.Type)
+                .Include(a=>a.Types).ThenInclude(at=>at.Posts).ThenInclude(p=>p.Post)
+                .OrderBy(a => a.Name.Trim())
+                .ThenBy(a => a.Id)
+                .FirstOrDefault();
+            return artists;
+        }
+
+        public IEnumerable<Artist> GetArtistList()
+        {
+            var artists = _context.Artists.Include(a => a.Types).ThenInclude(at => at.Type)
+                .OrderBy(a=>a.Name.Trim())
+                .ThenBy(a=>a.Id);
+            return artists;            
+        }
+
+        public IEnumerable<Artist> GetArtistListByType(string type)
+        {
+            var artists = _context.Artists
+                .Where(a=>a.Types.Any(at => at.Type.Type == type))
+                .Include(a => a.Types)
+                .ThenInclude(at => at.Type)
+                .OrderBy(a => a.Name.Trim())
+                .ThenBy(a => a.Id);
+            return artists;
+        }
+
         public PurchasableAlbumInfo GetPAlbumInfoByPostId(int postId)
         {
             return _context.PurchasableAlbumInfos.Where(t => t.PostId == postId).FirstOrDefault();

@@ -50,6 +50,9 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<string>("Bio");
 
+                    b.Property<string>("Image")
+                        .HasMaxLength(200);
+
                     b.Property<string>("LatinName")
                         .HasMaxLength(150);
 

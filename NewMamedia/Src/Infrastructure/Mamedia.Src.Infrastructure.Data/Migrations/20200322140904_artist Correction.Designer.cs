@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    [Migration("20191229134804_sss2")]
-    partial class sss2
+    [Migration("20200322140904_artist Correction")]
+    partial class artistCorrection
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,6 +51,9 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Bio");
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(200);
 
                     b.Property<string>("LatinName")
                         .HasMaxLength(150);

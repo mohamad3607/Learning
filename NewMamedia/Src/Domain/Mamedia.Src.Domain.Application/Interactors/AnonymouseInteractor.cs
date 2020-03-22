@@ -19,6 +19,21 @@ namespace Mamedia.Src.Domain.Application.Interactors
             throw new NotImplementedException();
         }
 
+        public Artist GetArtistByName(string name)
+        {
+            return _repository.GetArtistByName(name);
+        }
+
+        public IEnumerable<Artist> GetArtistList()
+        {
+            return _repository.GetArtistList();
+        }
+
+        public IEnumerable<Artist> GetArtistListByType(string type)
+        {
+            return _repository.GetArtistListByType(type);
+        }
+
         public PurchasableAlbumInfo GetPAlbumInfoByPostId(int postId)
         {
             return _repository.GetPAlbumInfoByPostId(postId);

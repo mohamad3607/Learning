@@ -16,5 +16,8 @@ namespace Mamedia.Src.Domain.Application.Repositories
         IEnumerable<Post> GetPublishableTracks();
         IEnumerable<Post> GetPublishableAlbums();
         IEnumerable<Post> SearchPost(string search);
+        IEnumerable<Artist> GetArtistList();
+        IEnumerable<Artist> GetArtistListByType(string type);
+        Artist GetArtistByName(string name);
     }
 }
