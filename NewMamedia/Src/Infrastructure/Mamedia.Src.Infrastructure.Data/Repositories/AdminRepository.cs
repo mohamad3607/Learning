@@ -18,9 +18,16 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
 
         public Artist CreateArtist(Artist artist)
         {
-            var addedArtist= _context.Artists.Add(artist).Entity;
+            var addedArtist = _context.Artists.Add(artist).Entity;
             _context.SaveChanges();
             return addedArtist;
+        }
+
+        public MetaInfo CreateMetaInfo(MetaInfo meta)
+        {
+            var entity = _context.MetaInfos.Add(meta).Entity;
+            _context.SaveChanges();
+            return entity;
         }
 
         public PurchasableAlbumPost CreatePurchasableAlbumPost(PurchasableAlbumPost post)
@@ -37,6 +44,16 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             return addedPost;
         }
 
+        public bool DeleteMetaInfoById(int id)
+        {
+            var result = _context.MetaInfos.Remove(_context.MetaInfos.Where(m => m.Id == id).FirstOrDefault()).Entity;
+            if (result != null)
+            {
+                _context.SaveChanges();
+            }
+            return result != null;
+        }
+
         public Post DeletePost(int id)
         {
             throw new NotImplementedException();
@@ -45,6 +62,13 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         public Artist EditArtist(Artist artist)
         {
             var result = _context.Artists.Update(artist).Entity;
+            _context.SaveChanges();
+            return result;
+        }
+
+        public MetaInfo EditMetaInfo(MetaInfo meta)
+        {
+            var result = _context.MetaInfos.Update(meta).Entity;
             _context.SaveChanges();
             return result;
         }
@@ -109,7 +133,7 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             tpost.PublishPermission = post.PublishPermission;
             tpost.Title = post.Title;
             tpost.UniqueId = post.UniqueId;
-            
+
             _context.Posts.Attach(tpost);
             _context.Posts.Update(tpost);
             if (tpost != null)
@@ -129,7 +153,12 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
 
         public IEnumerable<Artist> GetAllArtitsts()
         {
-            return _context.Artists.OrderBy(a=>a.Name);
+            return _context.Artists.OrderBy(a => a.Name);
+        }
+
+        public IEnumerable<MetaInfo> GetAllMetas()
+        {
+            return _context.MetaInfos.ToList();
         }
 
         public IEnumerable<PostKind> GetAllPostKinds()
@@ -141,7 +170,7 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         {
             return _context.Posts
                 .Include(p => p.PostKind)
-                .OrderByDescending(p=>p.PublishDate).ThenByDescending(p=>p.Id);
+                .OrderByDescending(p => p.PublishDate).ThenByDescending(p => p.Id);
         }
 
         public IEnumerable<TypeOfArtist> GetAllTypeOfArtists()
@@ -154,6 +183,12 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             return _context.Artists.Where(a => a.Id == artistId)
                             .Include(a => a.Types)
                             .FirstOrDefault();
+        }
+
+        public MetaInfo GetMetaById(int id)
+        {
+            return _context.MetaInfos.Where(m => m.Id == id)
+                .FirstOrDefault();
         }
 
         public PurchasableAlbumPost GetPAlbumById(int Id)
@@ -186,9 +221,9 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         {
             return _context.Posts.OfType<TrackPost>().Where(p => p.Id == Id)
                  .Include(p => p.Info)
-                 .Include(p=>p.PostKind)
-                 .Include(p=>p.Artists)
-                 .Include(p=>p.Links)
+                 .Include(p => p.PostKind)
+                 .Include(p => p.Artists)
+                 .Include(p => p.Links)
                  .FirstOrDefault();
         }
     }

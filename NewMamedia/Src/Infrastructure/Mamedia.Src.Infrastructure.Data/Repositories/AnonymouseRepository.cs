@@ -22,9 +22,9 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         public Artist GetArtistByName(string name)
         {
             var artists = _context.Artists
-                .Where(a => a.LatinName==name || a.Name==name)
+                .Where(a => a.LatinName == name || a.Name == name)
                 .Include(a => a.Types).ThenInclude(at => at.Type)
-                .Include(a=>a.Types).ThenInclude(at=>at.Posts).ThenInclude(p=>p.Post)
+                .Include(a => a.Types).ThenInclude(at => at.Posts).ThenInclude(p => p.Post)
                 .OrderBy(a => a.Name.Trim())
                 .ThenBy(a => a.Id)
                 .FirstOrDefault();
@@ -34,15 +34,15 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         public IEnumerable<Artist> GetArtistList()
         {
             var artists = _context.Artists.Include(a => a.Types).ThenInclude(at => at.Type)
-                .OrderBy(a=>a.Name.Trim())
-                .ThenBy(a=>a.Id);
-            return artists;            
+                .OrderBy(a => a.Name.Trim())
+                .ThenBy(a => a.Id);
+            return artists;
         }
 
         public IEnumerable<Artist> GetArtistListByType(string type)
         {
             var artists = _context.Artists
-                .Where(a=>a.Types.Any(at => at.Type.Type == type))
+                .Where(a => a.Types.Any(at => at.Type.Type == type))
                 .Include(a => a.Types)
                 .ThenInclude(at => at.Type)
                 .OrderBy(a => a.Name.Trim())
@@ -90,7 +90,7 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
 
         public IEnumerable<Post> GetPublishablePostsByKind(string kind)
         {
-            return _context.Posts.Where(p => p.CanBePublished == true && p.PostKind.Title==kind)
+            return _context.Posts.Where(p => p.CanBePublished == true && p.PostKind.Title == kind)
                   .Include(p => p.PostKind)
                   .Include(p => p.Artists)
                        .ThenInclude(pa => pa.ArtistType)
@@ -114,14 +114,46 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         {
             return _context.TrackInfos.Where(t => t.PostId == postId).FirstOrDefault();
         }
+
+        public MetaInfo GetUrlMetaInfo(string controller,string action)
+        {
+            return _context.MetaInfos.Where(m => string.Equals(m.ControllerName.ToUpper(),controller.ToUpper())
+            && string.Equals(m.ActionName.ToUpper(), action.ToUpper())).FirstOrDefault();
+        }
+
+        public IEnumerable<Artist> SearchArtist(string searchTxt)
+        {
+            if(string.IsNullOrEmpty(searchTxt))
+            {
+                return GetArtistList();
+            }
+            var artists = _context.Artists
+               .Where(a => a.LatinName.Contains(searchTxt) || a.Name.Contains(searchTxt))
+               .Include(a => a.Types).ThenInclude(at => at.Type)
+               .Include(a => a.Types).ThenInclude(at => at.Posts).ThenInclude(p => p.Post)
+               .OrderBy(a => a.Name.Trim())
+               .ThenBy(a => a.Id)
+               .ToList();
+            return artists;
+        }
+
         public IEnumerable<Post> SearchPost(string search)
         {
+            if (string.IsNullOrEmpty(search))
+            {
+                return GetPublishablePosts();
+            }
             return _context.Posts.
-                 Where(p => p.OpusName.Contains(search)
-                 || p.OpusLatinName.Contains(search))
-                 .Include(p => p.Artists.Where(a => a.ArtistType.Artist.Name.Contains(search)))
-                      .ThenInclude(pa => pa.ArtistType)
-                             .ThenInclude(at => at.Artist);
+                 Where(p => p.CanBePublished == true && (
+                 p.OpusName.Contains(search)
+                 || p.OpusLatinName.Contains(search)
+                 || p.Artists.Any(a => a.ArtistType.Artist.Name.Contains(search))
+                 || p.Artists.Any(a => a.ArtistType.Artist.LatinName.Contains(search))))
+                 .Include(p => p.Artists).ThenInclude(pa => pa.ArtistType)
+                 .ThenInclude(at => at.Artist)
+                 .Include(p => p.PostKind)
+                 .Include(p => p.Links)
+                 .OrderByDescending(p => p.PublishDate).ThenByDescending(p => p.Id); ;
         }
     }
 }

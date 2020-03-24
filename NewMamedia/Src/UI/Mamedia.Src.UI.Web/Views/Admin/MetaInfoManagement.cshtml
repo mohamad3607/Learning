@@ -1,0 +1,59 @@
+﻿@using Mamedia.Src.Domain.Core.Entities;
+@model IEnumerable<MetaInfo>
+@{
+    ViewData["Title"] = "Meta Info Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>لیست هنرمندان</h2>
+<hr />
+<p>
+    <a asp-action="CreateMetaInfo">New Meta Data</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.H1Tag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ControllerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActionName)
+            </th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Url)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.H1Tag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ControllerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActionName)
+            </td>
+            <td>
+                <a asp-action="EditMetaInfo" asp-route-id="@item.Id">ویرایش</a> |
+                <a asp-action="DeleteMetaInfo" asp-route-id="@item.Id">حذف</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

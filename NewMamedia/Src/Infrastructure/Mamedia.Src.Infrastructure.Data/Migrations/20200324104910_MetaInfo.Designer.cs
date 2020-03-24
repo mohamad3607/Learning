@@ -4,14 +4,16 @@ using Mamedia.Src.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    partial class MamediaDataContextModelSnapshot : ModelSnapshot
+    [Migration("20200324104910_MetaInfo")]
+    partial class MetaInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,26 +112,15 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ActionName")
-                        .HasMaxLength(200);
+                    b.Property<string>("H1Tag");
 
-                    b.Property<string>("ControllerName")
-                        .HasMaxLength(200);
+                    b.Property<string>("H2Tag");
 
-                    b.Property<string>("H1Tag")
-                        .HasMaxLength(200);
+                    b.Property<string>("MetaDescription");
 
-                    b.Property<string>("H2Tag")
-                        .HasMaxLength(400);
+                    b.Property<string>("PageTitle");
 
-                    b.Property<string>("MetaDescription")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("PageTitle")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("Url")
-                        .HasMaxLength(200);
+                    b.Property<string>("Url");
 
                     b.HasKey("Id");
 

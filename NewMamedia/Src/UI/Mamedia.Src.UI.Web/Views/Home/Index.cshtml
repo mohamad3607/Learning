@@ -3,23 +3,28 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-@{
-    ViewData["Title"] = "صفحه اصلی";
 
+@{
     Layout = "~/Views/Shared/Anonymous.cshtml";
 }
-<form action="Search">
-    @*<div class="searchBox" style="margin-top:30px;">
-            <div class="wrapper">
-                <input type="text"  class="searchBoxButtonEdit" txt" Placeholder="جستجوی خواننده، آهنگ، آلبوم و ..." style="width:90%;height:50px;" name="txtSearch" />
 
-                <input type="submit" class="searchBoxButtonEdit btn" />
-            </div>
-        </div>*@
+
+<form asp-action="Search" asp-controller="Home" method="get">
+    <div class="searchBox" style="margin-top:30px;">
+        <div class="wrapper">
+            <input type="text" name="strSearch" value="@ViewData["currentFilter"]"
+                   class="searchBoxButtonEdit"
+                   Placeholder="جستجوی خواننده، آهنگ، آلبوم و ..."
+                   style="width:90%;height:50px;" />
+            <input type="submit" value="Search" class="searchBoxButtonEdit btn" />
+        </div>
+    </div>
 </form>
 
 
 <div class="row">
+    @ViewBag.Controller
+    @ViewBag.action
     @* HERE WILL BE LIST OF POSTS *@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         @foreach (DefaultPagePostsViewModel post in ViewBag.postList)

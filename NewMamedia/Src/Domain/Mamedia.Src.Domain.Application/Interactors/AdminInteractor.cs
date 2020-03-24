@@ -109,5 +109,30 @@ namespace Mamedia.Src.Domain.Application.Interactors
         {
             return _repository.EditPAlbum(post);
         }
+
+        public IEnumerable<MetaInfo> GetAllMetas()
+        {
+            return _repository.GetAllMetas();
+        }
+
+        public MetaInfo GetMetaById(int id)
+        {
+            return _repository.GetMetaById(id);
+        }
+
+        public MetaInfo CreateMetaInfo(MetaInfo meta)
+        {
+            return _repository.CreateMetaInfo(meta);
+        }
+
+        public MetaInfo EditMetaInfo(MetaInfo meta)
+        {
+            return _repository.EditMetaInfo(meta);
+        }
+
+        public bool DeleteMetaInfoById(int id)
+        {
+            return _repository.DeleteMetaInfoById(id);
+        }
     }
 }

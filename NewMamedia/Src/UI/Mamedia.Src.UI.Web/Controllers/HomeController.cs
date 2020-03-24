@@ -5,9 +5,11 @@ using Mamedia.Src.UI.Web.Models.ArtistModel;
 using Mamedia.Src.UI.Web.Models.PostModel;
 
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using X.PagedList;
 
 namespace Mamedia.Src.UI.Web.Controllers
@@ -32,8 +34,17 @@ namespace Mamedia.Src.UI.Web.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             ViewBag.postList = postList.ToPagedList(pageNumber, pageSize);
+
+            GetMetaInfo();
+
             return View();
         }
+
+        private void GetMetaInfo()
+        {
+            ViewBag.MetaInfo = UpdatePageMetaInfo(ref ViewBag.MetaObject);
+        }
+
         public IActionResult Tracks(int? page)
         {
             var list = _service.GetPublishableTracks();
@@ -47,6 +58,7 @@ namespace Mamedia.Src.UI.Web.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             ViewBag.postList = postList.ToPagedList(pageNumber, pageSize);
+            GetMetaInfo();
             return View("Index");
         }
         public IActionResult Albums(int? page)
@@ -65,6 +77,7 @@ namespace Mamedia.Src.UI.Web.Controllers
                 int pageSize = 10;
                 int pageNumber = (page ?? 1);
                 ViewBag.postList = postList.ToPagedList(pageNumber, pageSize);
+                GetMetaInfo();
                 return View("Index");
             }
             catch { return RedirectToAction("Index"); }
@@ -73,7 +86,7 @@ namespace Mamedia.Src.UI.Web.Controllers
         }
 
         [HttpGet("Home/PostKind/{kind}")]
-        public IActionResult PostKind(string kind,int? page)
+        public IActionResult PostKind(string kind, int? page)
         {
             var list = _service.GetPublishablePostsByKind(kind);
             list = list.ToList<Post>();
@@ -86,6 +99,7 @@ namespace Mamedia.Src.UI.Web.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             ViewBag.postList = postList.ToPagedList(pageNumber, pageSize);
+            GetMetaInfo();
             return View("Index");
         }
 
@@ -109,6 +123,7 @@ namespace Mamedia.Src.UI.Web.Controllers
             {
                 var info = _service.GetPAlbumInfoByPostId(post.Id);
                 PAlbumPostDetailsViewModel vm = new PAlbumPostDetailsViewModel(post, info);
+                GetMetaInfo();
                 return View("PurchasableAlbumPostDetails", vm);
             }
             PostDetailsViewModel model = new PostDetailsViewModel(post);
@@ -127,6 +142,7 @@ namespace Mamedia.Src.UI.Web.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             ViewBag.artistList = artistsList.ToPagedList(pageNumber, pageSize);
+            GetMetaInfo();
             return View();
         }
 
@@ -143,6 +159,7 @@ namespace Mamedia.Src.UI.Web.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             ViewBag.artistList = artistsList.ToPagedList(pageNumber, pageSize);
+            GetMetaInfo();
             return View();
         }
 
@@ -150,7 +167,72 @@ namespace Mamedia.Src.UI.Web.Controllers
         public IActionResult ArtistDetails(string artistName)
         {
             var artist = _service.GetArtistByName(artistName);
+            GetMetaInfo();
             return View(artist);
+        }
+
+        [HttpGet]
+        public IActionResult Search(string strSearch, int? page)
+        {
+            ViewData["CurrentFilter"] = strSearch;
+
+            var list = _service.SearchPost(strSearch);
+            list = list.ToList<Post>();
+            List<DefaultPagePostsViewModel> postList = new List<DefaultPagePostsViewModel>();
+            foreach (Post post in list)
+            {
+                DefaultPagePostsViewModel vm = new DefaultPagePostsViewModel(post);
+                postList.Add(vm);
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            ViewBag.postList = postList.ToPagedList(pageNumber, pageSize);
+            GetMetaInfo();
+            return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult SearchArtist(string strSearch, int? page)
+        {
+            var artists = _service.SearchArtist(strSearch);
+            List<ArtistsListViewModel> artistsList = new List<ArtistsListViewModel>();
+            foreach (Artist artist in artists)
+            {
+                ArtistsListViewModel vm = new ArtistsListViewModel(artist);
+                artistsList.Add(vm);
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            ViewBag.artistList = artistsList.ToPagedList(pageNumber, pageSize);
+            GetMetaInfo();
+            return View("Artists");
+
+        }
+
+        public string UpdatePageMetaInfo(ref dynamic metaObject)
+        {
+            StringBuilder sbMetaTags = new StringBuilder();
+            var controller = RouteData.Values["controller"].ToString();
+            var action = RouteData.Values["action"].ToString();
+            ViewBag.Controller = controller;
+            ViewBag.action = action;
+            var metaOfPage = _service.GetUrlMetaInfo(controller,action);
+            if (metaOfPage != null)
+            {
+                metaObject = metaOfPage;
+                sbMetaTags.Append("<title>" + metaOfPage.PageTitle + "</title>");
+                sbMetaTags.Append(Environment.NewLine);
+                sbMetaTags.AppendFormat("<meta name='description' content='{0}' />", metaOfPage.MetaDescription);
+            }
+            else
+            {
+                metaObject = metaOfPage;
+                sbMetaTags.Append("<title>" + "رسانه مامدیا" + "</title>");
+                sbMetaTags.Append(Environment.NewLine);
+               // sbMetaTags.AppendFormat("<meta name='description' content='{0}' />", metaOfPage.MetaDescription);
+
+            }
+            return sbMetaTags.ToString();
         }
     }
 }

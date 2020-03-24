@@ -68,6 +68,17 @@ namespace Mamedia.Src.Domain.Application.Interactors
         {
             return _repository.GetTrackInfoByPostId(postId);
         }
+
+        public MetaInfo GetUrlMetaInfo(string controller,string action)
+        {
+            return _repository.GetUrlMetaInfo(controller,action);
+        }
+
+        public IEnumerable<Artist> SearchArtist(string searchTxt)
+        {
+            return _repository.SearchArtist(searchTxt);
+        }
+
         public IEnumerable<Post> SearchPost(string search)
         {
             return _repository.SearchPost(search);

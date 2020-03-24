@@ -27,5 +27,11 @@ namespace Mamedia.Src.Domain.Application.Services
         PurchasableAlbumPost GetPAlbumById(int Id);
         PurchasableAlbumPost EditPAlbum(PurchasableAlbumPost post);
 
+        IEnumerable<MetaInfo> GetAllMetas();
+        MetaInfo GetMetaById(int id);
+        MetaInfo CreateMetaInfo(MetaInfo meta);
+        MetaInfo EditMetaInfo(MetaInfo meta);
+        bool DeleteMetaInfoById(int id);
+
     }
 }

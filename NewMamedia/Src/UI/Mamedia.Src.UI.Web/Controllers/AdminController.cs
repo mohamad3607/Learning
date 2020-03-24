@@ -417,6 +417,7 @@ namespace Mamedia.Src.UI.Web.Controllers
             model.AllowToPublish = true;
             return View("CreatePAlbum",model);
         }
+
         [HttpPost]
         public IActionResult CreatePAlbumPost([Bind] Models.PostModel.PAlbumCreateViewModel model)
         {
@@ -576,11 +577,98 @@ namespace Mamedia.Src.UI.Web.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult MetaInfoManagement()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
+            var metas = _service.GetAllMetas();
+            return View(metas);
+        }
 
+        [HttpGet]
+        public ActionResult CreateMetaInfo()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
+            MetaInfo model = new MetaInfo();
+            return View(model);
 
+        }
 
+        [HttpPost]
+        public IActionResult CreateMetaInfo([Bind] MetaInfo model)
+        {
+            try
+            {
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("SignIn", "Account");
+                }
+                string[] splt = model.Url.Split("/");
+                model.ControllerName = splt[1];
+                model.ActionName = splt[2];
+                _service.CreateMetaInfo(model);
+                TempData["Result"] = "OK";
+                return RedirectToAction("CreateMetaInfo");
+            }
+            catch (Exception ex)
+            {
+                TempData["Result"] = ex.Message;
+            }
+            return RedirectToAction("CreateMetaInfo", model);
+        }
 
+        [HttpGet]
+        public ActionResult EditMetaInfo(int id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
+            MetaInfo model = _service.GetMetaById(id);
+            return View(model);
 
+        }
+
+        [HttpPost]
+        public IActionResult EditMetaInfo([Bind] MetaInfo model)
+        {
+            try
+            {
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("SignIn", "Account");
+                }
+                string[] splt = model.Url.Split("/");
+                model.ControllerName = splt[1];
+                model.ActionName = splt[2];
+                _service.EditMetaInfo(model);
+                TempData["Result"] = "OK";
+                return RedirectToAction("EditMetaInfo");
+            }
+            catch (Exception ex)
+            {
+                TempData["Result"] = ex.Message;
+            }
+            return RedirectToAction("EditMetaInfo", model);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteMetaInfo(int id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
+            bool res = _service.DeleteMetaInfoById(id);
+            return RedirectToAction("MetaInfoManagement");
+
+        }
 
         private bool CheckPostArtistSelection(int id, ICollection<PostArtist> artists)
         {

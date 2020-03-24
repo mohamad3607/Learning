@@ -18,6 +18,8 @@ namespace Mamedia.Src.Domain.Application.Repositories
         IEnumerable<Post> SearchPost(string search);
         IEnumerable<Artist> GetArtistList();
         IEnumerable<Artist> GetArtistListByType(string type);
+        IEnumerable<Artist> SearchArtist(string searchTxt);
         Artist GetArtistByName(string name);
+        MetaInfo GetUrlMetaInfo(string controller, string action);
     }
 }

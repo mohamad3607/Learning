@@ -30,6 +30,8 @@ namespace Mamedia.Src.Infrastructure.Data
             ArtistModelCreating(modelBuilder);
             LinkModelCreating(modelBuilder);
             PostModelCreating(modelBuilder);
+
+            
         }
 
        
@@ -97,6 +99,7 @@ namespace Mamedia.Src.Infrastructure.Data
         public DbSet<PostKind> PostKinds { get; set; }
         public DbSet<TrackInfo> TrackInfos { get; set; }
         public DbSet<PurchasableAlbumInfo> PurchasableAlbumInfos { get; set; }
+        public DbSet<MetaInfo> MetaInfos{ get; set; }
         
     }
 }
