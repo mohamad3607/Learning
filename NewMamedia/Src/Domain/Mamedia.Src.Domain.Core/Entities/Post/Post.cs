@@ -10,6 +10,8 @@ namespace Mamedia.Src.Domain.Core.Entities
         public int Id { get; set; }
         [MaxLength(500)]
         public string Title { get; set; }
+        [MaxLength(200)]
+        public string MetaDescription { get; set; }
         public bool PublishPermission { get; set; }
         public DateTime PublishDate { get; set; }
         public bool CanBePublished => CheckPublishStatus();

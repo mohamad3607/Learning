@@ -20,6 +20,7 @@ namespace Mamedia.Src.UI.Web.Models.PostModel
         public string UniqueId { get; set; }
         public string LikeCount { get; set; }
         public string OpusName { get; set; }
+        public string MetaDescription { get; set; }
 
         public PostDetailsViewModel(Post post)
         {
@@ -33,6 +34,7 @@ namespace Mamedia.Src.UI.Web.Models.PostModel
             OpusName = post.OpusName;
             CoverPhotoTag = post.CoverPhotoTag;
             CoverPhotoUrl = post.CoverPhotoUrl;
+            MetaDescription = post.MetaDescription;
             foreach (PostArtist artist in post.Artists)
             {
                 Artist newArtist = artist.ArtistType.Artist;

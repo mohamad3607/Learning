@@ -25,5 +25,7 @@ namespace Mamedia.Src.UI.Web.Models.ArtistModel
 
         [Display(Name="حرفه های هنرمند")]
         public IEnumerable<int> Types { get; set; }
+        [Display(Name = "MetaDescription")]
+        public string MetaDescription { get; set; }
     }
 }

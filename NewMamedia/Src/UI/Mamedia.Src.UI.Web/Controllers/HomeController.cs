@@ -17,6 +17,7 @@ namespace Mamedia.Src.UI.Web.Controllers
     public class HomeController : Controller
     {
         IAnonymouseService _service;
+        private readonly string _artistPrefix = "دانلود فول آلبوم ";
         public HomeController(IAnonymouseService postService)
         {
             _service = postService;
@@ -38,11 +39,6 @@ namespace Mamedia.Src.UI.Web.Controllers
             GetMetaInfo();
 
             return View();
-        }
-
-        private void GetMetaInfo()
-        {
-            ViewBag.MetaInfo = UpdatePageMetaInfo(ref ViewBag.MetaObject);
         }
 
         public IActionResult Tracks(int? page)
@@ -117,16 +113,18 @@ namespace Mamedia.Src.UI.Web.Controllers
             {
                 var info = _service.GetTrackInfoByPostId(post.Id);
                 TrackPostDetailsViewModel vm = new TrackPostDetailsViewModel(post, info);
+                ViewBag.MetaInfo = UpdatePageMetaInfo(vm.Title, vm.MetaDescription);
                 return View("TrackPostDetails", vm);
             }
             if (post is PurchasableAlbumPost)
             {
                 var info = _service.GetPAlbumInfoByPostId(post.Id);
                 PAlbumPostDetailsViewModel vm = new PAlbumPostDetailsViewModel(post, info);
-                GetMetaInfo();
+                ViewBag.MetaInfo = UpdatePageMetaInfo(vm.Title, vm.MetaDescription);
                 return View("PurchasableAlbumPostDetails", vm);
             }
             PostDetailsViewModel model = new PostDetailsViewModel(post);
+
             return View(model);
         }
 
@@ -167,7 +165,7 @@ namespace Mamedia.Src.UI.Web.Controllers
         public IActionResult ArtistDetails(string artistName)
         {
             var artist = _service.GetArtistByName(artistName);
-            GetMetaInfo();
+            ViewBag.MetaInfo = UpdatePageMetaInfo(_artistPrefix + artistName, artist.MetaDescription);
             return View(artist);
         }
 
@@ -209,14 +207,10 @@ namespace Mamedia.Src.UI.Web.Controllers
 
         }
 
-        public string UpdatePageMetaInfo(ref dynamic metaObject)
+        public string UpdatePageMetaInfo(ref dynamic metaObject, string controller, string action)
         {
             StringBuilder sbMetaTags = new StringBuilder();
-            var controller = RouteData.Values["controller"].ToString();
-            var action = RouteData.Values["action"].ToString();
-            ViewBag.Controller = controller;
-            ViewBag.action = action;
-            var metaOfPage = _service.GetUrlMetaInfo(controller,action);
+            var metaOfPage = _service.GetUrlMetaInfo(controller, action);
             if (metaOfPage != null)
             {
                 metaObject = metaOfPage;
@@ -229,10 +223,25 @@ namespace Mamedia.Src.UI.Web.Controllers
                 metaObject = metaOfPage;
                 sbMetaTags.Append("<title>" + "رسانه مامدیا" + "</title>");
                 sbMetaTags.Append(Environment.NewLine);
-               // sbMetaTags.AppendFormat("<meta name='description' content='{0}' />", metaOfPage.MetaDescription);
+                // sbMetaTags.AppendFormat("<meta name='description' content='{0}' />", metaOfPage.MetaDescription);
 
             }
             return sbMetaTags.ToString();
+        }
+        public string UpdatePageMetaInfo(string pageTitle, string metaDesc)
+        {
+            StringBuilder sbMetaTags = new StringBuilder();
+            sbMetaTags.Append("<title>" + pageTitle + "</title>");
+            sbMetaTags.Append(Environment.NewLine);
+            sbMetaTags.AppendFormat("<meta name='description' content='{0}' />", metaDesc);
+            return sbMetaTags.ToString();
+        }
+
+        private void GetMetaInfo()
+        {
+            var controller = RouteData.Values["controller"].ToString();
+            var action = RouteData.Values["action"].ToString();
+            ViewBag.MetaInfo = UpdatePageMetaInfo(ref ViewBag.MetaObject, controller, action);
         }
     }
 }

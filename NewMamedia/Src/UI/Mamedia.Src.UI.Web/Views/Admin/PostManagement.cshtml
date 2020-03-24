@@ -1,4 +1,6 @@
-﻿@{
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@{
     ViewData["Title"] = "مدیریت نوشته ها";
 
 }
@@ -39,11 +41,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.UniqueId)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MetaDescription)
+            </th>
             <th>#</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (AllPostsViewModel item in ViewBag.postList)
         {
             <tr>
                 <td>
@@ -65,6 +70,9 @@
                     @Html.DisplayFor(modelItem => item.UniqueId)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.MetaDescription)
+                </td>
+                <td>
                     <a asp-action="EditPost" asp-route-id="@item.Id">ویرایش</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">حذف</a>
                 </td>
@@ -72,3 +80,6 @@
         }
     </tbody>
 </table>
+<div id="pager" class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="text-align:center; width:100%;">
+    @Html.PagedListPager((IPagedList)ViewBag.postList, page => Url.Action("PostManagement", new { page }))
+</div>

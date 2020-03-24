@@ -95,6 +95,7 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             tpost.PublishPermission = post.PublishPermission;
             tpost.Title = post.Title;
             tpost.UniqueId = post.UniqueId;
+            tpost.MetaDescription = post.MetaDescription;
 
             _context.Posts.Attach(tpost);
             _context.Posts.Update(tpost);
@@ -133,6 +134,7 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             tpost.PublishPermission = post.PublishPermission;
             tpost.Title = post.Title;
             tpost.UniqueId = post.UniqueId;
+            tpost.MetaDescription = post.MetaDescription;
 
             _context.Posts.Attach(tpost);
             _context.Posts.Update(tpost);

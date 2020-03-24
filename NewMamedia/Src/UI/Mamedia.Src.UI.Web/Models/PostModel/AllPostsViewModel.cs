@@ -14,6 +14,7 @@ namespace Mamedia.Src.UI.Web.Models
             UniqueId = post.UniqueId;
             AllowToPublish = post.PublishPermission;
             PostKind = post.PostKind.Title;
+            MetaDescription = post.MetaDescription;
         }
 
         [Display(Name = "شناسه")]
@@ -35,7 +36,10 @@ namespace Mamedia.Src.UI.Web.Models
         [Display(Name = "نوع نوشته")]
         public string PostKind { get; set; }
 
+        [Display(Name = "MetaDescription")]
+        public string MetaDescription { get; set; }
 
-      
+
+
     }
 }

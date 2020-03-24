@@ -13,10 +13,13 @@ namespace Mamedia.Src.UI.Web.Models.ArtistModel
         {
             Id = artist.Id;
             Name = artist.Name;
+            MetaDescription = artist.MetaDescription;
         }
         [Display(Name = "شناسه هنرمند")]
         public int Id { get; set; }
         [Display(Name="نام هنرمند")]
         public string Name { get; set; }
+        [Display(Name = "MetaDescription")]
+        public string MetaDescription { get; set; }
     }
 }

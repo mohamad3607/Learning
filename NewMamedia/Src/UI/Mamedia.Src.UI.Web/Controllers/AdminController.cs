@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using X.PagedList;
 
 namespace Mamedia.Src.UI.Web.Controllers
 {
@@ -18,7 +19,7 @@ namespace Mamedia.Src.UI.Web.Controllers
             _service = service;
 
         }
-        public IActionResult PostManagement()
+        public IActionResult PostManagement(int? page)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -35,6 +36,10 @@ namespace Mamedia.Src.UI.Web.Controllers
                 };
                 postList.Add(vm);
             }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            ViewBag.postList = postList.ToPagedList(pageNumber, pageSize);
+
             return View(postList);
         }
 
@@ -95,7 +100,8 @@ namespace Mamedia.Src.UI.Web.Controllers
                     },
                     OpusLatinName = model.EnglishName,
                     OpusName = model.Name,
-                    PostKindId = model.PostKind
+                    PostKindId = model.PostKind,
+                    MetaDescription=model.MetaDescription
                 };
                 var artistList = new List<PostArtist>();
                 foreach (int index in model.ArtistTypes)
@@ -168,7 +174,8 @@ namespace Mamedia.Src.UI.Web.Controllers
                 {
                     Name = model.Name,
                     Bio = model.Biography,
-                    LatinName = model.EnglishName
+                    LatinName = model.EnglishName,
+                    MetaDescription = model.MetaDescription
                 };
                 var types = model.Types;
                 List<ArtistType> typeList = new List<ArtistType>();
@@ -209,6 +216,7 @@ namespace Mamedia.Src.UI.Web.Controllers
                 Biography = artist.Bio,
                 EnglishName = artist.LatinName,
                 Name = artist.Name,
+                MetaDescription = artist.MetaDescription,
                 Types = artist.Types.Select(t => t.TypeId).ToList()
             };
             ViewBag.VTypes = _service.GetAllTypeOfArtists().Select(at => new SelectListItem
@@ -217,7 +225,7 @@ namespace Mamedia.Src.UI.Web.Controllers
                 Text = at.Type,
                 Selected = CheckSelection(at.Id, artist.Types)
             }).ToList();
-
+            
             return View(vm);
 
         }
@@ -235,6 +243,7 @@ namespace Mamedia.Src.UI.Web.Controllers
                 artist.Name = model.Name;
                 artist.Bio = model.Biography;
                 artist.LatinName = model.EnglishName;
+                artist.MetaDescription = model.MetaDescription;
 
                 var types = model.Types;
                 List<ArtistType> typeList = new List<ArtistType>();
@@ -303,7 +312,7 @@ namespace Mamedia.Src.UI.Web.Controllers
                     CoverPhotoAddress = model.CoverPhotoUrl,
                     Cross = model.Info.Cross,
                     Lyric = model.Info.Lyric,
-
+                     MetaDescription = model.MetaDescription,
                     Link = model.Links.Select(a => a.UrlForLink).FirstOrDefault(),
                     EnglishName = model.OpusLatinName,
                     Name = model.OpusName,
@@ -352,6 +361,7 @@ namespace Mamedia.Src.UI.Web.Controllers
                     PublishDate = model.PublishDate,
                     CoverPhotoTag = model.CoverPhotoAlterText,
                     CoverPhotoUrl = model.CoverPhotoAddress,
+                    MetaDescription = model.MetaDescription,
                     Info = new TrackInfo()
                     {
                         Cross = model.Cross,
@@ -436,6 +446,7 @@ namespace Mamedia.Src.UI.Web.Controllers
                     PublishDate = model.PublishDate,
                     CoverPhotoTag = model.CoverPhotoAlterText,
                     CoverPhotoUrl = model.CoverPhotoAddress,
+                    MetaDescription = model.MetaDescription,
                     Info = new PurchasableAlbumInfo()
                     {
                         Summary = model.Summary,
@@ -492,7 +503,7 @@ namespace Mamedia.Src.UI.Web.Controllers
                     CoverPhotoAddress = model.CoverPhotoUrl,
                     Summary = model.Info.Summary,
                     Price = model.Info.Price,
-
+                    MetaDescription = model.MetaDescription,
                     Link = model.Links.Select(a => a.UrlForLink).FirstOrDefault(),
                     EnglishName = model.OpusLatinName,
                     Name = model.OpusName,
@@ -541,6 +552,7 @@ namespace Mamedia.Src.UI.Web.Controllers
                     PublishDate = model.PublishDate,
                     CoverPhotoTag = model.CoverPhotoAlterText,
                     CoverPhotoUrl = model.CoverPhotoAddress,
+                    MetaDescription = model.MetaDescription,
                     Info = new PurchasableAlbumInfo()
                     {
                         Summary = model.Summary,

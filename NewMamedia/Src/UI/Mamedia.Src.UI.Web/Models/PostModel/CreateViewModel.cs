@@ -39,5 +39,7 @@ namespace Mamedia.Src.UI.Web.Models.PostModel
 
         [Display(Name = "نام لاتین اثر")]
         public string EnglishName { get; set; }
+        [Display(Name = "MetaDescription")]
+        public string MetaDescription { get; set; }
     }
 }
