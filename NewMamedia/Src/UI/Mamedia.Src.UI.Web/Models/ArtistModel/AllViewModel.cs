@@ -14,6 +14,7 @@ namespace Mamedia.Src.UI.Web.Models.ArtistModel
             Id = artist.Id;
             Name = artist.Name;
             MetaDescription = artist.MetaDescription;
+            LatinName = artist.LatinName;
         }
         [Display(Name = "شناسه هنرمند")]
         public int Id { get; set; }
@@ -21,5 +22,6 @@ namespace Mamedia.Src.UI.Web.Models.ArtistModel
         public string Name { get; set; }
         [Display(Name = "MetaDescription")]
         public string MetaDescription { get; set; }
+        public string LatinName { get;  set; }
     }
 }

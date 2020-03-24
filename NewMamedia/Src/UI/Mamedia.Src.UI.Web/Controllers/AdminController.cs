@@ -19,12 +19,21 @@ namespace Mamedia.Src.UI.Web.Controllers
             _service = service;
 
         }
-        public IActionResult PostManagement(int? page)
+        public IActionResult PostManagement(string currentFilter, string searchString, int? page)
         {
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("SignIn", "Account");
             }
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
             var list = _service.GetAllPosts();
             list = list.ToList<Post>();
             List<AllPostsViewModel> postList = new List<AllPostsViewModel>();
@@ -35,6 +44,10 @@ namespace Mamedia.Src.UI.Web.Controllers
 
                 };
                 postList.Add(vm);
+            }
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                postList = postList.Where(s => s.Title.Contains(searchString)).ToList();
             }
             int pageSize = 10;
             int pageNumber = (page ?? 1);
@@ -126,12 +139,21 @@ namespace Mamedia.Src.UI.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult ArtistManagement()
+        public ActionResult ArtistManagement(string currentFilter, string searchString,int? page)
         {
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("SignIn", "Account");
             }
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
             var list = _service.GetAllArtitsts();
             list = list.ToList<Artist>();
             List<Models.ArtistModel.AllViewModel> artistList = new List<Models.ArtistModel.AllViewModel>();
@@ -140,7 +162,16 @@ namespace Mamedia.Src.UI.Web.Controllers
                 Mamedia.Src.UI.Web.Models.ArtistModel.AllViewModel vm = new Models.ArtistModel.AllViewModel(artist);
                 artistList.Add(vm);
             }
-            return View(artistList);
+           
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                artistList = artistList.Where(s => s.Name.Contains(searchString)
+                                       || s.LatinName.ToUpper().Contains(searchString.ToUpper())).ToList();
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            ViewBag.postList = artistList.ToPagedList(pageNumber, pageSize);
+            return View();
         }
 
         [HttpGet]

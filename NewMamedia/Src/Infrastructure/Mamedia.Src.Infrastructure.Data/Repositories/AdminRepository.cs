@@ -155,7 +155,8 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
 
         public IEnumerable<Artist> GetAllArtitsts()
         {
-            return _context.Artists.OrderBy(a => a.Name);
+            return _context.Artists.OrderBy(a => a.Name.Trim())
+                .ThenBy(a => a.Id).ToList();
         }
 
         public IEnumerable<MetaInfo> GetAllMetas()
