@@ -3,7 +3,7 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
+<link href="~/Content/Site.css" rel="stylesheet" />
 @{
     Layout = "~/Views/Shared/Anonymous.cshtml";
 }
@@ -14,17 +14,24 @@
         <div class="wrapper">
             <input type="text" name="strSearch" value="@ViewData["currentFilter"]"
                    class="searchBoxButtonEdit"
-                   Placeholder="جستجوی خواننده، آهنگ، آلبوم و ..."
-                   style="width:90%;height:50px;" />
+                   Placeholder="جستجوی خواننده، آلبوم، آهنگ، فیلم و ...."
+                   style="width:80%;height:50px;" />
             <input type="submit" value="Search" class="searchBoxButtonEdit btn" />
         </div>
     </div>
 </form>
+<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding-top:10px;margin-top:10px;">
+    <h1 class="H1Tag">
+      @ViewBag.H1
+
+    </h1>
+    <h2 class="H2Tag">
+        @ViewBag.H2
+    </h2>
+</div>
 
 
 <div class="row">
-    @ViewBag.Controller
-    @ViewBag.action
     @* HERE WILL BE LIST OF POSTS *@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         @foreach (DefaultPagePostsViewModel post in ViewBag.postList)
@@ -68,7 +75,7 @@
                     </p>
                     <div class="btnSeemore">
                         <p>
-                            <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>برای مشاهده  آهنگ کلیک کنید</a>
+                            <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>برای مشاهده  بیشتر کلیک کنید</a>
                         </p>
                     </div>
 

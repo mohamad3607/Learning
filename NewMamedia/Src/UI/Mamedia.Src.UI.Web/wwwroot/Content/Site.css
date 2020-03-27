@@ -19,7 +19,26 @@ textarea {
     border-color: #E0115F;
 }
 
-
+.H1Tag{
+    font-size:14pt;
+    margin:auto;
+    text-align:center;
+    margin-bottom:10px;
+    
+}
+.H2Tag {
+    font-size: 12pt;
+    margin: auto;
+    text-align: center;
+    color: #808080;
+}
+.Banners {
+    margin: auto;
+    margin-bottom: 10px;
+}
+.Banners img{
+    width:100%;
+}
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .jumbotron {
@@ -75,7 +94,6 @@ textarea {
     .searchBox {
         width: 100%;
         /*text-align: center;*/
-        margin: auto;
         margin-top: 20px;
         max-width: 600px;
         box-shadow: 0 2px 15px 0 rgba(0,0,0,0.26),0 6px 10px 0 rgba(0,0,0,0.22) !important;

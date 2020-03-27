@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+
+namespace Mamedia.Src.Domain.Core.Entities
+{
+    public class MoviePost:Post
+    {
+        public MovieInfo Info { get; set; }
+    }
+
+    public class MovieInfo
+    {
+        public int PostId { get; set; }
+        public MoviePost Post { get; set; }
+        [MaxLength(1000)]
+        public string Summary { get; set; }
+        public int Price { get; set; }
+        public int ProductionYear { get; set; }
+        public int Duration { get; set; }
+    }
+}

@@ -10,6 +10,6 @@ namespace Mamedia.Src.Domain.Core.Entities
         public ArtistType ArtistType { get; set; }
         public int PostId { get; set; }
         public Post Post { get; set; }
-        public bool IsMain { get; set; }
+        public bool ShowInPost { get; set; }
     }
 }

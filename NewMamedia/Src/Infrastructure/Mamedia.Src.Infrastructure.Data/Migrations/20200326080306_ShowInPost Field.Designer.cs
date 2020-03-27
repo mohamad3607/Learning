@@ -4,14 +4,16 @@ using Mamedia.Src.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    partial class MamediaDataContextModelSnapshot : ModelSnapshot
+    [Migration("20200326080306_ShowInPost Field")]
+    partial class ShowInPostField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,24 +260,6 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     b.ToTable("PurchasableAlbumInfos");
                 });
 
-            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.SeriesInfo", b =>
-                {
-                    b.Property<int>("PostId");
-
-                    b.Property<int>("Duration");
-
-                    b.Property<int>("Price");
-
-                    b.Property<int>("ProductionYear");
-
-                    b.Property<string>("Summary")
-                        .HasMaxLength(1000);
-
-                    b.HasKey("PostId");
-
-                    b.ToTable("SeriesInfos");
-                });
-
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.TrackInfo", b =>
                 {
                     b.Property<int>("PostId");
@@ -330,16 +314,6 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     b.ToTable("MoviePost");
 
                     b.HasDiscriminator().HasValue("MoviePost");
-                });
-
-            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.SeriesPost", b =>
-                {
-                    b.HasBaseType("Mamedia.Src.Domain.Core.Entities.Post");
-
-
-                    b.ToTable("SeriesPost");
-
-                    b.HasDiscriminator().HasValue("SeriesPost");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.TrackPost", b =>
@@ -422,14 +396,6 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     b.HasOne("Mamedia.Src.Domain.Core.Entities.PurchasableAlbumPost", "Post")
                         .WithOne("Info")
                         .HasForeignKey("Mamedia.Src.Domain.Core.Entities.PurchasableAlbumInfo", "PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.SeriesInfo", b =>
-                {
-                    b.HasOne("Mamedia.Src.Domain.Core.Entities.SeriesPost", "Post")
-                        .WithOne("Info")
-                        .HasForeignKey("Mamedia.Src.Domain.Core.Entities.SeriesInfo", "PostId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

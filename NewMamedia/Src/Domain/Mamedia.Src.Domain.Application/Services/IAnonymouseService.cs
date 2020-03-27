@@ -13,8 +13,12 @@ namespace Mamedia.Src.Domain.Application.Services
         IEnumerable<Post> GetPublishablePostsByKind(string kind);
         IEnumerable<Post> GetPublishableTracks();
         IEnumerable<Post> GetPublishableAlbums();
+        IEnumerable<Post> GetPublishableMovies();
+        IEnumerable<Post> GetPublishableSeries();
         TrackInfo GetTrackInfoByPostId(int postId);
         PurchasableAlbumInfo GetPAlbumInfoByPostId(int postId);
+        MovieInfo GetMovieInfoByPostId(int postId);
+        SeriesInfo GetSeriesInfoByPostId(int postId);
         IEnumerable<Post> SearchPost(string search);
         IEnumerable<Artist> GetArtistList();
         IEnumerable<Artist> GetArtistListByType(string type);

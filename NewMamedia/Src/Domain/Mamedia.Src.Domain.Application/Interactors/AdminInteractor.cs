@@ -134,5 +134,59 @@ namespace Mamedia.Src.Domain.Application.Interactors
         {
             return _repository.DeleteMetaInfoById(id);
         }
+
+        public MoviePost CreateMoviePost(MoviePost post)
+        {
+            return _repository.CreateMoviePost(post);
+        }
+
+        public MoviePost EditMovie(MoviePost post)
+        {
+            return _repository.EditMovie(post);
+        }
+
+        public MoviePost GetMovieById(int Id)
+        {
+            return _repository.GetMovieById(Id);
+        }
+
+        public IEnumerable<PostArtist> GetPostArtistsById(int postId)
+        {
+            return _repository.GetPostArtistsById(postId);
+        }
+
+        public IEnumerable<Artist> GetArtistsByType(int type)
+        {
+            return _repository.GetArtistsByType(type);
+        }
+
+        public ArtistType GetArtistType(int artistId, int typeId)
+        {
+            return _repository.GetArtistType(artistId, typeId);
+        }
+        public PostArtist CreatePostArtist(PostArtist postArtist)
+        {
+            return _repository.CreatePostArtist(postArtist);
+        }
+
+        public PostArtist DeletePostArtist(int postId, int artistTypeId)
+        {
+            return _repository.DeletePostArtist(postId, artistTypeId);
+        }
+
+        public SeriesPost CreateSeriesPost(SeriesPost post)
+        {
+            return _repository.CreateSeriesPost(post);
+        }
+
+        public SeriesPost GetSeriesById(int Id)
+        {
+            return _repository.GetSeriesById(Id);
+        }
+
+        public SeriesPost EditSeries(SeriesPost post)
+        {
+            return _repository.EditSeries(post);
+        }
     }
 }

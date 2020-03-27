@@ -2,11 +2,12 @@
 {
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Mamedia.Src.UI.Web.Models.PostModel.PAlbumCreateViewModel
-<h2>فیلم جدید</h2>
-<form asp-action="CreatePAlbumPost">
+@model Mamedia.Src.UI.Web.Models.PostModel.MovieCreateViewModel
+<h2>وایرایش فیلم </h2>
+
+<form asp-action="EditMoviePost">
     <div class="row">
-       
+
         <div class="col-md-4">
 
             <h2>اطلاعات کلی</h2>
@@ -50,7 +51,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <h2>اطلاعات آلبوم</h2>
+            <h2>اطلاعات فیلم</h2>
             <hr />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -74,19 +75,29 @@
             </div>
             <div class="form-group">
                 <label asp-for="Link" class="control-label"></label>
-                <input asp-for="Link"  class="form-control" />
+                <input asp-for="Link" class="form-control" />
                 <span asp-validation-for="Link" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
+                <input asp-for="Price" rows="2" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductionYear" class="control-label"></label>
+                <input asp-for="ProductionYear" class="form-control" />
+                <span asp-validation-for="ProductionYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-4">
 
             <div class="form-group">
-                <h2>خلاصه</h2>
+                <h2>خلاصه فیلم</h2>
                 <hr />
                 <label asp-for="Summary" class="control-label"></label>
                 <textarea asp-for="Summary" rows="20" class="form-control"></textarea>
@@ -94,7 +105,7 @@
             </div>
 
             <div class="form-group" style="margin-top:10px;padding-right:20px;">
-                <input type="submit" value="ایجاد نوشته" class="btn btn-primary" />
+                <input type="submit" value="ویرایش نوشته" class="btn btn-primary" />
                 <a asp-action="PostManagement">برگشت به لیست</a>
             </div>
             <div style="margin-top:10px">
@@ -103,7 +114,7 @@
                     {
                         if ((string)TempData["Result"] == "OK")
                         {
-                            <label class="text-success">با موفقیت ایجاد شد</label>
+                            <label class="text-success">با موفقیت ویرایش شد</label>
                         }
                         else
                         {

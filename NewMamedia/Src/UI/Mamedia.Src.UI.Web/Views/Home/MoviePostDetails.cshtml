@@ -3,30 +3,30 @@
 @using Mamedia.Src.Domain.Core.Entities;
 
 @{
-    ViewData["Title"] = "جزئیات آهنگ";
+    ViewData["Title"] = "جزئیات فیلم";
 
     Layout = "~/Views/Shared/Anonymous.cshtml";
 
 }
 
-@model Mamedia.Src.UI.Web.Models.PostModel.TrackPostDetailsViewModel
+@model Mamedia.Src.UI.Web.Models.PostModel.MoviePostDetailsViewModel
 
 @section Styles{
     <link rel="stylesheet" href="~/Content/NewFaceDetails.css" />
     <link rel="stylesheet" href="~/Content/font-awesome.css" />
 }
 
-    <form asp-action="Search" asp-controller="Home" method="get">
-        <div class="searchBox" style="margin-top:30px;">
-            <div class="wrapper">
-                <input type="text" name="strSearch" value="@ViewData["currentFilter"]"
-                       class="searchBoxButtonEdit"
-                       Placeholder="جستجوی خواننده، آلبوم، آهنگ، فیلم و ...."
-                       style="width:90%;height:50px;" />
-                <input type="submit" value="Search" class="searchBoxButtonEdit btn" />
-            </div>
+<form asp-action="Search" asp-controller="Home" method="get">
+    <div class="searchBox" style="margin-top:30px;">
+        <div class="wrapper">
+            <input type="text" name="strSearch" value="@ViewData["currentFilter"]"
+                   class="searchBoxButtonEdit"
+                   Placeholder="جستجوی خواننده، آلبوم، آهنگ، فیلم و ...."
+                   style="width:90%;height:50px;" />
+            <input type="submit" value="Search" class="searchBoxButtonEdit btn" />
         </div>
-    </form>
+    </div>
+</form>
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <img src="@Model.CoverPhotoUrl" alt="@Model.CoverPhotoTag" class="detailsImage" />
@@ -38,6 +38,7 @@
                 <a asp-action="PostKind" asp-controller="Home" asp-route-id=@Model.PostKind.Title>دانلود @Model.PostKind.Title</a>
                 @for (int i = 0; i < Model.Artists.Count; i++)
                 {
+
                     string name = "";
                     string url = "";
                     if (i != Model.Artists.Count - 1)
@@ -64,9 +65,49 @@
             </strong>
         </p>
         <p>
-            <strong>قسمتی از ترانه: </strong>
-            @Model.Cross
+            <strong>قیمت فیلم: </strong>
+            @Model.Price
         </p>
+        <p>
+            <strong>سال تولید: </strong>
+            @Model.ProductionYear
+        </p>
+        <p>
+            <strong>مدت زمان: </strong>
+            @Model.Duration
+        </p>
+        @foreach (var group in Model.Types)
+        {
+            var lastItem = group.Last();
+        <p>
+            <strong> @group.Key.Type :</strong>
+
+            @foreach (var artist in group)
+            {
+                @if (!lastItem.Equals(artist))
+                {
+
+
+                    <span>
+                        <a asp-action="ArtistDetails" asp-controller="Home" asp-route-artistName=@artist.Artist.Name>@artist.Artist.Name</a>
+                        ، &nbsp;
+                    </span>
+                }
+                else
+                {
+                    <a asp-action="ArtistDetails" asp-controller="Home" asp-route-artistName=@artist.Artist.Name>@artist.Artist.Name</a>
+                }
+
+            }
+        </p>
+        }
+        <p>
+
+            <strong>درباره فیلم: </strong>
+            @Model.Summary
+        </p>
+
+        <br />
 
         @foreach (Link link in Model.Links)
         {
@@ -99,28 +140,21 @@
                 <span>@Model.LikeCount</span>
             </div>
         </div>
+
+
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 player">
-            <audio src="@Model.Links[0].UrlForLink" controls></audio>
+            <audio src="@Model.Summary" controls></audio>
         </div>
     </div>
 
 </div>
 <div class="row artistDiv">
-    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="artistTitle" col-md-12 col-lg-12 col-sm-12 col-xs-12>
             <span>پیوندهای مرتبط</span>
 
         </div>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <div class="lyrics">
-            <div class="artistTitle" col-md-12 col-lg-12 col-sm-12 col-xs-12>
-                <span>متن ترانه</span>
-                <p>
-                    @Model.Lyric
-                </p>
-            </div>
-        </div>
-    </div>
+
 </div>
 

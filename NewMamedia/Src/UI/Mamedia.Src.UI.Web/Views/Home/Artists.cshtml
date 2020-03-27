@@ -7,9 +7,7 @@
     Layout = "~/Views/Shared/Anonymous.cshtml";
 }
 <link href="~/Content/Artists.css" rel="stylesheet" />
-
-@ViewBag.Controller
-@ViewBag.action
+<link href="~/Content/Site.css" rel="stylesheet" />
 
 <form asp-action="SearchArtist" asp-controller="Home" method="get">
     <div class="searchBox" style="margin-top:30px;">
@@ -17,12 +15,21 @@
             <input type="text" name="strSearch" value="@ViewData["currentFilter"]"
                    class="searchBoxButtonEdit"
                    Placeholder="جستجو توسط نام، نام لاتین، بیوگرافی و...."
-                   style="width:90%;height:50px;" />
+                   style="width:80%;height:50px;" />
             <input type="submit" value="Search" class="searchBoxButtonEdit btn" />
         </div>
     </div>
 </form>
 
+<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding-top:10px;margin-top:10px;margin-bottom:20px;">
+    <h1 class="H1Tag">
+        @ViewBag.H1
+
+    </h1>
+    <h2 class="H2Tag">
+        @ViewBag.H2
+    </h2>
+</div>
 
 <div class="row">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">

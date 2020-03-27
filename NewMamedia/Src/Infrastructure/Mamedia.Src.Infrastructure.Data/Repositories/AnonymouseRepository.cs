@@ -50,6 +50,11 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
             return artists;
         }
 
+        public MovieInfo GetMovieInfoByPostId(int postId)
+        {
+            return _context.MovieInfos.Where(t => t.PostId == postId).FirstOrDefault();
+        }
+
         public PurchasableAlbumInfo GetPAlbumInfoByPostId(int postId)
         {
             return _context.PurchasableAlbumInfos.Where(t => t.PostId == postId).FirstOrDefault();
@@ -59,9 +64,8 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         {
             return _context.Posts.Where(p => p.UniqueId == uniqueId)
                .Include(p => p.PostKind)
-                   .Include(p => p.Artists)
-                        .ThenInclude(pa => pa.ArtistType)
-                            .ThenInclude(at => at.Artist)
+                   .Include(p => p.Artists).ThenInclude(pa => pa.ArtistType).ThenInclude(at => at.Artist)
+                   .Include(p => p.Artists).ThenInclude(pa => pa.ArtistType).ThenInclude(at => at.Type)
                    .Include(p => p.Links)
                    .OrderByDescending(p => p.PublishDate).ThenByDescending(p => p.Id).FirstOrDefault();
         }
@@ -69,6 +73,18 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
         public IEnumerable<Post> GetPublishableAlbums()
         {
             return _context.Posts.OfType<Album>().Where(p => p.CanBePublished == true)
+                 .Include(p => p.PostKind)
+                 .Include(p => p.Artists)
+                      .ThenInclude(pa => pa.ArtistType)
+                          .ThenInclude(at => at.Artist)
+                 .Include(p => p.Links)
+                 .OrderByDescending(p => p.PublishDate).ThenByDescending(p => p.Id);
+        }
+
+        public IEnumerable<Post> GetPublishableMovies()
+        {
+
+            return _context.Posts.OfType<MoviePost>().Where(p => p.CanBePublished == true)
                  .Include(p => p.PostKind)
                  .Include(p => p.Artists)
                       .ThenInclude(pa => pa.ArtistType)
@@ -99,6 +115,17 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
                   .OrderByDescending(p => p.PublishDate).ThenByDescending(p => p.Id);
         }
 
+        public IEnumerable<Post> GetPublishableSeries()
+        {
+            return _context.Posts.OfType<SeriesPost>().Where(p => p.CanBePublished == true)
+                  .Include(p => p.PostKind)
+                  .Include(p => p.Artists)
+                       .ThenInclude(pa => pa.ArtistType)
+                           .ThenInclude(at => at.Artist)
+                  .Include(p => p.Links)
+                  .OrderByDescending(p => p.PublishDate).ThenByDescending(p => p.Id);
+        }
+
         public IEnumerable<Post> GetPublishableTracks()
         {
             return _context.Posts.OfType<TrackPost>().Where(p => p.CanBePublished == true)
@@ -108,6 +135,11 @@ namespace Mamedia.Src.Infrastructure.Data.Repositories
                            .ThenInclude(at => at.Artist)
                   .Include(p => p.Links)
                   .OrderByDescending(p => p.PublishDate).ThenByDescending(p => p.Id);
+        }
+
+        public SeriesInfo GetSeriesInfoByPostId(int postId)
+        {
+            return _context.SeriesInfos.Where(t => t.PostId == postId).FirstOrDefault();
         }
 
         public TrackInfo GetTrackInfoByPostId(int postId)

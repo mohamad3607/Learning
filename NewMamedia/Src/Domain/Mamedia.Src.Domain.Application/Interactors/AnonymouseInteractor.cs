@@ -34,6 +34,11 @@ namespace Mamedia.Src.Domain.Application.Interactors
             return _repository.GetArtistListByType(type);
         }
 
+        public MovieInfo GetMovieInfoByPostId(int postId)
+        {
+            return _repository.GetMovieInfoByPostId(postId);
+        }
+
         public PurchasableAlbumInfo GetPAlbumInfoByPostId(int postId)
         {
             return _repository.GetPAlbumInfoByPostId(postId);
@@ -49,6 +54,11 @@ namespace Mamedia.Src.Domain.Application.Interactors
             return _repository.GetPublishableAlbums();
         }
 
+        public IEnumerable<Post> GetPublishableMovies()
+        {
+            return _repository.GetPublishableMovies();
+        }
+
         public IEnumerable<Post> GetPublishablePosts()
         {
             return _repository.GetPublishablePosts();
@@ -59,9 +69,19 @@ namespace Mamedia.Src.Domain.Application.Interactors
             return _repository.GetPublishablePostsByKind(kind);
         }
 
+        public IEnumerable<Post> GetPublishableSeries()
+        {
+            return _repository.GetPublishableSeries();
+        }
+
         public IEnumerable<Post> GetPublishableTracks()
         {
             return _repository.GetPublishableTracks();
+        }
+
+        public SeriesInfo GetSeriesInfoByPostId(int postId)
+        {
+            return _repository.GetSeriesInfoByPostId(postId);
         }
 
         public TrackInfo GetTrackInfoByPostId(int postId)

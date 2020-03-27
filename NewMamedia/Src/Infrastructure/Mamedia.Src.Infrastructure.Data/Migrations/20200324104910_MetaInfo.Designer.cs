@@ -179,7 +179,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<int>("ArtistTypeId");
 
-                    b.Property<bool>("IsMain");
+                    b.Property<bool>("ShowInPost");
 
                     b.HasKey("PostId", "ArtistTypeId");
 

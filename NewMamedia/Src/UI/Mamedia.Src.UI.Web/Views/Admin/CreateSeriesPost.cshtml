@@ -2,11 +2,11 @@
 {
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Mamedia.Src.UI.Web.Models.PostModel.PAlbumCreateViewModel
-<h2>فیلم جدید</h2>
-<form asp-action="CreatePAlbumPost">
+@model Mamedia.Src.UI.Web.Models.PostModel.SeriesCreateViewModel
+<h2>سریال جدید</h2>
+<form asp-action="CreateSeriesPost">
     <div class="row">
-       
+
         <div class="col-md-4">
 
             <h2>اطلاعات کلی</h2>
@@ -37,12 +37,12 @@
                 @Html.DropDownList("PostKind", ViewBag.Kinds, "", new { @class = "form-control" })
                 <span asp-validation-for="PostKind" class="text-danger"></span>
             </div>
-            <div class="form-group" style="margin-right:0px">
+            @*<div class="form-group" style="margin-right:0px">
                 <label asp-for="ArtistTypes" class="control-label"></label>
                 <select multiple="multiple" class="form-control" id="my_multi_select1"
                         asp-for="ArtistTypes" asp-items="(List<SelectListItem>)ViewBag.Artists"></select>
                 <span asp-validation-for="ArtistTypes" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="MetaDescription" class="control-label"></label>
                 <input asp-for="MetaDescription" class="form-control" />
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <h2>اطلاعات آلبوم</h2>
+            <h2>اطلاعات سریال</h2>
             <hr />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -74,13 +74,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="Link" class="control-label"></label>
-                <input asp-for="Link"  class="form-control" />
+                <input asp-for="Link" class="form-control" />
                 <span asp-validation-for="Link" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductionYear" class="control-label"></label>
+                <input asp-for="ProductionYear" class="form-control" />
+                <span asp-validation-for="ProductionYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-4">

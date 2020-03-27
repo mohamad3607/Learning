@@ -40,7 +40,6 @@ namespace Mamedia.Src.UI.Web.Controllers
 
             return View();
         }
-
         public IActionResult Tracks(int? page)
         {
             var list = _service.GetPublishableTracks();
@@ -62,6 +61,52 @@ namespace Mamedia.Src.UI.Web.Controllers
             try
             {
                 var list = _service.GetPublishableAlbums();
+                list = list.ToList<Post>();
+                List<DefaultPagePostsViewModel> postList = new List<DefaultPagePostsViewModel>();
+                foreach (Post post in list)
+                {
+                    DefaultPagePostsViewModel vm = new DefaultPagePostsViewModel(post);
+                    postList.Add(vm);
+                }
+
+                int pageSize = 10;
+                int pageNumber = (page ?? 1);
+                ViewBag.postList = postList.ToPagedList(pageNumber, pageSize);
+                GetMetaInfo();
+                return View("Index");
+            }
+            catch { return RedirectToAction("Index"); }
+
+
+        }
+        public IActionResult Movies(int? page)
+        {
+            try
+            {
+                var list = _service.GetPublishableMovies();
+                list = list.ToList<Post>();
+                List<DefaultPagePostsViewModel> postList = new List<DefaultPagePostsViewModel>();
+                foreach (Post post in list)
+                {
+                    DefaultPagePostsViewModel vm = new DefaultPagePostsViewModel(post);
+                    postList.Add(vm);
+                }
+
+                int pageSize = 10;
+                int pageNumber = (page ?? 1);
+                ViewBag.postList = postList.ToPagedList(pageNumber, pageSize);
+                GetMetaInfo();
+                return View("Index");
+            }
+            catch { return RedirectToAction("Index"); }
+
+
+        }
+        public IActionResult Series(int? page)
+        {
+            try
+            {
+                var list = _service.GetPublishableSeries();
                 list = list.ToList<Post>();
                 List<DefaultPagePostsViewModel> postList = new List<DefaultPagePostsViewModel>();
                 foreach (Post post in list)
@@ -122,6 +167,20 @@ namespace Mamedia.Src.UI.Web.Controllers
                 PAlbumPostDetailsViewModel vm = new PAlbumPostDetailsViewModel(post, info);
                 ViewBag.MetaInfo = UpdatePageMetaInfo(vm.Title, vm.MetaDescription);
                 return View("PurchasableAlbumPostDetails", vm);
+            }
+            if (post is MoviePost)
+            {
+                var info = _service.GetMovieInfoByPostId(post.Id);
+                MoviePostDetailsViewModel vm = new MoviePostDetailsViewModel(post, info);
+                ViewBag.MetaInfo = UpdatePageMetaInfo(vm.Title, vm.MetaDescription);
+                return View("MoviePostDetails", vm);
+            }
+            if (post is SeriesPost)
+            {
+                var info = _service.GetSeriesInfoByPostId(post.Id);
+                SeriesPostDetailsViewModel vm = new SeriesPostDetailsViewModel(post, info);
+                ViewBag.MetaInfo = UpdatePageMetaInfo(vm.Title, vm.MetaDescription);
+                return View("SeriesPostDetails", vm);
             }
             PostDetailsViewModel model = new PostDetailsViewModel(post);
 
@@ -207,20 +266,22 @@ namespace Mamedia.Src.UI.Web.Controllers
 
         }
 
-        public string UpdatePageMetaInfo(ref dynamic metaObject, string controller, string action)
+        public string UpdatePageMetaInfo(ref string H1,ref string H2, string controller, string action)
         {
             StringBuilder sbMetaTags = new StringBuilder();
             var metaOfPage = _service.GetUrlMetaInfo(controller, action);
             if (metaOfPage != null)
             {
-                metaObject = metaOfPage;
+                H1 = metaOfPage.H1Tag;
+                H2 = metaOfPage.H2Tag;
                 sbMetaTags.Append("<title>" + metaOfPage.PageTitle + "</title>");
                 sbMetaTags.Append(Environment.NewLine);
                 sbMetaTags.AppendFormat("<meta name='description' content='{0}' />", metaOfPage.MetaDescription);
             }
             else
             {
-                metaObject = metaOfPage;
+                H1 = "مامدیا رسانه موزیک و فیلم";
+                H2 = "";
                 sbMetaTags.Append("<title>" + "رسانه مامدیا" + "</title>");
                 sbMetaTags.Append(Environment.NewLine);
                 // sbMetaTags.AppendFormat("<meta name='description' content='{0}' />", metaOfPage.MetaDescription);
@@ -241,7 +302,10 @@ namespace Mamedia.Src.UI.Web.Controllers
         {
             var controller = RouteData.Values["controller"].ToString();
             var action = RouteData.Values["action"].ToString();
-            ViewBag.MetaInfo = UpdatePageMetaInfo(ref ViewBag.MetaObject, controller, action);
+            string H1 = "",H2="";
+            ViewBag.MetaInfo = UpdatePageMetaInfo(ref  H1,ref H2, controller, action);
+            ViewBag.H1 = H1;
+            ViewBag.H2 = H2;
         }
     }
 }
