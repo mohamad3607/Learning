@@ -12,9 +12,18 @@ namespace Mamedia.Src.Domain.Application.Repositories
         IEnumerable<PostKind> GetAllPostKinds();
         TrackInfo GetTrackInfoByPostId(int postId);
         PurchasableAlbumInfo GetPAlbumInfoByPostId(int postId);
+        MovieInfo GetMovieInfoByPostId(int postId);
+        SeriesInfo GetSeriesInfoByPostId(int postId);
         IEnumerable<Post> GetPublishablePostsByKind(string kind);
+        IEnumerable<Post> GetPublishableMovies();
+        IEnumerable<Post> GetPublishableSeries();
         IEnumerable<Post> GetPublishableTracks();
         IEnumerable<Post> GetPublishableAlbums();
         IEnumerable<Post> SearchPost(string search);
+        IEnumerable<Artist> GetArtistList();
+        IEnumerable<Artist> GetArtistListByType(string type);
+        IEnumerable<Artist> SearchArtist(string searchTxt);
+        Artist GetArtistByName(string name);
+        MetaInfo GetUrlMetaInfo(string controller, string action);
     }
 }

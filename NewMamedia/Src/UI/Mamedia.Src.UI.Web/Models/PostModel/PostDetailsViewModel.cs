@@ -20,10 +20,20 @@ namespace Mamedia.Src.UI.Web.Models.PostModel
         public string UniqueId { get; set; }
         public string LikeCount { get; set; }
         public string OpusName { get; set; }
+        public string MetaDescription { get; set; }
+        public List<ArtistType> ArtistTypes { get; set; }
+        public IEnumerable<IGrouping<TypeOfArtist, ArtistType>> Types { get { return GetTypesFromArtistTypes(); } }
+
+        private IEnumerable<IGrouping<TypeOfArtist,ArtistType>> GetTypesFromArtistTypes()
+        {
+            var groupRes = ArtistTypes.GroupBy(at => at.Type);
+            return groupRes;
+        }
 
         public PostDetailsViewModel(Post post)
         {
             Artists = new List<Artist>();
+            ArtistTypes = new List<ArtistType>();
             Links = new List<Link>();
             Title = post.Title;
             _publishDate = post.PublishDate;
@@ -33,10 +43,16 @@ namespace Mamedia.Src.UI.Web.Models.PostModel
             OpusName = post.OpusName;
             CoverPhotoTag = post.CoverPhotoTag;
             CoverPhotoUrl = post.CoverPhotoUrl;
+            MetaDescription = post.MetaDescription;
             foreach (PostArtist artist in post.Artists)
             {
-                Artist newArtist = artist.ArtistType.Artist;
-                Artists.Add(newArtist);
+                ArtistTypes.Add(artist.ArtistType);
+                if (artist.ShowInPost)
+                {
+                    Artist newArtist = artist.ArtistType.Artist;
+                    Artists.Add(newArtist);
+                }
+
             }
             Links = post.Links.ToList();
 

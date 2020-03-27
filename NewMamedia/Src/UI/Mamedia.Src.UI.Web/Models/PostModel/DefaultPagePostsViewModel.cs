@@ -21,8 +21,19 @@ namespace Mamedia.Src.UI.Web.Models.PostModel
             CoverPhotoUrl = post.CoverPhotoUrl;
             foreach(PostArtist artist in post.Artists)
             {
-                Artist newArtist = artist.ArtistType.Artist;
-                Artists.Add(newArtist);
+                if (post is MoviePost)
+                {
+                    if(artist.ShowInPost)
+                    {
+                        Artist newArtist = artist.ArtistType.Artist;
+                        Artists.Add(newArtist);
+                    }
+                }
+                else
+                {
+                    Artist newArtist = artist.ArtistType.Artist;
+                    Artists.Add(newArtist);
+                }
             }
             Links = post.Links;
         }

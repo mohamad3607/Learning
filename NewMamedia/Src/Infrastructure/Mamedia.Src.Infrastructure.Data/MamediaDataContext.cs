@@ -30,6 +30,8 @@ namespace Mamedia.Src.Infrastructure.Data
             ArtistModelCreating(modelBuilder);
             LinkModelCreating(modelBuilder);
             PostModelCreating(modelBuilder);
+
+            
         }
 
        
@@ -37,6 +39,8 @@ namespace Mamedia.Src.Infrastructure.Data
         {
             builder.Entity<TrackPost>().HasBaseType<Post>();
             builder.Entity<PurchasableAlbumPost>().HasBaseType<Album>();  
+            builder.Entity<MoviePost>().HasBaseType<Post>();  
+            builder.Entity<SeriesPost>().HasBaseType<Post>();  
         }
         private void LinkModelCreating(ModelBuilder builder)
         {
@@ -68,6 +72,8 @@ namespace Mamedia.Src.Infrastructure.Data
             builder.Entity<PostArtist>().HasKey(pa => new { pa.PostId, pa.ArtistTypeId });
             builder.Entity<TrackInfo>().HasKey(x =>x.PostId);
             builder.Entity<PurchasableAlbumInfo>().HasKey(x =>x.PostId);
+            builder.Entity<MovieInfo>().HasKey(x =>x.PostId);
+            builder.Entity<SeriesInfo>().HasKey(x =>x.PostId);
 
             builder.Entity<Post>()
                 .HasMany(p => p.Artists)
@@ -81,6 +87,14 @@ namespace Mamedia.Src.Infrastructure.Data
                 .HasOne(tp => tp.Info)
                 .WithOne(ti => ti.Post)
                 .HasForeignKey<PurchasableAlbumInfo>(ti => ti.PostId);
+            builder.Entity<MoviePost>()
+              .HasOne(tp => tp.Info)
+              .WithOne(ti => ti.Post)
+              .HasForeignKey<MovieInfo>(ti => ti.PostId);
+            builder.Entity<SeriesPost>()
+           .HasOne(tp => tp.Info)
+           .WithOne(ti => ti.Post)
+           .HasForeignKey<SeriesInfo>(ti => ti.PostId);
             builder.Entity<Post>()
                .HasOne(p => p.PostKind)
                .WithMany(pa => pa.Posts)
@@ -97,6 +111,9 @@ namespace Mamedia.Src.Infrastructure.Data
         public DbSet<PostKind> PostKinds { get; set; }
         public DbSet<TrackInfo> TrackInfos { get; set; }
         public DbSet<PurchasableAlbumInfo> PurchasableAlbumInfos { get; set; }
+        public DbSet<MovieInfo> MovieInfos { get; set; }
+        public DbSet<SeriesInfo> SeriesInfos { get; set; }
+        public DbSet<MetaInfo> MetaInfos{ get; set; }
         
     }
 }

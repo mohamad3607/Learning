@@ -16,7 +16,17 @@
     <link rel="stylesheet" href="~/Content/font-awesome.css" />
 }
 
-
+    <form asp-action="Search" asp-controller="Home" method="get">
+        <div class="searchBox" style="margin-top:30px;">
+            <div class="wrapper">
+                <input type="text" name="strSearch" value="@ViewData["currentFilter"]"
+                       class="searchBoxButtonEdit"
+                       Placeholder="جستجوی خواننده، آلبوم، آهنگ، فیلم و ...."
+                       style="width:90%;height:50px;" />
+                <input type="submit" value="Search" class="searchBoxButtonEdit btn" />
+            </div>
+        </div>
+    </form>
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <img src="@Model.CoverPhotoUrl" alt="@Model.CoverPhotoTag" class="detailsImage" />
@@ -39,7 +49,7 @@
                         name = Model.Artists[i].Name;
                     }
                     url = Model.Artists[i].Name;
-                    <a asp-action="Details" asp-controller="Artist" asp-route-id=@url>@name</a>
+                    <a asp-action="ArtistDetails" asp-controller="Home" asp-route-artistName=@url>@name</a>
                 }
                 <a asp-action="PostDetails" asp-controller="Home">با نام @Model.OpusName</a>
             </strong>
@@ -48,7 +58,7 @@
             <strong>
                 @foreach (Artist artist in Model.Artists)
                 {
-                    <a asp-action="Details" asp-controller="Artist" asp-route-id=@artist.LatinName style="color:#505050">@artist.LatinName</a>
+                    <a asp-action="ArtistDetails" asp-controller="Home" asp-route-artistName=@artist.LatinName style="color:#505050">@artist.LatinName</a>
                 }
                 <a asp-action="PostDetails" asp-controller="Home" style="color:#505050">@Model.OpusLatinName</a>
             </strong>

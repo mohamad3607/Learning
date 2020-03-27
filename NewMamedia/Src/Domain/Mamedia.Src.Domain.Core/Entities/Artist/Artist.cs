@@ -11,6 +11,10 @@ namespace Mamedia.Src.Domain.Core.Entities
         public string Bio { get; set; }
         [MaxLength(150)]
         public string LatinName { get; set; }
+        [MaxLength(200)]
+        public string Image { get; set; }
+        [MaxLength(200)]
+        public string MetaDescription { get; set; }
         public ICollection<ArtistType> Types { get; set; }
     }
 }

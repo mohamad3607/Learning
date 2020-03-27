@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    [Migration("20191229134852_sss3")]
-    partial class sss3
+    [Migration("20200324114041_MetaInfo-String Length")]
+    partial class MetaInfoStringLength
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,6 +51,9 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Bio");
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(200);
 
                     b.Property<string>("LatinName")
                         .HasMaxLength(150);
@@ -101,6 +104,32 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("Links");
+                });
+
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.MetaInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("H1Tag")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("H2Tag")
+                        .HasMaxLength(400);
+
+                    b.Property<string>("MetaDescription")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("PageTitle")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MetaInfos");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.Post", b =>
@@ -155,7 +184,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<int>("ArtistTypeId");
 
-                    b.Property<bool>("IsMain");
+                    b.Property<bool>("ShowInPost");
 
                     b.HasKey("PostId", "ArtistTypeId");
 

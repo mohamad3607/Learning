@@ -1,0 +1,66 @@
+﻿@model Mamedia.Src.Domain.Core.Entities.MetaInfo
+@{
+    ViewData["Title"] = "Edit Meta Data Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Edit Meta</h2>
+<h4>Info</h4>
+<hr />
+
+<form asp-action="EditMetaInfo">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Url" class="control-label"></label>
+                <input asp-for="Url" class="form-control" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MetaDescription" class="control-label"></label>
+                <input asp-for="MetaDescription" class="form-control" />
+                <span asp-validation-for="MetaDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="H1Tag" class="control-label"></label>
+                <input asp-for="H1Tag" class="form-control" />
+                <span asp-validation-for="H1Tag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="H2Tag" class="control-label"></label>
+                <input asp-for="H2Tag" class="form-control" />
+                <span asp-validation-for="H2Tag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PageTitle" class="control-label"></label>
+                <input asp-for="PageTitle" class="form-control" />
+                <span asp-validation-for="PageTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="margin-top:10px;padding-right:20px;">
+                <input type="submit" value="ویرایش متادیتا" class="btn btn-primary" />
+                <a asp-action="MetaInfoManagement">برگشت به لیست</a>
+            </div>
+        </div>
+
+
+        <div style="margin-top:10px">
+            @{
+                if (TempData["Result"] != null)
+                {
+                    if ((string)TempData["Result"] == "OK")
+                    {
+                        <label class="text-success">با موفقیت وایرایش شد</label>
+                    }
+                    else
+                    {
+                        <label class="text-danger">@TempData["Result"]</label>
+                    }
+                }
+            }
+
+
+        </div>
+
+    </div>
+</form>

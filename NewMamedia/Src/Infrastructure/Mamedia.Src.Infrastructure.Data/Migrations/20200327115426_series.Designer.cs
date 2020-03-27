@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MamediaDataContext))]
-    [Migration("20191229134533_sss")]
-    partial class sss
+    [Migration("20200327115426_series")]
+    partial class series
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,8 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<DateTime>("BirthDate");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Password")
                         .HasMaxLength(20);
@@ -52,8 +53,14 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<string>("Bio");
 
+                    b.Property<string>("Image")
+                        .HasMaxLength(200);
+
                     b.Property<string>("LatinName")
                         .HasMaxLength(150);
+
+                    b.Property<string>("MetaDescription")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Name")
                         .HasMaxLength(150);
@@ -103,6 +110,56 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     b.ToTable("Links");
                 });
 
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.MetaInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ActionName")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("ControllerName")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("H1Tag")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("H2Tag")
+                        .HasMaxLength(400);
+
+                    b.Property<string>("MetaDescription")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("PageTitle")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MetaInfos");
+                });
+
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.MovieInfo", b =>
+                {
+                    b.Property<int>("PostId");
+
+                    b.Property<int>("Duration");
+
+                    b.Property<int>("Price");
+
+                    b.Property<int>("ProductionYear");
+
+                    b.Property<string>("Summary")
+                        .HasMaxLength(1000);
+
+                    b.HasKey("PostId");
+
+                    b.ToTable("MovieInfos");
+                });
+
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -119,6 +176,9 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<string>("Discriminator")
                         .IsRequired();
+
+                    b.Property<string>("MetaDescription")
+                        .HasMaxLength(200);
 
                     b.Property<string>("OpusLatinName")
                         .HasMaxLength(150);
@@ -155,7 +215,7 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<int>("ArtistTypeId");
 
-                    b.Property<bool>("IsMain");
+                    b.Property<bool>("ShowInPost");
 
                     b.HasKey("PostId", "ArtistTypeId");
 
@@ -192,11 +252,30 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
 
                     b.Property<int>("Price");
 
-                    b.Property<string>("Summary");
+                    b.Property<string>("Summary")
+                        .HasMaxLength(1000);
 
                     b.HasKey("PostId");
 
                     b.ToTable("PurchasableAlbumInfos");
+                });
+
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.SeriesInfo", b =>
+                {
+                    b.Property<int>("PostId");
+
+                    b.Property<int>("Duration");
+
+                    b.Property<int>("Price");
+
+                    b.Property<int>("ProductionYear");
+
+                    b.Property<string>("Summary")
+                        .HasMaxLength(1000);
+
+                    b.HasKey("PostId");
+
+                    b.ToTable("SeriesInfos");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.TrackInfo", b =>
@@ -206,7 +285,8 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     b.Property<string>("Cross")
                         .HasMaxLength(500);
 
-                    b.Property<string>("Lyric");
+                    b.Property<string>("Lyric")
+                        .HasMaxLength(3000);
 
                     b.HasKey("PostId");
 
@@ -242,6 +322,26 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     b.ToTable("Album");
 
                     b.HasDiscriminator().HasValue("Album");
+                });
+
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.MoviePost", b =>
+                {
+                    b.HasBaseType("Mamedia.Src.Domain.Core.Entities.Post");
+
+
+                    b.ToTable("MoviePost");
+
+                    b.HasDiscriminator().HasValue("MoviePost");
+                });
+
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.SeriesPost", b =>
+                {
+                    b.HasBaseType("Mamedia.Src.Domain.Core.Entities.Post");
+
+
+                    b.ToTable("SeriesPost");
+
+                    b.HasDiscriminator().HasValue("SeriesPost");
                 });
 
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.TrackPost", b =>
@@ -285,6 +385,14 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.MovieInfo", b =>
+                {
+                    b.HasOne("Mamedia.Src.Domain.Core.Entities.MoviePost", "Post")
+                        .WithOne("Info")
+                        .HasForeignKey("Mamedia.Src.Domain.Core.Entities.MovieInfo", "PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.Post", b =>
                 {
                     b.HasOne("Mamedia.Src.Domain.Core.Entities.Admin", "Author")
@@ -316,6 +424,14 @@ namespace Mamedia.Src.Infrastructure.Data.Migrations
                     b.HasOne("Mamedia.Src.Domain.Core.Entities.PurchasableAlbumPost", "Post")
                         .WithOne("Info")
                         .HasForeignKey("Mamedia.Src.Domain.Core.Entities.PurchasableAlbumInfo", "PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Mamedia.Src.Domain.Core.Entities.SeriesInfo", b =>
+                {
+                    b.HasOne("Mamedia.Src.Domain.Core.Entities.SeriesPost", "Post")
+                        .WithOne("Info")
+                        .HasForeignKey("Mamedia.Src.Domain.Core.Entities.SeriesInfo", "PostId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

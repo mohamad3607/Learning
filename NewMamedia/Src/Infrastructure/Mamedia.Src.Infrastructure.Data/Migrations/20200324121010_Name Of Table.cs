@@ -2,7 +2,7 @@
 
 namespace Mamedia.Src.Infrastructure.Data.Migrations
 {
-    public partial class sss3 : Migration
+    public partial class NameOfTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

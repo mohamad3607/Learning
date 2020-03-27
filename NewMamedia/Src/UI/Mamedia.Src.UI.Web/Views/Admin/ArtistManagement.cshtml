@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Mamedia.Src.UI.Web.Models.ArtistModel.AllViewModel>
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using Mamedia.Src.UI.Web.Models.ArtistModel;
+@model IEnumerable<Mamedia.Src.UI.Web.Models.ArtistModel.AllViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,6 +11,17 @@
 <p>
     <a asp-action="CreateArtist">هنرمند جدید</a>
 </p>
+
+@using (Html.BeginForm("ArtistManagement", "Admin", FormMethod.Get))
+{
+    <div>
+
+        جستجو توسط نام یا نام لاتین: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string
+,new  { @class = "form-control",@style="margin-top:5px;margin-bottom:5px;" })
+        <input type="submit" value="جستجو کن" class="btn btn-primary" />
+
+    </div>
+}
 <table class="table">
     <thead>
         <tr>
@@ -17,11 +31,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MetaDescription)
+            </th>
             <th>#</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (AllViewModel item in ViewBag.postList)
         {
             <tr>
                 <td>
@@ -31,6 +48,9 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.MetaDescription)
+                </td>
+                <td>
                     <a asp-action="EditArtist" asp-route-id="@item.Id">ویرایش</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">حذف</a>
                 </td>
@@ -38,3 +58,6 @@
         }
     </tbody>
 </table>
+<div id="pager" class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="text-align:center; width:100%;">
+    @Html.PagedListPager((IPagedList)ViewBag.postList, page => Url.Action("ArtistManagement", new { page, currentFilter = ViewBag.CurrentFilter }))
+</div>

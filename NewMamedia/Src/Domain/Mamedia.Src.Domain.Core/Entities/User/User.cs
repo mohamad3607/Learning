@@ -16,6 +16,7 @@ namespace Mamedia.Src.Domain.Core.Entities
         public string Password { get; set; }
         public DateTime RegisterDate { get; set; }
         public DateTime BirthDate { get; set; }
+        [MaxLength(200)]
         public string Email { get; set; }
     }
 }

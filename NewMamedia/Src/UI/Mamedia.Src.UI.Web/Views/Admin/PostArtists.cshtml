@@ -1,0 +1,123 @@
+﻿@using Mamedia.Src.UI.Web.Models.PostModel;
+@model Mamedia.Src.UI.Web.Models.PostModel.PostArtistsViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>مدیریت هنرمندان نوشته</h2>
+<hr />
+<h2>افزودن هنرمند</h2>
+<form asp-action="PostArtists" asp-route-postId="@Model.PostArtist.PostId">
+    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+        <div class="form-group">
+            <label asp-for="PostArtist.TypeId" class="control-label"></label>
+            @Html.DropDownList("PostArtist.TypeId", ViewBag.VTypes, "--انتخاب نقش--",
+           new { @class = "form-control",@id= "ddlTypes" })
+            <span asp-validation-for="PostArtist.TypeId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PostArtist.ArtistId" class="control-label"></label>
+            <div id="Artists">
+                @Html.DropDownList("PostArtist.ArtistId", new List<SelectListItem>(), "--انتخاب هنرمند--",
+               new { @class = "form-control",@id="ddlArtists" })
+            </div>
+            <span asp-validation-for="PostArtist.ArtistId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PostArtist.ShowInPost" class="control-label"></label>
+            <input asp-for="PostArtist.ShowInPost" />
+            <span asp-validation-for="PostArtist.ShowInPost" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top:10px;padding-right:20px;">
+            <input type="submit" value="ایجاد هنرمند برای نوشته" class="btn btn-primary" />
+            <a asp-action="PostManagement">برگشت به لیست</a>
+        </div>
+        <div style="margin-top:10px">
+            @{
+                if (TempData["Result"] != null)
+                {
+                    if ((string)TempData["Result"] == "OK")
+                    {
+                        <label class="text-success">با موفقیت ایجاد شد</label>
+                    }
+                    else
+                    {
+                        <label class="text-danger">@TempData["Result"]</label>
+                    }
+                }
+            }
+        </div>
+
+    </div>
+</form>
+<hr />
+
+
+
+
+<hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostArtist.ArtistName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostArtist.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostArtist.ShowInPost)
+                </th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (PostArtistViewModel item in Model.PostArtists)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArtistName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShowInPost)
+                    </td>
+
+                    <td>
+                        <a asp-action="DeletePostArtist" asp-route-postId="@Model.PostArtist.PostId" asp-route-artistTypeId="@item.ArtistTypeId">حذف</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlTypes').change(function () {
+                $.ajax({
+                    type: "post",
+                    url: "/Admin/GetArtistWithType",
+                    data: { strTypeId: $('#ddlTypes').val() },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+                        var label = "<label for='PostArtist_TypeId' class='control-label'></label>";
+                        var artist = "<select class='form-control' name='PostArtist.ArtistId' id='ddlArtists'>";
+                        artist = artist + '<option value="">--انتخاب هنرمند--</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            artist = artist + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                        }
+                        artist = artist + '</select>';
+                        var valid = "<span class='text-danger field-validation-valid' data-valmsg-for='PostArtist.ArtistId' data-valmsg-replace='true'></span>"
+                        $('#Artists').html(artist);
+                    }
+                });
+            });
+        });
+    </script>
+}

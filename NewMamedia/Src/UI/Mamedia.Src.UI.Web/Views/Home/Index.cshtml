@@ -3,20 +3,32 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Site.css" rel="stylesheet" />
 @{
-    ViewData["Title"] = "صفحه اصلی";
-
     Layout = "~/Views/Shared/Anonymous.cshtml";
 }
-<form action="Search">
-    @*<div class="searchBox" style="margin-top:30px;">
-            <div class="wrapper">
-                <input type="text"  class="searchBoxButtonEdit" txt" Placeholder="جستجوی خواننده، آهنگ، آلبوم و ..." style="width:90%;height:50px;" name="txtSearch" />
 
-                <input type="submit" class="searchBoxButtonEdit btn" />
-            </div>
-        </div>*@
+
+<form asp-action="Search" asp-controller="Home" method="get">
+    <div class="searchBox" style="margin-top:30px;">
+        <div class="wrapper">
+            <input type="text" name="strSearch" value="@ViewData["currentFilter"]"
+                   class="searchBoxButtonEdit"
+                   Placeholder="جستجوی خواننده، آلبوم، آهنگ، فیلم و ...."
+                   style="width:80%;height:50px;" />
+            <input type="submit" value="Search" class="searchBoxButtonEdit btn" />
+        </div>
+    </div>
 </form>
+<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="padding-top:10px;margin-top:10px;">
+    <h1 class="H1Tag">
+      @ViewBag.H1
+
+    </h1>
+    <h2 class="H2Tag">
+        @ViewBag.H2
+    </h2>
+</div>
 
 
 <div class="row">
@@ -42,19 +54,19 @@
                         <a asp-action="PostKind" asp-controller="Home" asp-route-id=@post.PostKind.Title>دانلود @post.PostKind.Title</a>
                         @foreach (Artist artist in post.Artists)
                         {
-                            <a asp-action="Details" asp-controller="Artist" asp-route-id=@artist.Name>@artist.Name</a>
+                            <a asp-action="ArtistDetails" asp-controller="Home" asp-route-artistName=@artist.Name>@artist.Name</a>
                         }
                         <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>با نام @post.OpusName</a>
                         <br />
                         <br />
                         @foreach (Artist artist in post.Artists)
                         {
-                            <a asp-action="Details" asp-controller="Artist" asp-route-id=@artist.LatinName>@artist.LatinName</a>
+                            <a asp-action="ArtistDetails" asp-controller="Home" asp-route-artistName=@artist.LatinName>@artist.LatinName</a>
                         }
                         <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>@post.OpusLatinName</a>
                         <br />
                         <br />
-                        <img src="@post.CoverPhotoUrl" alt="@post.CoverPhotoTag" />
+                        <img class="image" src="@post.CoverPhotoUrl" alt="@post.CoverPhotoTag" />
                         <br /> <br /> <br />
                         <a href=" @post.Links.ToArray()[0].UrlForLink">
                             @post.Links.ToArray()[0].Tilte
@@ -63,7 +75,7 @@
                     </p>
                     <div class="btnSeemore">
                         <p>
-                            <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>برای مشاهده  آهنگ کلیک کنید</a>
+                            <a asp-action="PostDetails" asp-controller="Home" asp-route-id=@post.UniqueId>برای مشاهده  بیشتر کلیک کنید</a>
                         </p>
                     </div>
 

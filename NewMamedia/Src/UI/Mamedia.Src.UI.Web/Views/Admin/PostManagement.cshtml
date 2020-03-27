@@ -1,4 +1,6 @@
-﻿@{
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@{
     ViewData["Title"] = "مدیریت نوشته ها";
 
 }
@@ -8,15 +10,28 @@
 }
 @model IEnumerable<Mamedia.Src.UI.Web.Models.AllPostsViewModel>
 
-<h2>لیست هنرمندان</h2>
+
+
+<h2>لیست نوشته ها</h2>
 <hr />
 <p>
     <a asp-action="CreateTrackPost">تک آهنگ جدید</a>
     <a asp-action="CreatePurchasableAlbum" style="margin-right:15px;">آلبوم قابل فروش جدید</a>
     <a asp-action="CreateTrackPost" style="margin-right:15px;">آلبوم قابل دانلود جدید</a>
-    <a asp-action="CreateTrackPost" style="margin-right:15px;">فیلم جدید</a>
-    <a asp-action="CreateTrackPost" style="margin-right:15px;">سریال جدید</a>
+    <a asp-action="CreateMoviePost" style="margin-right:15px;">فیلم جدید</a>
+    <a asp-action="CreateSeriesPost" style="margin-right:15px;">سریال جدید</a>
 </p>
+@using (Html.BeginForm("PostManagement", "Admin"))
+{
+    <div>
+
+        جستجو توسط عنوان نوشته: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string
+,new  { @class = "form-control",@style="margin-top:5px;margin-bottom:5px;" })
+        <input type="submit" value="جستجو کن" class="btn btn-primary" />
+
+    </div>
+}
+
 <hr />
 <table class="table">
     <thead>
@@ -39,11 +54,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.UniqueId)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MetaDescription)
+            </th>
             <th>#</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (AllPostsViewModel item in ViewBag.postList)
         {
             <tr>
                 <td>
@@ -65,10 +83,17 @@
                     @Html.DisplayFor(modelItem => item.UniqueId)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.MetaDescription)
+                </td>
+                <td>
                     <a asp-action="EditPost" asp-route-id="@item.Id">ویرایش</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">حذف</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">حذف</a> |
+                    <a asp-action="PostArtists" asp-route-id="@item.Id">مدیریت هنرمندان</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<div id="pager" class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="text-align:center; width:100%;">
+    @Html.PagedListPager((IPagedList)ViewBag.postList, page => Url.Action("PostManagement", new { page, currentFilter = ViewBag.CurrentFilter }))
+</div>
